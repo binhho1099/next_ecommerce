@@ -1,0 +1,106 @@
+@import '../../../styles/common/index.scss';
+.header {
+  // background-color: $primary-color;
+  background-image: linear-gradient(to top, $primary-color-500, $primary-color);
+
+  &-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $margin-section;
+    padding: $margin-medium 0;
+
+    @include tablet-hight {
+      gap: $margin-medium;
+    }
+
+    @include tablet {
+      flex-direction: column;
+    }
+  }
+
+  &-bottom {
+    @extend .header-top;
+    justify-content: center;
+
+    @include tablet {
+      display: none;
+    }
+  }
+  &-logo {
+    color: $secondary-color;
+    @include tablet {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+  }
+
+  &-tools {
+    @extend .header-top;
+    @include tablet {
+      display: none;
+    }
+  }
+  &-tools__mobile {
+    display: none;
+    justify-content: space-between;
+    gap: $margin-large;
+    align-items: center;
+
+    @include tablet {
+      display: flex;
+    }
+  }
+
+  &-search {
+    flex: 1;
+
+    & .ant-input-affix-wrapper {
+      border-start-start-radius: $radius-medium !important;
+      border-end-start-radius: $radius-medium !important;
+      padding: $margin-small 16px;
+      border-color: $primary-color-700;
+
+      &:hover {
+        border-color: $primary-color-700;
+      }
+    }
+
+    & .ant-input-group-addon button {
+      border-start-end-radius: $radius-medium !important;
+      border-end-end-radius: $radius-medium !important;
+      border-color: $primary-color-700;
+      box-shadow: none;
+
+      &:hover {
+        color: $primary-color !important;
+        border-color: $primary-color;
+      }
+    }
+  }
+
+  &-btn {
+    color: $text-color;
+    font-size: $font-small;
+    font-weight: 600;
+    background-color: $primary-color-700;
+    box-shadow: none;
+
+    &:hover {
+      background-color: $primary-color-700 !important;
+    }
+
+    &.btn-primary {
+      color: $white-color;
+      font-size: 18px;
+      height: auto;
+    }
+  }
+}
+
+.icon {
+  font-size: $font-heading;
+  cursor: pointer;
+}

@@ -1,0 +1,54 @@
+.section-cart {
+  &__heading {
+    padding: 10px 40px;
+    background-color: #ffcb3e;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &--right {
+      @include mobile {
+        display: none;
+      }
+    }
+  }
+
+  &__body {
+    background-color: #fff7de;
+    padding: 35px 20px;
+  }
+
+  &__text {
+    font-weight: 900;
+    font-size: 40px;
+    line-height: 56px;
+
+    @include tablet-hight {
+      font-size: 36px;
+      line-height: 40px;
+    }
+
+    @include mobile {
+      font-size: 32px;
+      line-height: 36px;
+    }
+
+    &-sub {
+      font-weight: 900;
+      font-size: 36px;
+      line-height: 40px;
+
+      @include tablet-hight {
+        font-size: 32px;
+        line-height: 36px;
+      }
+
+      @include mobile {
+        font-size: 28px;
+        line-height: 32px;
+      }
+    }
+  }
+}

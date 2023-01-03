@@ -1,0 +1,52 @@
+@import '../../../styles//common/index.scss';
+.cart {
+  height: 100% !important;
+
+  &-image__contain {
+    width: 100%;
+    aspect-ratio: 10/6;
+    position: relative;
+  }
+
+  &-image {
+    object-fit: cover;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+  }
+
+  &-body {
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    height: 100%;
+
+    &__top {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+  }
+
+  &-brand {
+    @include text($font-small, $primary-color-700, 500, $font-medium, 1);
+  }
+
+  &-title {
+    @include text($font-medium, $heading-color, 500, 20px, 2);
+  }
+
+  &-rate {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+  }
+
+  &-old-price {
+    @include text($font-small, $sub-heading-color, 400, $font-large, 1);
+    text-decoration: line-through;
+  }
+  &-new-price {
+    @include text($font-large, $secondary-color, 600, 20px, 1);
+  }
+}

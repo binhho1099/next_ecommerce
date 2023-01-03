@@ -1,0 +1,52 @@
+.filter {
+  &-group {
+  }
+  &-title {
+    @include text($font-medium, $heading-color, 500, 20px, 1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  &-clear {
+    @include text($font-small, $primary-color-700, 500, $font-medium, 1);
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  &-checkbox {
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+
+    & .ant-checkbox {
+      top: 0;
+    }
+
+    & .ant-checkbox-inner {
+      width: 20px;
+      height: 20px;
+      border: 1px solid #c2c6c9;
+      border-radius: 2px;
+    }
+  }
+  &-checkbox-group {
+    flex-direction: column;
+    gap: 6px;
+  }
+}
+
+.side-bar {
+  background: $white-color;
+  padding: 16px 12px;
+  border-radius: $radius-medium;
+
+  &__separate {
+    width: 100%;
+    height: 1px;
+    background-color: rgba($color: $gray-color, $alpha: 0.3);
+    margin: 16px 0;
+  }
+}

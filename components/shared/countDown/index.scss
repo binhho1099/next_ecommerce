@@ -1,0 +1,18 @@
+.count-down {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 6px;
+
+  &__item {
+    @include text(20px, $white-color, 600, 24px, 1);
+    padding: 6px 8px;
+    background-color: $red-color;
+    border-radius: 4px;
+  }
+
+  &__separate {
+    color: $red-color;
+    font-size: 20px;
+  }
+}

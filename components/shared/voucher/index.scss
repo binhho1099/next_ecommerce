@@ -1,0 +1,70 @@
+.mask-left {
+  -webkit-mask: radial-gradient(circle 0px at top left, #0000 98%, #000) top
+      left,
+    radial-gradient(circle 10px at top right, #0000 98%, #000) top right,
+    radial-gradient(circle 0px at bottom left, #0000 98%, #000) bottom left,
+    radial-gradient(circle 10px at bottom right, #0000 98%, #000) bottom right;
+  -webkit-mask-size: 51% 51%;
+  -webkit-mask-repeat: no-repeat;
+}
+
+.mask-right {
+  -webkit-mask: radial-gradient(circle 10px at top left, #0000 98%, #000) top
+      left,
+    radial-gradient(circle 0px at top right, #0000 98%, #000) top right,
+    radial-gradient(circle 10px at bottom left, #0000 98%, #000) bottom left,
+    radial-gradient(circle 0px at bottom right, #0000 98%, #000) bottom right;
+  -webkit-mask-size: 51% 51%;
+  -webkit-mask-repeat: no-repeat;
+}
+
+.voucher {
+  display: flex;
+  border-radius: 8px;
+  overflow: hidden;
+  max-width: 500px;
+  margin: 0 auto;
+
+  &-image {
+    position: relative;
+    flex-basis: 50%;
+    width: 100%;
+  }
+
+  &-content {
+    text-align: center;
+    padding: 20px 8px;
+    background: #ffefd0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &-title {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    & div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      & p {
+        @include text(10px, $gray-color, 600, 12px, 1);
+      }
+    }
+
+    & h2 {
+      @include text($font-medium, $text-color, 600, 20px, 2);
+    }
+  }
+
+  &-price {
+    @include text(28px, $secondary-color, 700, 30px, 1);
+    margin-bottom: 8px;
+  }
+
+  &-sold {
+    width: 50%;
+  }
+}

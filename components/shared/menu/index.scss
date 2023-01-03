@@ -1,0 +1,40 @@
+@import '../../../styles/common/index.scss';
+.menu {
+  display: flex;
+  gap: 50px;
+  color: $black-color;
+  margin-bottom: 0;
+
+  &-item {
+    list-style: none;
+    position: relative;
+    @include text($font-small, $text-color, 400, $font-medium);
+    &::after {
+      content: '';
+      position: absolute;
+      width: 0%;
+      height: 2px;
+      background-color: $black-color;
+      top: 100%;
+      left: 0;
+      transition: all 0.5s ease;
+    }
+
+    &:hover.menu-item::after {
+      width: 100%;
+    }
+
+    &.active {
+      font-weight: 600;
+      color: $heading-color;
+    }
+
+    & a {
+      color: $black-color;
+    }
+
+    &__child a {
+      color: $black-color;
+    }
+  }
+}

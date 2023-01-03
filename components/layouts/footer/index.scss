@@ -1,0 +1,146 @@
+@import '../../../styles/common/index.scss';
+.footer {
+  background-color: $heading-color;
+  padding: 40px 0;
+  color: $white-color;
+  margin-top: $margin-section;
+
+  &-logo {
+    font-size: $font-heading;
+    color: $primary-color-700;
+    margin-bottom: 24px;
+  }
+
+  &-top {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 40px;
+    border-bottom: 2px solid $white-color;
+    flex-wrap: wrap;
+
+    @include mobile {
+      flex-direction: column;
+      gap: 16px;
+    }
+  }
+
+  &-list {
+    @include tablet {
+      flex-basis: 50%;
+      text-align: center;
+
+      & .footer-item {
+        justify-content: center;
+      }
+    }
+  }
+
+  &-list:last-child {
+    flex-basis: 30%;
+
+    @include tablet-hight {
+      flex-basis: 100%;
+      text-align: center;
+    }
+
+    & p {
+      @include text(12px, $white-color, 400, $font-small, 2);
+    }
+  }
+
+  &-item {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: $margin-small;
+
+    &:hover a {
+      color: $primary-color-700;
+    }
+
+    &__title {
+      @include text(20px, $white-color, 700, 24px, 1);
+      margin-bottom: 22px;
+    }
+
+    &:not(:last-child) {
+      margin-bottom: $margin-large;
+    }
+
+    & a {
+      color: $white-color;
+    }
+  }
+
+  &-form {
+    display: flex;
+    flex-direction: column;
+    gap: $margin-medium;
+    margin-bottom: $margin-section;
+
+    &__contain {
+      display: flex;
+      background-color: $white-color;
+      padding: $margin-small;
+      border-radius: $radius-small;
+    }
+
+    &__input {
+      border: none;
+      outline: none;
+
+      &:focus {
+        border-color: none;
+        box-shadow: none;
+      }
+    }
+  }
+
+  &-social {
+    display: flex;
+    gap: 8px;
+
+    @include tablet-hight {
+      justify-content: center;
+    }
+
+    &__item {
+      position: relative;
+      width: 36px;
+      height: 36px;
+    }
+  }
+
+  // bottom
+
+  &-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 26px;
+
+    @include tablet {
+      flex-direction: column;
+    }
+
+    & span {
+      font-weight: 600;
+    }
+
+    & > div > div {
+      margin-bottom: 14px;
+
+      & p:first-child {
+        @include text($font-small, $white-color, 400, $font-medium, 2);
+      }
+      & p:last-child {
+        @include text(12px, $white-color, 400, $font-small, 2);
+      }
+    }
+
+    &__right {
+      display: flex;
+      gap: $margin-large;
+    }
+  }
+}

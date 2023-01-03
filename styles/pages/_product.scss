@@ -1,0 +1,101 @@
+.products-tabs {
+  border-radius: 8px 8px 0 0 !important;
+  overflow: hidden;
+  background-color: $white-color;
+
+  & .ant-tabs-nav-wrap {
+    background-color: $white-color;
+  }
+
+  & .ant-tabs-tab {
+    padding: 12px;
+    margin: 0 !important;
+
+    & .ant-tabs-tab-btn {
+      @include text($font-small, $gray-color, 500, 20px, 1);
+    }
+  }
+
+  & .ant-tabs-tab.ant-tabs-tab-active::after {
+    display: block;
+  }
+  & .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+    color: $primary-color-900;
+    font-weight: 500;
+  }
+}
+
+.ant-tabs-tab::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  border-radius: 2px 2px 0 0;
+  background-color: $primary-color-900;
+
+  bottom: 0;
+  left: 0;
+  display: none;
+}
+
+.detail {
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__image {
+    position: relative;
+    aspect-ratio: 1/1;
+    background-color: $primary-color;
+
+    & img {
+      object-fit: contain;
+    }
+  }
+
+  &__name {
+    @include text(30px, $heading-color, 700, 40px, 2);
+  }
+
+  &__price {
+    display: flex;
+    align-items: center;
+
+    & span {
+      @include text($font-large, $gray-color, 400, 28px, 1);
+      text-decoration: line-through;
+    }
+
+    & p {
+      @include text($font-heading, $heading-color, 600, 28px, 1);
+    }
+  }
+
+  &__info {
+    @include text($font-medium, $gray-color, 400, $font-heading, 1);
+    & span {
+      color: $heading-color;
+      font-weight: 500;
+    }
+  }
+
+  &__function {
+    display: flex;
+    gap: 12px;
+  }
+
+  &__description {
+    & h2 {
+      @include text($font-heading, $heading-color, 600, 28px, 1);
+      border-bottom: 1px solid $gray-color;
+      padding-bottom: $margin-medium;
+    }
+
+    & p {
+      font-size: $font-medium;
+      font-weight: 400;
+    }
+  }
+}

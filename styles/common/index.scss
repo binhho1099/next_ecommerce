@@ -1,0 +1,97 @@
+$primary-color: #ffcb3e;
+$primary-color-700: #ffbe0f;
+$primary-color-500: #ffd870;
+$primary-color-900: #f6851d;
+$secondary-color: #fa3a47;
+$black-color: #000;
+$white-color: #fff;
+$gray-color: #716e6e;
+$red-color: #e8081f;
+
+$heading-color: #302c2c;
+$sub-heading-color: #717981;
+$title-color: #f35801;
+$text-color: #302c2c;
+$border-color: #f1f1f1;
+$shadow-color: #f1f1f1;
+$hover-color: #288ad6;
+
+$font-heading: 24px;
+$font-large: 18px;
+$font-medium: 16px;
+$font-small: 14px;
+
+$radius-small: 4px;
+$radius-medium: 8px;
+$radius-large: 12px;
+$radius-round: 999px;
+
+$margin-small: 4px;
+$margin-medium: 8px;
+$margin-large: 12px;
+$margin-section: 20px;
+
+.section {
+  margin-top: $margin-section;
+
+  &-product {
+    background-color: $white-color;
+    border-radius: $radius-medium;
+    padding: 28px 20px;
+  }
+}
+
+$tablet-width: 768px;
+$tablet-hight-width: 920px;
+$laptop-width: 1200px;
+$desktop-width: 1400px;
+
+@mixin mobile {
+  @media (max-width: $tablet-width) {
+    @content;
+  }
+}
+@mixin tablet {
+  @media (max-width: $tablet-hight-width) {
+    @content;
+  }
+}
+@mixin tablet-hight {
+  @media (max-width: $laptop-width) {
+    @content;
+  }
+}
+
+@mixin laptop {
+  @media (max-width: $desktop-width) {
+    @content;
+  }
+}
+
+@mixin text($size: 16px, $color, $weight: 500, $line-height, $limit: 2) {
+  font-size: $size;
+  font-weight: $weight;
+  color: $color;
+  line-height: $line-height;
+
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $limit;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.btn {
+  &__heart {
+    background-color: #f64f59;
+    padding: 8px;
+    font-size: $font-large;
+    line-height: $font-large;
+    font-weight: 600;
+    height: auto;
+
+    &:hover {
+      background-color: $red-color !important;
+    }
+  }
+}
