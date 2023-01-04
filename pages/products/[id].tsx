@@ -1,6 +1,6 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { PRODUCT_ENDPOINT } from '../../enums/endpoint';
 import { Axios } from '../../utils/axios';
 import { IProduct } from '../../interfaces/product';
@@ -8,6 +8,7 @@ import Image from 'next/image';
 import { Button, Col, InputNumber, Row } from 'antd';
 import MainCarousel from '@/components/shared/carousel/Carousel';
 import { ShoppingFilled, HeartFilled } from '@ant-design/icons';
+import Slider from 'react-slick';
 
 interface Props {
   product: IProduct;
@@ -15,25 +16,70 @@ interface Props {
 
 function ProductId({ product }: Props) {
   const router = useRouter();
+
+  const priceVNDold = useMemo(() => {
+    const price =
+      Math.round(product.price * ((100 + product.discountPercentage) / 100)) *
+      23000;
+    const priceFormat = price.toLocaleString('vi', {
+      style: 'currency',
+      currency: 'VND',
+    });
+    return priceFormat;
+  }, [product.discountPercentage, product.price]);
+
+  const priceVND = useMemo(() => {
+    const price = product.price * 23000;
+    const priceFormat = price.toLocaleString('vi', {
+      style: 'currency',
+      currency: 'VND',
+    });
+    return priceFormat;
+  }, [product.price]);
+
+  const settings = {
+    customPaging: function (i: number) {
+      return <img src={product.images[i]} />;
+    },
+    dots: true,
+    dotsClass: 'slick-dots slick-thumb',
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: false,
+  };
+
   return (
     <>
-      <section className="section">
+      {/* <section className="section">
         <MainCarousel />
-      </section>
+      </section> */}
       <div className="section">
         <div className="detail">
           <Row gutter={[20, 20]}>
             <Col span={12}>
-              <div className="detail__image">
+              {/* <div className="detail__image">
                 <Image src={product.thumbnail} fill alt="image" />
+              </div> */}
+              <div>
+                <Slider {...settings}>
+                  {product.images.map(image => {
+                    return (
+                      <div>
+                        <img src={image} />
+                      </div>
+                    );
+                  })}
+                </Slider>
               </div>
             </Col>
             <Col span={12}>
               <div className="detail__content">
                 <h2 className="detail__name">{product.title}</h2>
                 <h3 className="detail__price">
-                  <span>{product.price}</span>
-                  <p>{product.price}</p>
+                  <span>{priceVNDold}</span>
+                  <p>{priceVND}</p>
                 </h3>
                 <div>
                   <h3 className="detail__info">
@@ -47,12 +93,14 @@ function ProductId({ product }: Props) {
                   </h3>
                 </div>
                 <div className="detail__quantity">
+                  <Button type="primary">-</Button>
                   <InputNumber
                     min={1}
                     max={10}
                     defaultValue={3}
                     controls={false}
                   />
+                  <Button type="primary">+</Button>
                 </div>
                 <div className="detail__function">
                   <Button type="primary" className="header-btn btn-primary ">
@@ -76,7 +124,7 @@ function ProductId({ product }: Props) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getStaticProps: GetStaticProps = async context => {
   const { params } = context;
   const product = await Axios.get(
     `${PRODUCT_ENDPOINT.ALL_PRODUCT}/${params!.id}`

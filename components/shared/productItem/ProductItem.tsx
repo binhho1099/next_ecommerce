@@ -10,17 +10,19 @@ function ProductItem({ product }: ProductProps) {
   const priceVNDold = useMemo(() => {
     const price =
       Math.round(product.price * ((100 + product.discountPercentage) / 100)) *
-      1000;
-    const priceFormat = price.toLocaleString(undefined, {
-      maximumFractionDigits: 2,
+      23000;
+    const priceFormat = price.toLocaleString('vi', {
+      style: 'currency',
+      currency: 'VND',
     });
     return priceFormat;
   }, [product.discountPercentage, product.price]);
 
   const priceVND = useMemo(() => {
-    const price = product.price * 1000;
-    const priceFormat = price.toLocaleString(undefined, {
-      maximumFractionDigits: 2,
+    const price = product.price * 23000;
+    const priceFormat = price.toLocaleString('vi', {
+      style: 'currency',
+      currency: 'VND',
     });
     return priceFormat;
   }, [product.price]);
@@ -31,7 +33,7 @@ function ProductItem({ product }: ProductProps) {
         <Badge.Ribbon
           text={`Giảm ${Math.round(product.discountPercentage)}%`}
           color="red"
-        > 
+        >
           <div className="cart-image__contain">
             <Image
               src={product.thumbnail}
@@ -57,8 +59,8 @@ function ProductItem({ product }: ProductProps) {
           </div>
 
           <div className="cart-body__bottom">
-            <div className="cart-old-price">{priceVNDold} đ</div>
-            <div className="cart-new-price">{priceVND} đ</div>
+            <div className="cart-old-price">{priceVNDold}</div>
+            <div className="cart-new-price">{priceVND}</div>
           </div>
         </div>
       </Card>

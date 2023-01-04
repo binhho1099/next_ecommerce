@@ -7,14 +7,7 @@ import SideBarFilter from '@/components/shared/sideBarFilter';
 import MainCarousel from '@/components/shared/carousel/Carousel';
 import Voucher from '@/components/shared/voucher';
 import Flashsale from '@/components/shared/flashsale';
-import dynamic from 'next/dynamic';
-
-const ProductList = dynamic(
-  () => import('@/components/shared/productList/Products'),
-  {
-    loading: () => <div>Loading...</div>,
-  }
-);
+import ProductList from '@/components/shared/productList/Products';
 
 function Products({ data }: any) {
   return (
@@ -70,22 +63,22 @@ function Products({ data }: any) {
               className="products-tabs"
               items={[
                 {
-                  label: `Tất cả`,
+                  label: 'Tất cả',
                   key: '1',
                   children: <ProductList products={data.products} />,
                 },
                 {
-                  label: `Bán chạy nhất`,
+                  label: 'Bán chạy nhất',
                   key: '2',
                   children: <ProductList products={data.products} />,
                 },
                 {
-                  label: `Giá thấp nhất`,
+                  label: 'Giá thấp nhất',
                   key: '3',
                   children: <ProductList products={data.products} />,
                 },
                 {
-                  label: `Giảm giá`,
+                  label: 'Giảm giá',
                   key: '4',
                   children: <ProductList products={data.products} />,
                 },

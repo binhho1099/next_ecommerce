@@ -29,15 +29,8 @@ export default function Home() {
       <section className="section">
         <SectionCart />
       </section>
-      <ConfigProvider
-        theme={{
-          token: {
-            colorPrimary: '#00b96b',
-          },
-        }}
-      >
-        <Button type="primary">BINH HO</Button>
-      </ConfigProvider>
+
+      <Button type="primary">BINH HO</Button>
     </>
   );
 }

@@ -6,10 +6,10 @@ function SideBarFilter() {
   return (
     <div className="side-bar">
       {filter.map((fil, i) => (
-        <>
-          <FilterGroup filter={fil} key={fil.title} />
+        <div key={fil.title}>
+          <FilterGroup filter={fil} />
           {filter.length > i + 1 && <div className="side-bar__separate"></div>}
-        </>
+        </div>
       ))}
     </div>
   );

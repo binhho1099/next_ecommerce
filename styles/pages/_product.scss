@@ -61,7 +61,7 @@
 
   &__price {
     display: flex;
-    align-items: center;
+    flex-direction: column;
 
     & span {
       @include text($font-large, $gray-color, 400, 28px, 1);
@@ -69,7 +69,7 @@
     }
 
     & p {
-      @include text($font-heading, $heading-color, 600, 28px, 1);
+      @include text(28px, $heading-color, 700, 28px, 1);
     }
   }
 
@@ -98,4 +98,37 @@
       font-weight: 400;
     }
   }
+  &__quantity {
+    display: flex;
+    align-items: center;
+    gap: $margin-medium;
+
+    & .ant-input-number input {
+      text-align: center;
+    }
+  }
+}
+
+.slick-dots.slick-thumb {
+  display: flex !important;
+  position: relative;
+  bottom: 0;
+  & li {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1/1;
+    overflow: hidden;
+    background-color: $white-color;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid $border-color;
+    box-shadow: 0 0 10px $shadow-color;
+    border-radius: $radius-small;
+  }
+}
+
+.slick-slide img {
+  margin: 0 auto;
 }

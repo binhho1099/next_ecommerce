@@ -5,13 +5,22 @@ import { Provider } from 'react-redux';
 import 'antd/dist/reset.css';
 import '../components/index.scss';
 import '../styles/index.scss';
+import { ConfigProvider, theme } from 'antd';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <Provider store={store}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </Provider>
+    <ConfigProvider
+      theme={{
+        token: {
+          colorPrimary: '#ffbe0f',
+        },
+      }}
+    >
+      <Provider store={store}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </Provider>
+    </ConfigProvider>
   );
 }
