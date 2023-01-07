@@ -107,6 +107,22 @@
       text-align: center;
     }
   }
+
+  &__main-image {
+    & .slick-slide {
+      aspect-ratio: 16/9;
+      & div {
+        height: 100%;
+        width: 100%;
+      }
+      & img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+      }
+    }
+  }
 }
 
 .slick-dots.slick-thumb {
@@ -127,8 +143,16 @@
     box-shadow: 0 0 10px $shadow-color;
     border-radius: $radius-small;
   }
+
+  & .slick-active {
+    box-shadow: 0 0 10px $primary-color-900;
+  }
 }
 
-.slick-slide img {
-  margin: 0 auto;
+.slick-track {
+  background-color: $gray-color;
+}
+
+.slick-list {
+  margin-bottom: $margin-large;
 }

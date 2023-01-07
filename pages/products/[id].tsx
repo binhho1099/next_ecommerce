@@ -52,18 +52,12 @@ function ProductId({ product }: Props) {
 
   return (
     <>
-      {/* <section className="section">
-        <MainCarousel />
-      </section> */}
       <div className="section">
         <div className="detail">
           <Row gutter={[20, 20]}>
-            <Col span={12}>
-              {/* <div className="detail__image">
-                <Image src={product.thumbnail} fill alt="image" />
-              </div> */}
+            <Col span={24} xl={12}>
               <div>
-                <Slider {...settings}>
+                <Slider className="detail__main-image" {...settings}>
                   {product.images.map(image => {
                     return (
                       <div>
@@ -74,7 +68,7 @@ function ProductId({ product }: Props) {
                 </Slider>
               </div>
             </Col>
-            <Col span={12}>
+            <Col span={24} xl={12}>
               <div className="detail__content">
                 <h2 className="detail__name">{product.title}</h2>
                 <h3 className="detail__price">

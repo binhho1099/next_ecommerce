@@ -1,0 +1,30 @@
+.section-cart-2 {
+  &__container {
+    padding: 0 80px 110px 80px;
+    background-color: #ecf2fe;
+
+    @include tablet {
+      padding: 0 20px 40px 20px;
+    }
+  }
+
+  &__heading {
+    @include text(35px, $white-color, 900, 40px, 1);
+    padding: 30px 60px;
+    background-color: #00328b;
+    width: max-content;
+    margin: 0 auto;
+    border-radius: 0 0 30px 30px;
+    margin-bottom: 40px;
+    text-align: center;
+    @include tablet-hight {
+      @include text(20px, $white-color, 900, 22px, 1);
+      padding: 20px 40px;
+      width: 80%;
+    }
+
+    &--strong {
+      color: $primary-color-700;
+    }
+  }
+}

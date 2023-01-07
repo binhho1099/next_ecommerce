@@ -1,13 +1,8 @@
 import Head from 'next/head';
 import MainCarousel from '../components/shared/carousel/Carousel';
-import Products from '../components/shared/productList/Products';
-import { GetStaticProps } from 'next';
-import { Axios } from '../utils/axios';
-import { PRODUCT_ENDPOINT } from '../enums/endpoint';
 import Banner from '../components/shared/banner/Banner';
-import CardType1 from '../components/shared/cartType1';
 import SectionCart from '../components/shared/sectionCart';
-import { Button, Col, Row, ConfigProvider } from 'antd';
+import SectionCart2 from '@/components/shared/sectionCart2';
 
 export default function Home() {
   return (
@@ -30,7 +25,9 @@ export default function Home() {
         <SectionCart />
       </section>
 
-      <Button type="primary">BINH HO</Button>
+      <section className="section">
+        <SectionCart2 />
+      </section>
     </>
   );
 }
