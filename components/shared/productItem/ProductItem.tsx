@@ -29,7 +29,12 @@ function ProductItem({ product }: ProductProps) {
 
   return (
     <>
-      <Card hoverable bodyStyle={{ padding: 0 }} style={{ height: '100%' }}>
+      <Card
+        hoverable
+        bodyStyle={{ padding: 0 }}
+        style={{ height: '100%' }}
+        className="cart"
+      >
         <Badge.Ribbon
           text={`Giảm ${Math.round(product.discountPercentage)}%`}
           color="red"
@@ -54,7 +59,6 @@ function ProductItem({ product }: ProductProps) {
                 value={Math.round(product.rating * 2) / 2}
                 style={{ fontSize: 14 }}
               />{' '}
-              | {product.rating}
             </div>
           </div>
 

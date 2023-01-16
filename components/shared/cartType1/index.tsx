@@ -33,7 +33,7 @@ function CartSpecial({
       <div className="cart-special__contain">
         <div className="cart-special__image">
           <Image
-            src="/images/banner.png"
+            src="/images/cart-1.png"
             alt="image"
             fill
             style={{ objectFit: 'cover', borderRadius: 8 }}
@@ -58,7 +58,7 @@ function CartSpecial({
             className="cart-special__sold"
             percent={sold}
             status="active"
-            format={(percent) => `Đã bán ${percent}`}
+            format={percent => `Đã bán ${percent}`}
           />
         </div>
       </div>

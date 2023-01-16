@@ -1,6 +1,6 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { PRODUCT_ENDPOINT } from '../../enums/endpoint';
 import { Axios } from '../../utils/axios';
 import { IProduct } from '../../interfaces/product';
@@ -9,6 +9,8 @@ import { Button, Col, InputNumber, Row } from 'antd';
 import MainCarousel from '@/components/shared/carousel/Carousel';
 import { ShoppingFilled, HeartFilled } from '@ant-design/icons';
 import Slider from 'react-slick';
+import ProductItem from '@/components/shared/productItem/ProductItem';
+import Link from 'next/link';
 
 interface Props {
   product: IProduct;
@@ -16,6 +18,23 @@ interface Props {
 
 function ProductId({ product }: Props) {
   const router = useRouter();
+  const [relatedProducts, setRelatedProducts] = useState<IProduct[]>([]);
+
+  console.log('relatedProducts', relatedProducts);
+
+  useEffect(() => {
+    fetchRelatedProducts();
+  }, []);
+
+  const fetchRelatedProducts = async () => {
+    const allRelatedProducts = (await Axios.get(
+      `${PRODUCT_ENDPOINT.ALL_PRODUCT_OF_A_CATEGORY}/${product.category}`
+    )) as { products: IProduct[] };
+    const relatedProducts = allRelatedProducts.products.filter(
+      pro => pro.id !== product.id
+    );
+    setRelatedProducts(relatedProducts);
+  };
 
   const priceVNDold = useMemo(() => {
     const price =
@@ -48,6 +67,12 @@ function ProductId({ product }: Props) {
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: false,
+    adaptiveHeight: true,
+  };
+
+  const settings1 = {
+    slidesToShow: 6,
+    slidesToScroll: 1,
   };
 
   return (
@@ -112,6 +137,38 @@ function ProductId({ product }: Props) {
               </div>
             </Col>
           </Row>
+          <Row>
+            <Col span={24}>
+              <h3 className="detail__related-products">Sản Phẩm Liên Quan</h3>
+              <div>
+                {relatedProducts.length > 5 ? (
+                  <Slider className="slide-related-products" {...settings1}>
+                    {relatedProducts.map(product => {
+                      return (
+                        <div>
+                          <Link href={`/products/${product.id}`}>
+                            <ProductItem product={product} />
+                          </Link>
+                        </div>
+                      );
+                    })}
+                  </Slider>
+                ) : (
+                  <Row gutter={[20, 20]}>
+                    {relatedProducts.map(product => {
+                      return (
+                        <Col span={4}>
+                          <Link href={`/products/${product.id}`}>
+                            <ProductItem product={product} />
+                          </Link>
+                        </Col>
+                      );
+                    })}
+                  </Row>
+                )}
+              </div>
+            </Col>
+          </Row>
         </div>
       </div>
     </>
@@ -131,17 +188,17 @@ export const getStaticProps: GetStaticProps = async context => {
   };
 };
 export const getStaticPaths: GetStaticPaths = async () => {
-  // const data = (await Axios.get(PRODUCT_ENDPOINT.ALL_PRODUCT)) as {
-  //   products: IProduct[];
-  // };
-  // const paths = data.products.map((product) => {
-  //   return {
-  //     params: { id: product.id.toString() },
-  //   };
-  // });
+  const data = (await Axios.get(PRODUCT_ENDPOINT.ALL_PRODUCT)) as {
+    products: IProduct[];
+  };
+  const paths = data.products.map(product => {
+    return {
+      params: { id: product.id.toString() },
+    };
+  });
 
   return {
-    paths: [{ params: { id: '1' } }],
+    paths,
     fallback: true,
   };
 };

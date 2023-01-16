@@ -110,18 +110,17 @@
 
   &__main-image {
     & .slick-slide {
-      aspect-ratio: 16/9;
-      & div {
-        height: 100%;
-        width: 100%;
-      }
       & img {
         object-fit: cover;
         width: 100%;
-        height: 100%;
         margin: 0 auto;
       }
     }
+  }
+
+  &__related-products {
+    @include text(24px, $heading-color, 500, 28px, 1);
+    margin: 16px 0;
   }
 }
 
@@ -149,10 +148,12 @@
   }
 }
 
-.slick-track {
-  background-color: $gray-color;
-}
-
 .slick-list {
   margin-bottom: $margin-large;
 }
+
+// .slide-related-products {
+//   & .slick-slide > div {
+//     margin: 15px 10px;
+//   }
+// }

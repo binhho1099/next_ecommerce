@@ -2,6 +2,12 @@
 .cart {
   height: 100% !important;
 
+  & .ant-card-body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
   &-image__contain {
     width: 100%;
     aspect-ratio: 10/6;
@@ -20,6 +26,8 @@
     flex-direction: column;
     gap: 4px;
     height: 100%;
+    flex: 1;
+    justify-content: space-between;
 
     &__top {
       display: flex;
