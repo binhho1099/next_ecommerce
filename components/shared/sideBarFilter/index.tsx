@@ -4,7 +4,7 @@ import { filter } from '../../../mocks/filter';
 
 function SideBarFilter() {
   return (
-    <div className="side-bar">
+    <div className="side-bar" style={{ position: 'sticky', top: 10 }}>
       {filter.map((fil, i) => (
         <div key={fil.title}>
           <FilterGroup filter={fil} />

@@ -8,7 +8,8 @@
   &-item {
     list-style: none;
     position: relative;
-    @include text($font-small, $text-color, 400, $font-medium);
+    @include text($font-small, $text-color, 400, 24px, 1);
+
     &::after {
       content: '';
       position: absolute;

@@ -1,7 +1,12 @@
 @import '../../../styles/common/index.scss';
 .header {
-  // background-color: $primary-color;
-  background-image: linear-gradient(to top, $primary-color-500, $primary-color);
+  &-main {
+    background-color: $primary-color;
+  }
+
+  &-sub {
+    background-color: $primary-color-500;
+  }
 
   &-top {
     display: flex;
@@ -29,6 +34,7 @@
   }
   &-logo {
     color: $secondary-color;
+
     @include tablet {
       display: flex;
       align-items: center;
@@ -58,25 +64,18 @@
     flex: 1;
 
     & .ant-input-affix-wrapper {
-      border-start-start-radius: $radius-medium !important;
-      border-end-start-radius: $radius-medium !important;
+      border-start-start-radius: $radius-round !important;
+      border-end-start-radius: $radius-round !important;
       padding: $margin-small 16px;
-      border-color: $primary-color-700;
-
-      &:hover {
-        border-color: $primary-color-700;
-      }
     }
 
     & .ant-input-group-addon button {
-      border-start-end-radius: $radius-medium !important;
-      border-end-end-radius: $radius-medium !important;
-      border-color: $primary-color-700;
+      border-start-end-radius: $radius-round !important;
+      border-end-end-radius: $radius-round !important;
       box-shadow: none;
 
       &:hover {
         color: $primary-color !important;
-        border-color: $primary-color;
       }
     }
   }

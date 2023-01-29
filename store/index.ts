@@ -1,9 +1,44 @@
-import { configureStore } from '@reduxjs/toolkit';
-// ...
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import CartReducer from './Slices/cartSlice';
+import storage from 'redux-persist/lib/storage';
+import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
+import { PersistPartial } from 'redux-persist/es/persistReducer';
+import {
+  persistReducer,
+  persistStore,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from 'redux-persist';
+
+const rootReducer = combineReducers({
+  cart: CartReducer,
+});
+
+const persistConfig = {
+  key: 'root',
+  storage,
+  stateReconciler: autoMergeLevel2,
+  whitelist: ['cart'],
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer as any);
 
 export const store = configureStore({
-  reducer: {},
+  reducer: persistedReducer,
+  devTools: process.env.NODE_ENV !== 'production',
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
 });
+
+export const persistor = persistStore(store);
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;

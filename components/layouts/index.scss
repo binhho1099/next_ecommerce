@@ -2,7 +2,7 @@
 @import './footer/index.scss';
 
 .layout {
-  max-width: 1200px;
+  width: 1200px;
   margin: 0 auto;
 
   // @include laptop {
@@ -19,4 +19,8 @@
     max-width: 100%;
     padding: 0 $margin-small;
   }
+}
+
+.app-content {
+  min-height: calc(100vh - 64px - 40px - 405.6px - 20px) !important;
 }

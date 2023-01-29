@@ -2,14 +2,17 @@ import { GetStaticProps } from 'next';
 import { Axios } from '../../utils/axios';
 import { PRODUCT_ENDPOINT } from '../../enums/endpoint';
 import TitleSection from '@/components/shared/titleSection/TitleSection';
-import { Col, Row, Tabs } from 'antd';
+import { Col, Row, Tabs, Pagination } from 'antd';
 import SideBarFilter from '@/components/shared/sideBarFilter';
 import MainCarousel from '@/components/shared/carousel/Carousel';
 import Voucher from '@/components/shared/voucher';
 import Flashsale from '@/components/shared/flashsale';
 import ProductList from '@/components/shared/productList/Products';
+import { useEffect } from 'react';
 
 function Products({ data }: any) {
+  console.log('data', data);
+
   return (
     <>
       <section className="section">
@@ -84,6 +87,14 @@ function Products({ data }: any) {
                 },
               ]}
             />
+            <div style={{ margin: '15px 0', textAlign: 'right' }}>
+              <Pagination
+                showSizeChanger
+                // onShowSizeChange={onShowSizeChange}
+                defaultCurrent={3}
+                total={500}
+              />
+            </div>
           </Col>
         </Row>
       </section>
@@ -94,12 +105,19 @@ function Products({ data }: any) {
 export default Products;
 
 export const getStaticProps: GetStaticProps = async () => {
-  const data = await Axios.get(PRODUCT_ENDPOINT.ALL_PRODUCT);
+  try {
+    const data = await Axios.get(PRODUCT_ENDPOINT.ALL_PRODUCT);
 
-  return {
-    props: {
-      data,
-    },
-    revalidate: 60,
-  };
+    return {
+      props: {
+        data,
+      },
+    };
+  } catch (error) {
+    return {
+      props: {
+        data: {},
+      },
+    };
+  }
 };

@@ -16,6 +16,7 @@ function ProductList({ products }: ProductListProps) {
           { xs: 4, sm: 8, lg: 16 },
           { xs: 4, sm: 8, lg: 16 },
         ]}
+        style={{ padding: '15px 0' }}
       >
         {products.map((product) => {
           return (

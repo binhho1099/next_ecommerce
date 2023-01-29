@@ -1,0 +1,18 @@
+.to-top {
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  background-color: rgba($primary-color, 0.8);
+  border-radius: 50%;
+
+  width: 40px;
+  height: 40px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  &.show {
+    display: flex;
+  }
+}

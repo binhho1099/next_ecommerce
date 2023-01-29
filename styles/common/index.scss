@@ -83,15 +83,22 @@ $desktop-width: 1400px;
 
 .btn {
   &__heart {
-    background-color: #f64f59;
+    // background-color: #f64f59;
     padding: 8px;
     font-size: $font-large;
     line-height: $font-large;
     font-weight: 600;
     height: auto;
+    border-color: $red-color;
+    color: $red-color;
+    &.favorite {
+      background-color: #f64f59;
+      color: $white-color;
+    }
 
     &:hover {
-      background-color: $red-color !important;
+      background-color: #f64f59;
+      color: $white-color !important;
     }
   }
 }

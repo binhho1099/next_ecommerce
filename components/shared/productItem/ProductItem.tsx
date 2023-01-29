@@ -2,30 +2,13 @@ import { Card, Badge, Rate } from 'antd';
 import React, { useMemo } from 'react';
 import { IProduct } from '../../../interfaces/product';
 import Image from 'next/image';
+import { Product } from 'models/product';
 interface ProductProps {
   product: IProduct;
 }
 
 function ProductItem({ product }: ProductProps) {
-  const priceVNDold = useMemo(() => {
-    const price =
-      Math.round(product.price * ((100 + product.discountPercentage) / 100)) *
-      23000;
-    const priceFormat = price.toLocaleString('vi', {
-      style: 'currency',
-      currency: 'VND',
-    });
-    return priceFormat;
-  }, [product.discountPercentage, product.price]);
-
-  const priceVND = useMemo(() => {
-    const price = product.price * 23000;
-    const priceFormat = price.toLocaleString('vi', {
-      style: 'currency',
-      currency: 'VND',
-    });
-    return priceFormat;
-  }, [product.price]);
+  const modelProduct = new Product(product);
 
   return (
     <>
@@ -36,7 +19,7 @@ function ProductItem({ product }: ProductProps) {
         className="cart"
       >
         <Badge.Ribbon
-          text={`Giảm ${Math.round(product.discountPercentage)}%`}
+          text={`Giảm ${modelProduct.productdiscountPercentageString}`}
           color="red"
         >
           <div className="cart-image__contain">
@@ -63,8 +46,10 @@ function ProductItem({ product }: ProductProps) {
           </div>
 
           <div className="cart-body__bottom">
-            <div className="cart-old-price">{priceVNDold}</div>
-            <div className="cart-new-price">{priceVND}</div>
+            <div className="cart-old-price">
+              {modelProduct.handlePriceOld()}
+            </div>
+            <div className="cart-new-price">{modelProduct.handlePrice()}</div>
           </div>
         </div>
       </Card>

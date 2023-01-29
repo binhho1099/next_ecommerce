@@ -26,7 +26,10 @@ const Axios: AxiosInstance = axios.create({
 
 Axios.interceptors.response.use(
   (response: AxiosResponse) => {
-    return response.data;
+    if (response && response.data) {
+      return response.data;
+    }
+    return response;
   },
   async (error: AxiosError) => {
     return error;

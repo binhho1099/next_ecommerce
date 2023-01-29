@@ -131,7 +131,7 @@
       margin-bottom: 14px;
 
       & p:first-child {
-        @include text($font-small, $white-color, 400, $font-medium, 2);
+        @include text($font-small, $white-color, 400, $font-large, 2);
       }
       & p:last-child {
         @include text(12px, $white-color, 400, $font-small, 2);

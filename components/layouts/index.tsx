@@ -12,7 +12,7 @@ const Layout = ({ children }: LayoutProps) => {
       <AntdLayout>
         <DefaultHeader />
 
-        <Content className="layout">{children}</Content>
+        <Content className="app-content layout">{children}</Content>
 
         <DefaultFooter />
       </AntdLayout>
