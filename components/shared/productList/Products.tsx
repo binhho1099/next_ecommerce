@@ -10,15 +10,14 @@ interface ProductListProps {
 
 function ProductList({ products }: ProductListProps) {
   return (
-    <div style={{ padding: '0 15px' }}>
+    <div style={{ padding: '0 8px' }}>
       <Row
         gutter={[
           { xs: 4, sm: 8, lg: 16 },
           { xs: 4, sm: 8, lg: 16 },
         ]}
-        style={{ padding: '15px 0' }}
       >
-        {products.map((product) => {
+        {products.map(product => {
           return (
             <Col
               xs={{ span: 12 }}

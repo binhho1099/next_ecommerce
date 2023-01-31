@@ -13,43 +13,46 @@ function ProductItem({ product }: ProductProps) {
   return (
     <>
       <Card
-        hoverable
+        hoverable={true}
         bodyStyle={{ padding: 0 }}
         style={{ height: '100%' }}
-        className="cart"
+        className="product-item"
       >
         <Badge.Ribbon
           text={`Giảm ${modelProduct.productdiscountPercentageString}`}
           color="red"
         >
-          <div className="cart-image__contain">
+          <div className="product-item-image__contain">
             <Image
               src={product.thumbnail}
               fill
               sizes="100%"
-              className="cart-image"
+              className="product-item-image"
               alt={product.title}
             />
           </div>
         </Badge.Ribbon>
-        <div className="cart-body">
-          <div className="cart-body__top">
-            <div className="cart-brand">{product.brand}</div>
-            <h2 className="cart-title">{product.title}</h2>
-            <div className="cart-rate">
+        <div className="product-item-body">
+          <div className="product-item-body__top">
+            <div className="product-item-brand">{product.brand}</div>
+            <h2 className="product-item-title">{product.title}</h2>
+            <div className="product-item-rate">
               <Rate
                 disabled
                 value={Math.round(product.rating * 2) / 2}
+                // allowHalf
                 style={{ fontSize: 14 }}
               />{' '}
             </div>
           </div>
 
-          <div className="cart-body__bottom">
-            <div className="cart-old-price">
+          <div className="product-item-body__bottom">
+            <div className="product-item-old-price">
               {modelProduct.handlePriceOld()}
             </div>
-            <div className="cart-new-price">{modelProduct.handlePrice()}</div>
+            <div className="product-item-new-price">
+              {modelProduct.handlePrice()}
+            </div>
           </div>
         </div>
       </Card>

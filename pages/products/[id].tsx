@@ -29,13 +29,13 @@ function ProductId({ product }: Props) {
 
   const dispatch = useAppDispatch();
   const listFavorite = useAppSelector(
-    (state) => state.cart.listProductFavorite
-  );
+    state => state.cart.listProductFavorite
+  ) as number[];
 
   const productModel = new Product(product);
 
   const isFavorite = useMemo(() => {
-    return listFavorite.some((idProduct) => idProduct === product.id);
+    return listFavorite.some(idProduct => idProduct === product.id);
   }, [listFavorite, product.id]);
 
   useEffect(() => {
@@ -47,11 +47,16 @@ function ProductId({ product }: Props) {
   }, [product]);
 
   const fetchRelatedProducts = async () => {
-    const allRelatedProducts = (await Axios.get(
-      `${PRODUCT_ENDPOINT.ALL_PRODUCT_OF_A_CATEGORY}/${product.category}`
-    )) as { products: IProduct[] };
+    // const allRelatedProducts = (await Axios.get(
+    //   `${PRODUCT_ENDPOINT.ALL_PRODUCT_OF_A_CATEGORY}/${product.category}`
+    // )) as { products: IProduct[] };
+    const result = await fetch(
+      `https://dummyjson.com${PRODUCT_ENDPOINT.ALL_PRODUCT_OF_A_CATEGORY}/${product.category}`
+    );
+    const allRelatedProducts = await result.json();
+
     const relatedProducts = allRelatedProducts.products.filter(
-      (pro) => pro.id !== product.id
+      (pro: IProduct) => pro.id !== product.id
     );
     setRelatedProducts(relatedProducts);
   };
@@ -74,7 +79,7 @@ function ProductId({ product }: Props) {
     if (quantity === 1 && num === -1) {
       return;
     } else {
-      setQuantity((prev) => prev + num);
+      setQuantity(prev => prev + num);
     }
   };
 
@@ -104,7 +109,7 @@ function ProductId({ product }: Props) {
               <Col span={24} xl={12}>
                 <div>
                   <Slider className="detail__main-image" {...settings}>
-                    {product.images.map((image) => {
+                    {product.images.map(image => {
                       return (
                         <div key={image}>
                           <img src={image} />
@@ -144,7 +149,7 @@ function ProductId({ product }: Props) {
                       value={quantity}
                       controls={false}
                       min={1}
-                      onChange={(value) => setQuantity(value!)}
+                      onChange={value => setQuantity(value!)}
                     />
                     <Button type="primary" onClick={() => changeQuantity(1)}>
                       +
@@ -178,7 +183,7 @@ function ProductId({ product }: Props) {
                 <h3 className="detail__related-products">Sản Phẩm Liên Quan</h3>
                 <div>
                   <Row gutter={[20, 20]}>
-                    {relatedProducts.map((product) => {
+                    {relatedProducts.map(product => {
                       return (
                         <Col span={4} key={product.id}>
                           <Link href={`/products/${product.id}`}>
@@ -198,11 +203,13 @@ function ProductId({ product }: Props) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getStaticProps: GetStaticProps = async context => {
   const { params } = context;
-  const product = await Axios.get(
-    `${PRODUCT_ENDPOINT.ALL_PRODUCT}/${params!.id}`
-  );
+  // const product = await Axios.get(
+  //   `${PRODUCT_ENDPOINT.ALL_PRODUCT}/${params!.id}`
+  // );
+  const result = await fetch(`https://dummyjson.com/products/${params!.id}`);
+  const product = await result.json();
 
   return {
     props: {
@@ -211,10 +218,12 @@ export const getStaticProps: GetStaticProps = async (context) => {
   };
 };
 export const getStaticPaths: GetStaticPaths = async () => {
-  const data = (await Axios.get(PRODUCT_ENDPOINT.ALL_PRODUCT)) as {
-    products: IProduct[];
-  };
-  const paths = data.products.map((product) => {
+  // const data = (await Axios.get(PRODUCT_ENDPOINT.ALL_PRODUCT)) as {
+  //   products: IProduct[];
+  // };
+  const result = await fetch(`https://dummyjson.com/products`);
+  const data = await result.json();
+  const paths = data.products.map((product: any) => {
     return {
       params: { id: product.id.toString() },
     };

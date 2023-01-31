@@ -35,15 +35,30 @@ interface DataType {
   total: number;
 }
 
+interface FormType {
+  name: string;
+  address: string;
+  phonenumber: string;
+  email: string;
+}
+
 function Cart() {
-  const listProductCart = useAppSelector((state) => state.cart.listProducts);
+  const listProductCart = useAppSelector(state => state.cart.listProducts);
   const [dataSource, setDataSource] = useState<any>([]);
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const [form] = Form.useForm();
+
+  const initialValues: FormType = {
+    name: '',
+    address: '',
+    phonenumber: '',
+    email: '',
+  };
 
   useEffect(() => {
     if (listProductCart.length !== 0) {
-      const data = listProductCart.map((productCart) => {
+      const data = listProductCart.map((productCart: any) => {
         const productModel = new Product(productCart.product);
         return {
           key: productCart.product.id,
@@ -68,8 +83,14 @@ function Cart() {
     dispatch(changeQuantityProductToCart(data));
   };
 
+  const handlePayment = (value: FormType) => {
+    console.log(value);
+    console.log(total);
+    console.log(listProductCart);
+  };
+
   const total = useMemo(() => {
-    const sum = listProductCart.reduce((result, current) => {
+    const sum = listProductCart.reduce((result: any, current: any): any => {
       return result + current.quantity * current.product.price * 23000 + 15000;
     }, 0);
     const total = sum.toLocaleString('vi');
@@ -132,7 +153,8 @@ function Cart() {
               className="cart-table__quantity--input"
               value={data}
               controls={false}
-              onChange={(value) => changeQuantity(record.product.id, value)}
+              max={99}
+              onChange={value => changeQuantity(record.product.id, value)}
             />
             <Button
               type="primary"
@@ -149,7 +171,7 @@ function Cart() {
       dataIndex: 'total',
       key: 'total',
       align: 'center',
-      render: (text) => {
+      render: text => {
         return <b>{text}</b>;
       },
     },
@@ -196,7 +218,7 @@ function Cart() {
 
   return (
     <div className="layout cart">
-      <h2>Giỏ hàng</h2>
+      <h2 className="cart-heading">Giỏ hàng</h2>
       <p>
         Bạn có mã ưu đãi, nhấn vào đây để nhập mã.
         <Button type="link">Nhập mã ưu đãi</Button>
@@ -211,26 +233,61 @@ function Cart() {
         Tiếp tục mua hàng
       </Button>
       <Row gutter={20}>
-        <Col span={14}>
+        <Col span={12}>
           <div className="cart-info">
             <h3 className="cart-info__title">Thông tin thanh toán</h3>
-            <Form>
-              <Form.Item>
+            <Form
+              form={form}
+              onFinish={handlePayment}
+              initialValues={initialValues}
+            >
+              <Form.Item
+                name="username"
+                hasFeedback
+                rules={[
+                  { required: true, message: 'Bạn chưa nhập họ và tên!' },
+                ]}
+              >
                 <Input placeholder="Họ và Tên" />
               </Form.Item>
-              <Form.Item>
+              <Form.Item
+                name="address"
+                hasFeedback
+                rules={[
+                  {
+                    required: true,
+                    message: 'Bạn chưa nhập địa chỉ giao hàng',
+                  },
+                ]}
+              >
                 <Input placeholder="Địa chỉ giao hàng" />
               </Form.Item>
-              <Form.Item>
+              <Form.Item
+                name="phonenumber"
+                hasFeedback
+                rules={[
+                  { required: true, message: 'Bạn chưa nhập số điện thoại' },
+                ]}
+              >
                 <Input placeholder="Số điện thoại" />
               </Form.Item>
-              <Form.Item>
+              <Form.Item
+                name="email"
+                hasFeedback
+                rules={[
+                  { required: true, message: 'Bạn chưa nhập email' },
+                  {
+                    type: 'email',
+                    message: 'Email chưa hợp lệ! vd: abc@gmail.com',
+                  },
+                ]}
+              >
                 <Input placeholder="Email của bạn" />
               </Form.Item>
             </Form>
           </div>
         </Col>
-        <Col span={10}>
+        <Col span={12}>
           <div className="cart-order">
             <h3 className="cart-order__title">Đơn hàng của bạn</h3>
             <ul className="cart-order__list">
@@ -238,7 +295,7 @@ function Cart() {
                 <div>Sản phẩm</div>
                 <div>Tổng</div>
               </li>
-              {listProductCart.map((prod) => {
+              {listProductCart.map((prod: any) => {
                 const productModel = new Product(prod.product);
                 return (
                   <li
@@ -283,6 +340,7 @@ function Cart() {
                 size="large"
                 block
                 icon={<DollarOutlined />}
+                onClick={() => form.submit()}
               >
                 Thanh toán
               </Button>

@@ -1,6 +1,16 @@
 .cart {
   background-color: $white-color;
   padding: 10px;
+  margin-top: 10px;
+  border-radius: 4px;
+
+  &-heading {
+    text-align: center;
+    font-size: 36px;
+    color: $heading-color;
+    text-transform: uppercase;
+  }
+
   &-table {
     &__quantity {
       display: flex;
@@ -91,6 +101,7 @@
   }
 
   &-info {
+    padding: 10px 0;
     &__title {
       @extend .cart-order__title;
     }

@@ -8,7 +8,8 @@ import MainCarousel from '@/components/shared/carousel/Carousel';
 import Voucher from '@/components/shared/voucher';
 import Flashsale from '@/components/shared/flashsale';
 import ProductList from '@/components/shared/productList/Products';
-import { useEffect } from 'react';
+
+import axios from 'axios';
 
 function Products({ data }: any) {
   console.log('data', data);
@@ -106,11 +107,11 @@ export default Products;
 
 export const getStaticProps: GetStaticProps = async () => {
   try {
-    const data = await Axios.get(PRODUCT_ENDPOINT.ALL_PRODUCT);
-
+    const result = await fetch('https://dummyjson.com/products');
+    const data = await result.json();
     return {
       props: {
-        data,
+        data: data,
       },
     };
   } catch (error) {

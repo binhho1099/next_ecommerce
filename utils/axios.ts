@@ -9,9 +9,10 @@ import { Cookie } from './cookie';
  * Create Axios Instance
  */
 const Axios: AxiosInstance = axios.create({
-  baseURL: `${process.env.NEXT_PUBLIC_API_PROTOCOL}://${process.env.NEXT_PUBLIC_API_DOMAIN}`,
+  // baseURL: `${process.env.NEXT_PUBLIC_API_PROTOCOL}://${process.env.NEXT_PUBLIC_API_DOMAIN}`,
   headers: {
-    'content-type': 'application/json',
+    Accept: 'application/json',
+    'content-type': 'application/json; charset=utf-8',
   },
 });
 

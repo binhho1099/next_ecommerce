@@ -2,7 +2,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import CartReducer from './Slices/cartSlice';
 import storage from 'redux-persist/lib/storage';
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
-import { PersistPartial } from 'redux-persist/es/persistReducer';
+
 import {
   persistReducer,
   persistStore,
@@ -25,12 +25,12 @@ const persistConfig = {
   whitelist: ['cart'],
 };
 
-const persistedReducer = persistReducer(persistConfig, rootReducer as any);
+const persistedReducer = persistReducer<any, any>(persistConfig, rootReducer);
 
 export const store = configureStore({
   reducer: persistedReducer,
   devTools: process.env.NODE_ENV !== 'production',
-  middleware: (getDefaultMiddleware) =>
+  middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],

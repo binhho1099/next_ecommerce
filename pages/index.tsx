@@ -3,7 +3,6 @@ import MainCarousel from '../components/shared/carousel/Carousel';
 import Banner from '../components/shared/banner/Banner';
 import SectionCart from '../components/shared/sectionCart';
 import SectionCart2 from '@/components/shared/sectionCart2';
-import { ToastContainer } from 'react-toastify';
 
 export default function Home() {
   return (
