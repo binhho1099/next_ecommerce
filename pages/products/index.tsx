@@ -2,17 +2,34 @@ import { GetStaticProps } from 'next';
 import { Axios } from '../../utils/axios';
 import { PRODUCT_ENDPOINT } from '../../enums/endpoint';
 import TitleSection from '@/components/shared/titleSection/TitleSection';
-import { Col, Row, Tabs, Pagination } from 'antd';
+import { Col, Row, Tabs, Pagination, Skeleton, Spin } from 'antd';
 import SideBarFilter from '@/components/shared/sideBarFilter';
 import MainCarousel from '@/components/shared/carousel/Carousel';
 import Voucher from '@/components/shared/voucher';
 import Flashsale from '@/components/shared/flashsale';
 import ProductList from '@/components/shared/productList/Products';
-
-import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { IProduct } from 'interfaces/product';
 
 function Products({ data }: any) {
-  console.log('data', data);
+  const [listProd, setListProd] = useState<IProduct[]>([]);
+  const [tab, setTab] = useState<string>('all');
+
+  useEffect(() => {
+    switch (tab) {
+      case 'all':
+        setListProd(data);
+        break;
+      case 'best-seller':
+        break;
+      default:
+        setListProd(data);
+    }
+  }, [tab]);
+
+  const onChangeTab = (value: string) => {
+    setTab(value);
+  };
 
   return (
     <>
@@ -62,32 +79,33 @@ function Products({ data }: any) {
           </Col>
           <Col xl={{ span: 19 }} sm={{ span: 24 }} xs={{ span: 24 }}>
             <Tabs
-              defaultActiveKey="1"
-              // onChange={onChange}
+              onChange={onChangeTab}
               className="products-tabs"
+              activeKey={tab}
               items={[
                 {
                   label: 'Tất cả',
-                  key: '1',
-                  children: <ProductList products={data.products} />,
+                  key: 'all',
                 },
                 {
                   label: 'Bán chạy nhất',
-                  key: '2',
-                  children: <ProductList products={data.products} />,
+                  key: 'best-seller',
                 },
                 {
                   label: 'Giá thấp nhất',
-                  key: '3',
-                  children: <ProductList products={data.products} />,
+                  key: 'low-price',
                 },
                 {
                   label: 'Giảm giá',
-                  key: '4',
-                  children: <ProductList products={data.products} />,
+                  key: 'discount',
                 },
               ]}
             />
+            <div className="products-list">
+              <Spin tip="Loading..." size="small" spinning={!listProd.length}>
+                <ProductList products={listProd} />
+              </Spin>
+            </div>
             <div style={{ margin: '15px 0', textAlign: 'right' }}>
               <Pagination
                 showSizeChanger
@@ -111,7 +129,7 @@ export const getStaticProps: GetStaticProps = async () => {
     const data = await result.json();
     return {
       props: {
-        data: data,
+        data: data?.products,
       },
     };
   } catch (error) {

@@ -5,8 +5,27 @@
 .slick-slider.carousel {
   border-radius: 8px;
   overflow: hidden;
+
+  & .slick-dots li button:before {
+    display: none;
+  }
 }
 
 .ant-table-cell.ant-table-cell-row-hover {
   cursor: pointer;
+}
+
+.ant-popover-inner {
+  padding: 0 !important;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  max-height: 300px;
+
+  & .menu-item__child a {
+    padding: 10px;
+
+    &:hover {
+      background-color: $hover-color-1;
+    }
+  }
 }

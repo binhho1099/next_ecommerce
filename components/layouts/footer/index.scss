@@ -5,6 +5,12 @@
   color: $white-color;
   margin-top: $margin-section;
 
+  &-btn {
+    position: absolute;
+    right: 4px;
+    top: 4px;
+  }
+
   &-logo {
     font-size: $font-heading;
     color: $primary-color-700;
@@ -79,15 +85,14 @@
     margin-bottom: $margin-section;
 
     &__contain {
-      display: flex;
-      background-color: $white-color;
-      padding: $margin-small;
-      border-radius: $radius-small;
+      position: relative;
     }
 
     &__input {
       border: none;
       outline: none;
+      padding: 8px 4px;
+      height: 40px;
 
       &:focus {
         border-color: none;

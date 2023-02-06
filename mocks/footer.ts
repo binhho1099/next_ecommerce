@@ -48,22 +48,22 @@ export const FOOTER = [
   },
   {
     id: 2,
-    title: 'Digi Blog',
+    title: 'Blog',
     children: [
       {
         id: 2.1,
         label: 'Blog Ẩm thực',
-        path: '/about',
+        path: '/blog-food',
       },
       {
         id: 2.2,
         label: 'Blog Du lịch',
-        path: '/quyche',
+        path: '/blog-travel',
       },
       {
         id: 2.3,
         label: 'Blog Địa điểm',
-        path: '/security',
+        path: '/blog-dia-diem',
       },
     ],
   },

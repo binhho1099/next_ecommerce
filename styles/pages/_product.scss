@@ -1,7 +1,18 @@
+.products {
+  &-list {
+    background-color: $white-color;
+    border-radius: 0 0 $radius-medium $radius-medium;
+    padding-bottom: 10px;
+  }
+}
 .products-tabs {
   border-radius: 8px 8px 0 0 !important;
   overflow: hidden;
   background-color: $white-color;
+
+  & .ant-tabs-nav {
+    margin-bottom: 8px;
+  }
 
   & .ant-tabs-nav-wrap {
     background-color: $white-color;

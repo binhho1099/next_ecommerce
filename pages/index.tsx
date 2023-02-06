@@ -3,8 +3,15 @@ import MainCarousel from '../components/shared/carousel/Carousel';
 import Banner from '../components/shared/banner/Banner';
 import SectionCart from '../components/shared/sectionCart';
 import SectionCart2 from '@/components/shared/sectionCart2';
+import { GetStaticProps } from 'next';
+
+interface HomeType {
+  dataCategories: string[];
+}
 
 export default function Home() {
+  // console.log('dataCategories', dataCategories);
+
   return (
     <>
       <Head>
@@ -17,6 +24,7 @@ export default function Home() {
       <section className="section">
         <MainCarousel />
       </section>
+
       <section className="section">
         <Banner />
       </section>
@@ -31,3 +39,24 @@ export default function Home() {
     </>
   );
 }
+
+// export const getStaticProps: GetStaticProps = async () => {
+//   try {
+//     const urls = ['https://dummyjson.com/products/categories'];
+//     const [dataCategories] = await Promise.all(
+//       urls.map(url => fetch(url).then(res => res.json()))
+//     );
+
+//     return {
+//       props: {
+//         dataCategories,
+//       },
+//     };
+//   } catch (error) {
+//     return {
+//       props: {
+//         data: {},
+//       },
+//     };
+//   }
+// };
