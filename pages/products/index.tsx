@@ -1,8 +1,6 @@
 import { GetStaticProps } from 'next';
-import { Axios } from '../../utils/axios';
-import { PRODUCT_ENDPOINT } from '../../enums/endpoint';
 import TitleSection from '@/components/shared/titleSection/TitleSection';
-import { Col, Row, Tabs, Pagination, Skeleton, Spin } from 'antd';
+import { Col, Row, Tabs, Pagination, Spin } from 'antd';
 import SideBarFilter from '@/components/shared/sideBarFilter';
 import MainCarousel from '@/components/shared/carousel/Carousel';
 import Voucher from '@/components/shared/voucher';
@@ -10,25 +8,48 @@ import Flashsale from '@/components/shared/flashsale';
 import ProductList from '@/components/shared/productList/Products';
 import { useEffect, useState } from 'react';
 import { IProduct } from 'interfaces/product';
+import HeaderProduct from '@/components/shared/headerProduct';
+
+interface Pagination {
+  limit: number;
+  skip: number;
+  total: number;
+}
 
 function Products({ data }: any) {
   const [listProd, setListProd] = useState<IProduct[]>([]);
-  const [tab, setTab] = useState<string>('all');
+  const [pagination, setPagination] = useState<Pagination>({
+    limit: 20,
+    skip: 1,
+    total: 0,
+  });
 
   useEffect(() => {
-    switch (tab) {
-      case 'all':
-        setListProd(data);
-        break;
-      case 'best-seller':
-        break;
-      default:
-        setListProd(data);
-    }
-  }, [tab]);
+    fetchData(pagination);
+  }, [pagination.limit, pagination.skip]);
 
-  const onChangeTab = (value: string) => {
-    setTab(value);
+  const fetchData = async (pagination: Pagination, search?: string) => {
+    const skip = (pagination.skip - 1) * pagination.limit;
+    const result = await fetch(
+      `https://dummyjson.com/products${
+        search ? `/search?q=${search}&` : '?'
+      }limit=${pagination.limit}&skip=${skip}`
+    );
+    const data = await result.json();
+    setListProd(data.products);
+    setPagination({ ...pagination, total: data.total });
+  };
+
+  const onChangePagination = (page: number, pageSize: number) => {
+    const newPagination = {
+      limit: pageSize,
+      skip: page,
+    };
+    setPagination({ ...pagination, ...newPagination });
+  };
+
+  const handleSearch = (search: string) => {
+    fetchData(pagination, search);
   };
 
   return (
@@ -78,40 +99,20 @@ function Products({ data }: any) {
             <SideBarFilter />
           </Col>
           <Col xl={{ span: 19 }} sm={{ span: 24 }} xs={{ span: 24 }}>
-            <Tabs
-              onChange={onChangeTab}
-              className="products-tabs"
-              activeKey={tab}
-              items={[
-                {
-                  label: 'Tất cả',
-                  key: 'all',
-                },
-                {
-                  label: 'Bán chạy nhất',
-                  key: 'best-seller',
-                },
-                {
-                  label: 'Giá thấp nhất',
-                  key: 'low-price',
-                },
-                {
-                  label: 'Giảm giá',
-                  key: 'discount',
-                },
-              ]}
-            />
+            <HeaderProduct handleSearch={handleSearch} />
             <div className="products-list">
-              <Spin tip="Loading..." size="small" spinning={!listProd.length}>
+              <Spin tip="Đang tải sản phẩm" spinning={!listProd}>
                 <ProductList products={listProd} />
               </Spin>
             </div>
             <div style={{ margin: '15px 0', textAlign: 'right' }}>
               <Pagination
                 showSizeChanger
-                // onShowSizeChange={onShowSizeChange}
-                defaultCurrent={3}
-                total={500}
+                pageSizeOptions={[20, 30, 50, 100]}
+                pageSize={pagination.limit}
+                onChange={onChangePagination}
+                current={pagination.skip}
+                total={100}
               />
             </div>
           </Col>
@@ -125,7 +126,7 @@ export default Products;
 
 export const getStaticProps: GetStaticProps = async () => {
   try {
-    const result = await fetch('https://dummyjson.com/products');
+    const result = await fetch('https://dummyjson.com/products?limit=100');
     const data = await result.json();
     return {
       props: {

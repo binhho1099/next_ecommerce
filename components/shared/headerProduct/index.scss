@@ -1,0 +1,17 @@
+.header-product {
+  padding: 10px 8px;
+  background-color: $white-color;
+  border-radius: $radius-medium $radius-medium 0 0;
+
+  &__search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    & span {
+      font-size: 16px;
+      font-weight: 500;
+      flex-shrink: 0;
+    }
+  }
+}
