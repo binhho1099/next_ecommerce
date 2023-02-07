@@ -66,7 +66,9 @@ const DefaultHeader = ({ dataCategories }: HeaderType) => {
         <div className="layout">
           <div className="header-top">
             <div className="header-logo">
-              <h1>THAPCAM_WEB</h1>
+              <Link href="/">
+                <h1>BinhHo Ecommerce</h1>
+              </Link>
               <div className="header-tools__mobile">
                 <Badge
                   count={cart.length}

@@ -1,8 +1,23 @@
 .products {
   &-list {
     background-color: $white-color;
-    border-radius: 0 0 $radius-medium $radius-medium;
+    border-radius: $radius-medium;
     padding-bottom: 10px;
+    padding-top: 10px;
+    min-height: 500px;
+
+    display: flex;
+    flex-direction: column;
+
+    &__container {
+      width: 100%;
+      height: 100%;
+      margin: auto;
+    }
+
+    &__loading {
+      text-align: center;
+    }
   }
 }
 .products-tabs {
