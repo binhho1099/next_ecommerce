@@ -13,8 +13,6 @@ const Layout = ({ children }: LayoutProps) => {
     fetchData();
   }, []);
 
-  console.log(dataCategories);
-
   const fetchData = async () => {
     try {
       const urls = ['https://dummyjson.com/products/categories'];

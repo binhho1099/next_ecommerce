@@ -13,7 +13,7 @@ $sub-heading-color: #717981;
 $title-color: #f35801;
 $text-color: #302c2c;
 $border-color: #dbdbdb;
-$shadow-color: #aaa;
+$shadow-color: rgba(0, 0, 0, 0.3);
 $hover-color: #288ad6;
 $hover-color-1: #f1f1f1;
 
@@ -30,7 +30,7 @@ $radius-round: 999px;
 $margin-small: 4px;
 $margin-medium: 8px;
 $margin-large: 12px;
-$margin-section: 20px;
+$margin-section: 50px;
 
 .section {
   margin-top: $margin-section;

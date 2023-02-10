@@ -1,4 +1,4 @@
-import { Popover } from 'antd';
+import { Dropdown, Popover } from 'antd';
 import Link from 'next/link';
 import React from 'react';
 import { CaretDownOutlined } from '@ant-design/icons';
@@ -14,14 +14,17 @@ function Menu({ items }: MenuProps) {
   return (
     <ul className="menu">
       {items.map((item: any) => {
-        const childrenLink =
+        const childrenLink: MenuProps['items'] =
           item.childrens &&
           item.childrens.map((children: any) => {
-            return (
-              <div key={children.id} className="menu-item__child">
-                <Link href={children.path}>{children.label}</Link>
-              </div>
-            );
+            return {
+              key: children.id,
+              label: (
+                <div key={children.id} className="menu-item__child">
+                  <Link href={children.path}>{children.label}</Link>
+                </div>
+              ),
+            };
           });
 
         return (
@@ -32,15 +35,15 @@ function Menu({ items }: MenuProps) {
             }`}
           >
             {childrenLink ? (
-              <Popover
-                content={childrenLink}
-                placement="bottomLeft"
-                trigger="hover"
+              <Dropdown
+                menu={{ items: childrenLink }}
+                placement="bottom"
+                overlayClassName="menu-item__dropdown"
               >
                 <Link href={item.path}>
                   {item.label} <CaretDownOutlined />
                 </Link>
-              </Popover>
+              </Dropdown>
             ) : (
               <Link href={item.path}>{item.label}</Link>
             )}

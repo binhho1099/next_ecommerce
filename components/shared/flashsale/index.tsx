@@ -2,15 +2,17 @@ import { Col, Row } from 'antd';
 import React from 'react';
 import ItemFlashsale from './ItemFlashsale';
 import CountDown from '../countDown';
+import dayjs from 'dayjs';
 
 function Flashsale() {
+  const time = dayjs().add(3, 'days').valueOf();
   return (
     <div className="flash-sale">
       <div className="flash-sale__title">
         <div className="flash-sale__ribbon-wrap">
           <div className="flash-sale__ribbon">FLASHSALE HÔM NAY</div>
         </div>
-        <CountDown />
+        <CountDown futureDate={time} />
       </div>
       <Row gutter={[20, 20]}>
         <Col

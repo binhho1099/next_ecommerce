@@ -73,13 +73,23 @@
     display: flex;
     flex-direction: column;
 
-    & span {
+    & div {
       @include text($font-large, $gray-color, 400, 28px, 1);
       text-decoration: line-through;
     }
 
     & p {
-      @include text(28px, $heading-color, 700, 28px, 1);
+      @include text(28px, $title-color, 700, 28px, 1);
+      display: flex;
+      gap: $margin-medium;
+
+      & span {
+        border-radius: $radius-small;
+        color: $red-color;
+        background-color: rgba($title-color, 0.2);
+        padding: 0 8px;
+        font-size: 20px;
+      }
     }
   }
 
@@ -130,7 +140,7 @@
 
   &__related-products {
     @include text(24px, $heading-color, 500, 28px, 1);
-    margin: 16px 0;
+    margin: 24px 0;
   }
 }
 

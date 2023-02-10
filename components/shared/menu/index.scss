@@ -36,6 +36,14 @@
 
     &__child a {
       color: $black-color;
+      text-transform: capitalize;
+    }
+
+    &__dropdown {
+      & .ant-dropdown-menu {
+        max-height: 200px;
+        overflow-y: overlay;
+      }
     }
   }
 }

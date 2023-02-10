@@ -29,12 +29,7 @@ function ProductList({ products }: ProductListProps) {
                 md={{ span: 8 }}
                 key={product.id}
               >
-                <Link
-                  href={`/products/${product.id}`}
-                  style={{ height: '100%' }}
-                >
-                  <ProductItem product={product} />
-                </Link>
+                <ProductItem product={product} />
               </Col>
             );
           })

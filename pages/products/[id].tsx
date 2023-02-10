@@ -123,8 +123,13 @@ function ProductId({ product }: Props) {
                 <div className="detail__content">
                   <h2 className="detail__name">{product.title}</h2>
                   <h3 className="detail__price">
-                    <span>{productModel.handlePriceOld()}</span>
-                    <p>{productModel.handlePrice()}</p>
+                    <div>{productModel.handlePriceOld() + ' đ'}</div>
+                    <p>
+                      {productModel.handlePrice() + ' đ'}{' '}
+                      <span>
+                        {Math.round(product.discountPercentage) + '%'}
+                      </span>{' '}
+                    </p>
                   </h3>
                   <div>
                     <h3 className="detail__info">
@@ -150,8 +155,13 @@ function ProductId({ product }: Props) {
                       controls={false}
                       min={1}
                       onChange={value => setQuantity(value!)}
+                      max={product.stock}
                     />
-                    <Button type="primary" onClick={() => changeQuantity(1)}>
+                    <Button
+                      type="primary"
+                      onClick={() => changeQuantity(1)}
+                      disabled={quantity === product.stock}
+                    >
                       +
                     </Button>
                   </div>
@@ -185,10 +195,8 @@ function ProductId({ product }: Props) {
                   <Row gutter={[20, 20]}>
                     {relatedProducts.map(product => {
                       return (
-                        <Col span={4} key={product.id}>
-                          <Link href={`/products/${product.id}`}>
-                            <ProductItem product={product} />
-                          </Link>
+                        <Col span={6} key={product.id}>
+                          <ProductItem product={product} />
                         </Col>
                       );
                     })}

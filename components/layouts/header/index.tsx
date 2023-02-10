@@ -1,7 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Menu from '../../shared/menu/Menu';
-import { Input, Avatar, Button, Select, Badge, Drawer } from 'antd';
+import {
+  Input,
+  Avatar,
+  Button,
+  Select,
+  Badge,
+  Drawer,
+  Dropdown,
+  MenuProps,
+} from 'antd';
+import { SearchOutlined } from '@ant-design/icons';
 import {
   UserOutlined,
   ShoppingCartOutlined,
@@ -10,6 +20,7 @@ import {
 } from '@ant-design/icons';
 import Link from 'next/link';
 import { useAppSelector } from 'store/hooks';
+import useDebounce from 'hooks/useDebounce';
 
 const { Search } = Input;
 
@@ -21,9 +32,58 @@ const DefaultHeader = ({ dataCategories }: HeaderType) => {
   const router = useRouter();
   const [isOpenDrawer, setIsOpenDrawer] = useState<boolean>(false);
   const cart = useAppSelector(state => state.cart.listProducts);
+  const [search, setSearch] = useState<string>('');
+  const [focus, setFocus] = useState<boolean>(false);
+
+  const [result, setResult] = useState<MenuProps['items']>([]);
+
+  const debounce = useDebounce(search, 300);
+
+  useEffect(() => {
+    if (focus) {
+      fetchData();
+    }
+    console.log(focus);
+  }, [debounce, focus]);
+
+  const fetchData = async () => {
+    const res = await fetch(
+      `https://dummyjson.com/products/search?q=${debounce}`
+    );
+    const data = await res.json();
+    const result = data.products.map((product: any) => {
+      return {
+        key: product.id,
+        label: (
+          <Link href={`/products/${product.id}`}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <img
+                src={product.thumbnail}
+                alt={product.title}
+                width={30}
+                height={30}
+              />
+              {product.title}
+            </div>
+          </Link>
+        ),
+      };
+    });
+    setResult(result);
+  };
 
   const onDrawer = (state: boolean) => {
     setIsOpenDrawer(state);
+  };
+
+  const handleBlur = () => {
+    setTimeout(() => {
+      setFocus(false);
+    }, 300);
+  };
+
+  const handleFocus = () => {
+    setFocus(true);
   };
 
   const MENU = [
@@ -91,12 +151,24 @@ const DefaultHeader = ({ dataCategories }: HeaderType) => {
               </div>
             </div>
 
-            <Search
-              className="header-search"
-              placeholder="Tìm kiếm trên website..."
-              onSearch={e => console.log(e)}
-              allowClear
-            />
+            <Dropdown
+              menu={{ items: result }}
+              placement="bottom"
+              arrow
+              open={!!result?.length && focus}
+              overlayClassName="header-search__dropdown"
+            >
+              <Input
+                className="header-search"
+                placeholder="Tìm kiếm trên website..."
+                onChange={e => setSearch(e.target.value)}
+                allowClear
+                onBlur={handleBlur}
+                onFocus={handleFocus}
+                suffix={<SearchOutlined />}
+              />
+            </Dropdown>
+
             <div className="header-tools">
               <Link href="/purchase-history">
                 <Button type="primary" className="header-btn">

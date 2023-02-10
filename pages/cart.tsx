@@ -21,11 +21,9 @@ import {
 } from 'store/Slices/cartSlice';
 import { DeleteOutlined } from '@ant-design/icons';
 import { useRouter } from 'next/router';
-import {
-  PercentageOutlined,
-  DollarOutlined,
-  ArrowLeftOutlined,
-} from '@ant-design/icons';
+import { ArrowLeftOutlined } from '@ant-design/icons';
+import CartOrder from '@/components/shared/cartOrder';
+import { addCartPayment } from 'store/Slices/paymentSlice';
 
 interface DataType {
   key: string;
@@ -35,26 +33,11 @@ interface DataType {
   total: number;
 }
 
-interface FormType {
-  name: string;
-  address: string;
-  phonenumber: string;
-  email: string;
-}
-
 function Cart() {
   const listProductCart = useAppSelector(state => state.cart.listProducts);
   const [dataSource, setDataSource] = useState<any>([]);
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const [form] = Form.useForm();
-
-  const initialValues: FormType = {
-    name: '',
-    address: '',
-    phonenumber: '',
-    email: '',
-  };
 
   useEffect(() => {
     if (listProductCart.length !== 0) {
@@ -83,12 +66,6 @@ function Cart() {
     dispatch(changeQuantityProductToCart(data));
   };
 
-  const handlePayment = (value: FormType) => {
-    console.log(value);
-    console.log(total);
-    console.log(listProductCart);
-  };
-
   const total = useMemo(() => {
     const sum = listProductCart.reduce((result: any, current: any): any => {
       return result + current.quantity * current.product.price * 23000 + 15000;
@@ -111,6 +88,7 @@ function Cart() {
                 width: 80,
                 height: 80,
                 backgroundColor: '#f1f1f1',
+                borderRadius: 4,
               }}
             >
               <Image
@@ -216,6 +194,11 @@ function Cart() {
     );
   }
 
+  const handleSubmit = () => {
+    dispatch(addCartPayment(listProductCart));
+    router.push('/payment');
+  };
+
   return (
     <div className="layout cart">
       <h2 className="cart-heading">Giỏ hàng</h2>
@@ -233,119 +216,13 @@ function Cart() {
         Tiếp tục mua hàng
       </Button>
       <Row gutter={20}>
+        <Col span={12}>Chính sách mua hàng</Col>
         <Col span={12}>
-          <div className="cart-info">
-            <h3 className="cart-info__title">Thông tin thanh toán</h3>
-            <Form
-              form={form}
-              onFinish={handlePayment}
-              initialValues={initialValues}
-            >
-              <Form.Item
-                name="username"
-                hasFeedback
-                rules={[
-                  { required: true, message: 'Bạn chưa nhập họ và tên!' },
-                ]}
-              >
-                <Input placeholder="Họ và Tên" />
-              </Form.Item>
-              <Form.Item
-                name="address"
-                hasFeedback
-                rules={[
-                  {
-                    required: true,
-                    message: 'Bạn chưa nhập địa chỉ giao hàng',
-                  },
-                ]}
-              >
-                <Input placeholder="Địa chỉ giao hàng" />
-              </Form.Item>
-              <Form.Item
-                name="phonenumber"
-                hasFeedback
-                rules={[
-                  { required: true, message: 'Bạn chưa nhập số điện thoại' },
-                ]}
-              >
-                <Input placeholder="Số điện thoại" />
-              </Form.Item>
-              <Form.Item
-                name="email"
-                hasFeedback
-                rules={[
-                  { required: true, message: 'Bạn chưa nhập email' },
-                  {
-                    type: 'email',
-                    message: 'Email chưa hợp lệ! vd: abc@gmail.com',
-                  },
-                ]}
-              >
-                <Input placeholder="Email của bạn" />
-              </Form.Item>
-            </Form>
-          </div>
-        </Col>
-        <Col span={12}>
-          <div className="cart-order">
-            <h3 className="cart-order__title">Đơn hàng của bạn</h3>
-            <ul className="cart-order__list">
-              <li className="cart-order__item cart-order__item-title">
-                <div>Sản phẩm</div>
-                <div>Tổng</div>
-              </li>
-              {listProductCart.map((prod: any) => {
-                const productModel = new Product(prod.product);
-                return (
-                  <li
-                    key={prod.product.id}
-                    className="cart-order__item cart-order__item-product"
-                  >
-                    <div>
-                      {prod.product.title} <span>x {prod.quantity}</span>
-                    </div>
-                    <div>{productModel.subTotal(prod.quantity)}</div>
-                  </li>
-                );
-              })}
-
-              <li className="cart-order__item cart-order__item-subtitle">
-                <div>Tiền ship</div>
-                <div>15.000</div>
-              </li>
-              <li className="cart-order__item cart-order__item-subtitle">
-                <div>Tổng cộng</div>
-                <div>{total}đ</div>
-              </li>
-            </ul>
-            <p>Chuyển khoản ngân hàng</p>
-            <p>
-              *Thực hiện thanh toán ngay vào trong tài khoản của chúng tôi. Vui
-              lòng sử dụng mã đơn hàng của bạn trong phần nội dung thanh toán.
-              Đơn hàng sẽ được giao sau khi tiền đã chuyển.
-            </p>
-            <div className="cart-order__payment">
-              <Button
-                size="large"
-                type="primary"
-                danger
-                block
-                icon={<PercentageOutlined />}
-              >
-                Trả góp
-              </Button>
-              <Button
-                type="primary"
-                size="large"
-                block
-                icon={<DollarOutlined />}
-                onClick={() => form.submit()}
-              >
-                Thanh toán
-              </Button>
-            </div>
-          </div>
+          <CartOrder
+            listProductCart={listProductCart}
+            total={total}
+            onSubmit={handleSubmit}
+          />
         </Col>
       </Row>
     </div>

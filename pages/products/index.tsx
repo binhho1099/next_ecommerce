@@ -75,6 +75,7 @@ function Products({ data }: any) {
   const handleFilter = (evaluate: any, price: any) => {
     if (evaluate.length === 0 && price.length === 0) {
       setListProdFilter(null);
+      return;
     }
     const newList = listProd && [...listProd];
 

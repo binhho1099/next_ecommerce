@@ -1,0 +1,107 @@
+.payment {
+  max-width: 800px;
+  margin: 20px auto;
+  background-color: $white-color;
+  border-radius: $radius-medium;
+  padding: 0px 12px;
+
+  &-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &-title {
+    @include text($font-heading, $heading-color, 700, $font-heading, 1);
+    padding: 20px 0;
+  }
+
+  &-subtotal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 2px solid $border-color;
+
+    & h3 {
+      @include text($font-medium, $text-color, 400, $font-heading, 1);
+    }
+    & span {
+      @include text($font-medium, $heading-color, 500, $font-heading, 1);
+    }
+  }
+
+  &-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+
+    & h3 {
+      @include text($font-large, $text-color, 700, $font-heading, 1);
+    }
+    & span {
+      @include text($font-large, $red-color, 700, $font-heading, 1);
+    }
+  }
+
+  &-list {
+    // padding: 10px 12px;
+  }
+
+  &-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid $border-color;
+
+    &__right {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      &-quantity {
+        display: flex;
+        align-items: center;
+      }
+
+      &-old {
+        @include text($font-small, $gray-color, 400, $font-large, 1);
+        text-decoration: line-through;
+      }
+      &-new {
+        @include text($font-medium, $secondary-color, 500, $font-large, 1);
+      }
+    }
+
+    &__left {
+      flex-shrink: 0;
+      // text-align: center;
+      width: 100px;
+      height: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      & img {
+        // object-fit: cover;
+      }
+    }
+
+    &__center {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex: 1;
+
+      & h3 {
+        @include text($font-large, $heading-color, 700, $font-heading, 2);
+        margin-left: $margin-small;
+      }
+      p {
+        @include text($font-small, $gray-color, 400, $font-large, 4);
+        margin-left: $margin-medium;
+      }
+    }
+  }
+}

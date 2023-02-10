@@ -63,19 +63,11 @@
   &-search {
     flex: 1;
 
-    & .ant-input-affix-wrapper {
-      border-start-start-radius: $radius-round !important;
-      border-end-start-radius: $radius-round !important;
-      padding: $margin-small 16px;
-    }
-
-    & .ant-input-group-addon button {
-      border-start-end-radius: $radius-round !important;
-      border-end-end-radius: $radius-round !important;
-      box-shadow: none;
-
-      &:hover {
-        color: $primary-color !important;
+    //dropdown
+    &__dropdown {
+      & .ant-dropdown-menu {
+        max-height: 300px;
+        overflow-y: overlay;
       }
     }
   }

@@ -6,7 +6,6 @@ import '../components/index.scss';
 import '../styles/index.scss';
 import { ConfigProvider, theme } from 'antd';
 import { ToastContainer } from 'react-toastify';
-import BackTop from '@/components/shared/backTop';
 import { persistor, store } from '../store';
 import { PersistGate } from 'redux-persist/integration/react';
 import FloatButtonApp from '@/components/shared/floatButtonApp';

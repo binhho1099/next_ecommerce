@@ -3,7 +3,7 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../index';
 import { IProduct } from 'interfaces/product';
 
-interface CartProduct {
+export interface CartProduct {
   product: IProduct;
   quantity: number;
 }
@@ -24,7 +24,7 @@ export const cartSlice = createSlice({
   reducers: {
     addProductToCart: (state, action: PayloadAction<CartProduct>) => {
       const indexCart = state.listProducts.findIndex(
-        (productCart) => productCart.product.id === action.payload.product.id
+        productCart => productCart.product.id === action.payload.product.id
       );
       if (indexCart === -1) {
         state.listProducts.push(action.payload);
@@ -34,18 +34,18 @@ export const cartSlice = createSlice({
     },
     removeProductToCart: (state, action: PayloadAction<number>) => {
       state.listProducts = state.listProducts.filter(
-        (productCart) => productCart.product.id !== action.payload
+        productCart => productCart.product.id !== action.payload
       );
     },
     changeQuantityProductToCart: (state, action: PayloadAction<any>) => {
       const indexList = state.listProducts.findIndex(
-        (x) => x.product.id === action.payload.id
+        x => x.product.id === action.payload.id
       );
       state.listProducts[indexList].quantity = action.payload.quantity;
     },
     addOrRemoveProductFavorite: (state, action: PayloadAction<number>) => {
       const indexList = state.listProductFavorite.findIndex(
-        (product) => product === action.payload
+        product => product === action.payload
       );
       if (indexList === -1) {
         state.listProductFavorite.push(action.payload);
