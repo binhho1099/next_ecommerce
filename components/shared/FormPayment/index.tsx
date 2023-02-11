@@ -1,26 +1,36 @@
 import { Form, Input } from 'antd';
-import React from 'react';
-import { toast } from 'react-toastify';
+import { InfoPayment } from 'interfaces/cart';
+import React, { forwardRef, useImperativeHandle } from 'react';
 
-interface FormType {
-  name: string;
-  address: string;
-  phonenumber: string;
-  email: string;
+interface FormPaymentRefProps {
+  onSubmit: () => void;
 }
 
-function FormPayment() {
+interface FormPaymentProps {
+  onPayment: (value: InfoPayment) => void;
+}
+
+const FormPayment: React.ForwardRefRenderFunction<
+  FormPaymentRefProps,
+  FormPaymentProps
+> = ({ onPayment }, ref) => {
   const [form] = Form.useForm();
 
-  const initialValues: FormType = {
-    name: '',
+  const initialValues: InfoPayment = {
+    username: '',
     address: '',
     phonenumber: '',
     email: '',
   };
 
-  const handlePayment = (value: FormType) => {
-    toast.info('Tính năng chưa phát triển');
+  useImperativeHandle(ref, () => ({
+    onSubmit() {
+      form.submit();
+    },
+  }));
+
+  const handlePayment = (value: InfoPayment) => {
+    onPayment(value);
   };
   return (
     <div className="cart-info">
@@ -77,6 +87,6 @@ function FormPayment() {
       </Form>
     </div>
   );
-}
+};
 
-export default FormPayment;
+export default forwardRef(FormPayment);

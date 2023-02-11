@@ -3,7 +3,7 @@
   margin: 20px auto;
   background-color: $white-color;
   border-radius: $radius-medium;
-  padding: 0px 12px;
+  padding: 16px;
 
   &-heading {
     display: flex;
@@ -13,7 +13,7 @@
 
   &-title {
     @include text($font-heading, $heading-color, 700, $font-heading, 1);
-    padding: 20px 0;
+    padding-bottom: 20px;
   }
 
   &-subtotal {
@@ -64,6 +64,10 @@
       &-quantity {
         display: flex;
         align-items: center;
+
+        & .ant-input-number-input {
+          text-align: center;
+        }
       }
 
       &-old {

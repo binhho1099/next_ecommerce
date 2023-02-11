@@ -1,14 +1,4 @@
-import {
-  Button,
-  Col,
-  Empty,
-  Form,
-  Input,
-  InputNumber,
-  Popconfirm,
-  Row,
-  Table,
-} from 'antd';
+import { Button, Col, Empty, InputNumber, Row, Table } from 'antd';
 import { IProduct } from 'interfaces/product';
 import Image from 'next/image';
 import React, { useEffect, useMemo, useState } from 'react';
@@ -35,7 +25,8 @@ interface DataType {
 
 function Cart() {
   const listProductCart = useAppSelector(state => state.cart.listProducts);
-  const [dataSource, setDataSource] = useState<any>([]);
+  const [dataSource, setDataSource] = useState<DataType[]>([]);
+  const [listProductSelect, setListProductSelect] = useState<DataType[]>([]);
   const dispatch = useAppDispatch();
   const router = useRouter();
 
@@ -67,12 +58,12 @@ function Cart() {
   };
 
   const total = useMemo(() => {
-    const sum = listProductCart.reduce((result: any, current: any): any => {
+    const sum = listProductSelect.reduce((result: any, current: any): any => {
       return result + current.quantity * current.product.price * 23000 + 15000;
     }, 0);
     const total = sum.toLocaleString('vi');
     return total;
-  }, [listProductCart]);
+  }, [listProductSelect]);
 
   const columns: ColumnsType<DataType> = [
     {
@@ -159,20 +150,12 @@ function Cart() {
       render: (_, record) => {
         return (
           <div className="cart-table__btn-delete">
-            <Popconfirm
-              title={
-                <p>
-                  Bạn muốn xóa <b>{record.product.title}</b> khỏi giỏ hàng?
-                </p>
-              }
-              onConfirm={() =>
-                dispatch(removeProductToCart(Number(record.key)))
-              }
-              okText="Yes"
-              cancelText="No"
-            >
-              <Button type="primary" danger icon={<DeleteOutlined />} />
-            </Popconfirm>
+            <Button
+              type="primary"
+              danger
+              icon={<DeleteOutlined />}
+              onClick={() => dispatch(removeProductToCart(Number(record.key)))}
+            />
           </div>
         );
       },
@@ -195,8 +178,14 @@ function Cart() {
   }
 
   const handleSubmit = () => {
-    dispatch(addCartPayment(listProductCart));
+    dispatch(addCartPayment(listProductSelect));
     router.push('/payment');
+  };
+
+  const rowSelection = {
+    onChange: (selectedRowKeys: React.Key[], selectedRows: DataType[]) => {
+      setListProductSelect(selectedRows);
+    },
   };
 
   return (
@@ -206,7 +195,12 @@ function Cart() {
         Bạn có mã ưu đãi, nhấn vào đây để nhập mã.
         <Button type="link">Nhập mã ưu đãi</Button>
       </p>
-      <Table dataSource={dataSource} columns={columns} pagination={false} />
+      <Table
+        dataSource={dataSource}
+        columns={columns}
+        pagination={false}
+        rowSelection={rowSelection}
+      />
       <Button
         type="primary"
         style={{ marginTop: 8 }}
@@ -218,11 +212,13 @@ function Cart() {
       <Row gutter={20}>
         <Col span={12}>Chính sách mua hàng</Col>
         <Col span={12}>
-          <CartOrder
-            listProductCart={listProductCart}
-            total={total}
-            onSubmit={handleSubmit}
-          />
+          {listProductSelect.length > 0 && (
+            <CartOrder
+              listProductCart={listProductSelect}
+              total={total}
+              onSubmit={handleSubmit}
+            />
+          )}
         </Col>
       </Row>
     </div>

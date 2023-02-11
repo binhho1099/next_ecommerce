@@ -1,5 +1,3 @@
-import React from 'react';
-
 export interface IProduct {
   brand: string;
   category: string;

@@ -1,38 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { IProduct } from 'interfaces/product';
 import { CartProduct } from './cartSlice';
-
-interface InfoPayment {
-  username: string;
-  address: string;
-  numberphone: string;
-  email: string;
-}
+import { InfoPayment } from 'interfaces/cart';
 
 interface Payment {
   info: InfoPayment;
-  total: number;
   cart: CartProduct[];
 }
 
 interface PaymentSlice {
   listPaid: Payment[];
-  paymentInfo: Payment;
+  listPayment: CartProduct[];
 }
 
 const initialState: PaymentSlice = {
   listPaid: [],
-  paymentInfo: {
-    info: {
-      email: '',
-      address: '',
-      numberphone: '',
-      username: '',
-    },
-    cart: [],
-    total: 0,
-  },
+  listPayment: [],
 };
 
 export const paymentSlice = createSlice({
@@ -40,24 +23,39 @@ export const paymentSlice = createSlice({
   initialState,
   reducers: {
     addCartPayment: (state, action: PayloadAction<CartProduct[]>) => {
-      state.paymentInfo.cart = action.payload;
+      state.listPayment = action.payload;
     },
     removeCartPayment: (state, action: PayloadAction<number>) => {
-      const newData = state.paymentInfo.cart.filter(
+      const newData = state.listPayment.filter(
         item => item.product.id !== action.payload
       );
-      state.paymentInfo.cart = newData;
+      state.listPayment = newData;
     },
     changeQuantityCartPayment: (
       state,
       action: PayloadAction<{ id: number; quantity: number }>
     ) => {
-      const index = state.paymentInfo.cart.findIndex(
+      const index = state.listPayment.findIndex(
         item => item.product.id === action.payload.id
       );
-      const copyArr = [...state.paymentInfo.cart];
+      const copyArr = [...state.listPayment];
       copyArr[index].quantity += action.payload.quantity;
-      state.paymentInfo.cart = copyArr;
+      state.listPayment = copyArr;
+    },
+    setQuantityCartPayment: (
+      state,
+      action: PayloadAction<{ id: number; quantity: number }>
+    ) => {
+      const index = state.listPayment.findIndex(
+        item => item.product.id === action.payload.id
+      );
+      const copyArr = [...state.listPayment];
+      copyArr[index].quantity = action.payload.quantity;
+      state.listPayment = copyArr;
+    },
+    addListPaid: (state, action: PayloadAction<Payment>) => {
+      state.listPaid.push(action.payload);
+      state.listPayment = [];
     },
     resetPayment: state => {
       return state;
@@ -70,6 +68,8 @@ export const {
   resetPayment,
   removeCartPayment,
   changeQuantityCartPayment,
+  setQuantityCartPayment,
+  addListPaid,
 } = paymentSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type

@@ -1,22 +1,24 @@
 import FormPayment from '@/components/shared/FormPayment';
 import { DeleteOutlined, RightOutlined } from '@ant-design/icons';
-import { Button, Input, InputNumber } from 'antd';
+import { Button, Input, InputNumber, Popconfirm } from 'antd';
+import { InfoPayment } from 'interfaces/cart';
 import { IProduct } from 'interfaces/product';
 import { Product } from 'models/product';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React, { useMemo } from 'react';
+import React, { ElementRef, useMemo, useRef } from 'react';
+import { toast } from 'react-toastify';
 import {
+  addListPaid,
   changeQuantityCartPayment,
   removeCartPayment,
+  setQuantityCartPayment,
 } from 'store/Slices/paymentSlice';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 
 function Payment() {
   const router = useRouter();
-  const listCartPayment = useAppSelector(
-    state => state.payment.paymentInfo.cart
-  );
+  const listCartPayment = useAppSelector(state => state.payment.listPayment);
   const dispatch = useAppDispatch();
 
   if (listCartPayment.length <= 0) {
@@ -31,12 +33,25 @@ function Payment() {
     return total;
   }, [listCartPayment]);
 
+  type FormPaymentRef = ElementRef<typeof FormPayment>;
+  const formRef = useRef<FormPaymentRef>(null);
+
   const handleChangeQuantity = (id: number, quantity: number) => {
     const data = {
       id,
       quantity,
     };
     dispatch(changeQuantityCartPayment(data));
+  };
+
+  const handlePayment = (value: InfoPayment) => {
+    const data = {
+      info: value,
+      cart: listCartPayment,
+    };
+    dispatch(addListPaid(data));
+    toast.success('Thanh toán thành công!');
+    router.push('/');
   };
 
   return (
@@ -56,7 +71,7 @@ function Payment() {
                 const { product, quantity } = item;
                 const modelProduct = new Product(product);
                 return (
-                  <div className="payment-item">
+                  <div className="payment-item" key={product.id}>
                     <div className="payment-item__left">
                       <div
                         style={{
@@ -71,14 +86,23 @@ function Payment() {
                           fill
                         />
                       </div>
-                      <Button
-                        type="link"
-                        danger
-                        onClick={() => dispatch(removeCartPayment(product.id))}
+                      <Popconfirm
+                        title={
+                          <p>
+                            Bạn muốn xóa <b>{product.title}</b> khỏi giỏ hàng?
+                          </p>
+                        }
+                        onConfirm={() =>
+                          dispatch(removeCartPayment(product.id))
+                        }
+                        okText="Yes"
+                        cancelText="No"
                       >
-                        <DeleteOutlined />
-                        Xóa
-                      </Button>
+                        <Button type="link" danger>
+                          <DeleteOutlined />
+                          Xóa
+                        </Button>
+                      </Popconfirm>
                     </div>
                     <div className="payment-item__center">
                       <div>
@@ -112,8 +136,16 @@ function Payment() {
                           value={quantity}
                           controls={false}
                           min={1}
-                          // onChange={value => setQuantity(value!)}
-                          max={9}
+                          onChange={value => {
+                            const valueType = Number(value) || 1;
+                            dispatch(
+                              setQuantityCartPayment({
+                                id: product.id,
+                                quantity: valueType,
+                              })
+                            );
+                          }}
+                          max={product.stock}
                           style={{ width: 45 }}
                         />
                         <Button
@@ -134,7 +166,7 @@ function Payment() {
           </div>
         </div>
         <div className="payment-info">
-          <FormPayment />
+          <FormPayment ref={formRef} onPayment={handlePayment} />
         </div>
         <div className="payment-total">
           <h3>Tổng cộng: </h3>
@@ -147,6 +179,7 @@ function Payment() {
             size="large"
             type="primary"
             style={{ fontWeight: 700 }}
+            onClick={() => formRef.current?.onSubmit()}
           >
             Tiến hành đặt hàng và thanh toán
           </Button>

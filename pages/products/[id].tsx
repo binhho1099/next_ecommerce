@@ -1,15 +1,11 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
-import { useRouter } from 'next/router';
 import React, { useEffect, useMemo, useState } from 'react';
 import { PRODUCT_ENDPOINT } from '../../enums/endpoint';
-import { Axios } from '../../utils/axios';
 import { IProduct } from '../../interfaces/product';
-import Image from 'next/image';
 import { Button, Col, InputNumber, Row } from 'antd';
 import { ShoppingFilled, HeartFilled } from '@ant-design/icons';
 import Slider from 'react-slick';
 import ProductItem from '@/components/shared/productItem/ProductItem';
-import Link from 'next/link';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import {
   addOrRemoveProductFavorite,
@@ -23,7 +19,6 @@ interface Props {
 }
 
 function ProductId({ product }: Props) {
-  const router = useRouter();
   const [relatedProducts, setRelatedProducts] = useState<IProduct[]>([]);
   const [quantity, setQuantity] = useState<number>(1);
 
