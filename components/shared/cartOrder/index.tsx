@@ -26,8 +26,8 @@ function CartOrder({ listProductCart, total, onSubmit }: any) {
               key={prod.product.id}
               className="cart-order__item cart-order__item-product"
             >
-              <div>
-                {prod.product.title} <span>x {prod.quantity}</span>
+              <div className="cart-order__item-product--name">
+                <p>{prod.product.title}</p> <span>x {prod.quantity}</span>
               </div>
               <div>{productModel.subTotal(prod.quantity)}</div>
             </li>
@@ -56,6 +56,7 @@ function CartOrder({ listProductCart, total, onSubmit }: any) {
           block
           icon={<DollarOutlined />}
           onClick={onSubmit}
+          disabled={listProductCart.length === 0}
         >
           Thanh toán
         </Button>

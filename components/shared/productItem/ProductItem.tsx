@@ -1,5 +1,5 @@
-import { Card, Badge, Rate, Button } from 'antd';
-import React, { useMemo } from 'react';
+import { Card, Badge, Rate, Button, Tooltip } from 'antd';
+import React, { MouseEvent, useMemo } from 'react';
 import { IProduct } from '../../../interfaces/product';
 import Image from 'next/image';
 import { Product } from 'models/product';
@@ -10,15 +10,30 @@ import {
 } from '@ant-design/icons';
 import Link from 'next/link';
 import { useDispatch } from 'react-redux';
-import { addProductToCart } from 'store/Slices/cartSlice';
+import {
+  addOrRemoveProductFavorite,
+  addProductToCart,
+} from 'store/Slices/cartSlice';
 import { toast } from 'react-toastify';
+import { useAppSelector } from 'store/hooks';
+import { addCartPayment } from 'store/Slices/paymentSlice';
+import { useRouter } from 'next/router';
 interface ProductProps {
   product: IProduct;
+  favorite?: boolean;
 }
 
-function ProductItem({ product }: ProductProps) {
+function ProductItem({ product, favorite }: ProductProps) {
+  const router = useRouter();
   const modelProduct = new Product(product);
   const dispatch = useDispatch();
+  const listFavorite = useAppSelector(
+    state => state.cart.listProductFavorite
+  ) as IProduct[];
+
+  const isFavorite = useMemo(() => {
+    return listFavorite.some(idProduct => idProduct.id === product.id);
+  }, [listFavorite, product.id]);
 
   const handleAddToCart = (product: IProduct, quantity: number) => {
     const data = {
@@ -31,6 +46,16 @@ function ProductItem({ product }: ProductProps) {
         Bạn đã thêm <b>{product.title}</b> vào giỏ hàng
       </p>
     );
+  };
+
+  const handleProductFavorite = (e: MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    dispatch(addOrRemoveProductFavorite(product));
+  };
+
+  const handleBuyNow = () => {
+    dispatch(addCartPayment([{ product, quantity: 1 }]));
+    router.push('/payment');
   };
 
   return (
@@ -75,25 +100,35 @@ function ProductItem({ product }: ProductProps) {
             <div className="product-item-body__bottom">
               <div>
                 <div className="product-item-old-price">
-                  {modelProduct.handlePriceOld()}
+                  {modelProduct.handlePriceOld() + 'đ'}
                 </div>
                 <div className="product-item-new-price">
-                  {modelProduct.handlePrice()}
+                  {modelProduct.handlePrice() + 'đ'}
                 </div>
               </div>
-              <div className="product-item-body__bottom-heart">
-                <HeartOutlined className="heart-outline" />
-                <HeartFilled
-                  className="heart-fill"
-                  onClick={e => e.preventDefault()}
-                />
-              </div>
+              {!favorite && (
+                <div className="product-item-body__bottom-heart">
+                  <Tooltip title="Yêu thích">
+                    {isFavorite ? (
+                      <HeartFilled
+                        className="heart-fill"
+                        onClick={handleProductFavorite}
+                      />
+                    ) : (
+                      <HeartOutlined
+                        className="heart-outline"
+                        onClick={handleProductFavorite}
+                      />
+                    )}
+                  </Tooltip>
+                </div>
+              )}
             </div>
           </div>
         </Link>
 
         <div className="product-item__function">
-          <Button type="primary" block>
+          <Button type="primary" block onClick={handleBuyNow}>
             Mua ngay
           </Button>
           <Button block onClick={() => handleAddToCart(product, 1)}>

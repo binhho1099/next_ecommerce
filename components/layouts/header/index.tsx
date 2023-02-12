@@ -43,7 +43,6 @@ const DefaultHeader = ({ dataCategories }: HeaderType) => {
     if (focus) {
       fetchData();
     }
-    console.log(focus);
   }, [debounce, focus]);
 
   const fetchData = async () => {
@@ -127,7 +126,7 @@ const DefaultHeader = ({ dataCategories }: HeaderType) => {
           <div className="header-top">
             <div className="header-logo">
               <Link href="/">
-                <h1>BinhHo Ecommerce</h1>
+                <h1>BinhHoEcommerce.com</h1>
               </Link>
               <div className="header-tools__mobile">
                 <Badge
@@ -175,7 +174,11 @@ const DefaultHeader = ({ dataCategories }: HeaderType) => {
                   Lịch sử mua hàng
                 </Button>
               </Link>
-              <Button type="primary" className="header-btn">
+              <Button
+                type="primary"
+                className="header-btn"
+                onClick={() => (window.location.href = `tel:1900 0000`)}
+              >
                 <PhoneFilled />
                 1900 0000
               </Button>

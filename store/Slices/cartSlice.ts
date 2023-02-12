@@ -2,15 +2,11 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../index';
 import { IProduct } from 'interfaces/product';
-
-export interface CartProduct {
-  product: IProduct;
-  quantity: number;
-}
+import { CartProduct } from 'interfaces/cart';
 
 interface CartSlice {
   listProducts: CartProduct[];
-  listProductFavorite: number[];
+  listProductFavorite: IProduct[];
 }
 
 const initialState: CartSlice = {
@@ -37,15 +33,20 @@ export const cartSlice = createSlice({
         productCart => productCart.product.id !== action.payload
       );
     },
+    removeMultiProductToCart: (state, action: PayloadAction<number[]>) => {
+      state.listProducts = state.listProducts.filter(
+        productCart => !action.payload.includes(productCart.product.id)
+      );
+    },
     changeQuantityProductToCart: (state, action: PayloadAction<any>) => {
       const indexList = state.listProducts.findIndex(
         x => x.product.id === action.payload.id
       );
       state.listProducts[indexList].quantity = action.payload.quantity;
     },
-    addOrRemoveProductFavorite: (state, action: PayloadAction<number>) => {
+    addOrRemoveProductFavorite: (state, action: PayloadAction<IProduct>) => {
       const indexList = state.listProductFavorite.findIndex(
-        product => product === action.payload
+        product => product.id === action.payload.id
       );
       if (indexList === -1) {
         state.listProductFavorite.push(action.payload);
@@ -53,6 +54,7 @@ export const cartSlice = createSlice({
         state.listProductFavorite.splice(indexList, 1);
       }
     },
+    resetCart: () => initialState,
   },
 });
 
@@ -61,6 +63,8 @@ export const {
   removeProductToCart,
   addOrRemoveProductFavorite,
   changeQuantityProductToCart,
+  removeMultiProductToCart,
+  resetCart,
 } = cartSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type

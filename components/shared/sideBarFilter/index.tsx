@@ -13,7 +13,7 @@ function SideBarFilter({ onFilterCategory, toFilter, filterCategory }: any) {
 
   useEffect(() => {
     toFilter(filter.evaluate, filter.price);
-  }, [filter.evaluate, filter.price, filterCategory]);
+  }, [filter.evaluate, filter.price, filterCategory, toFilter]);
 
   const fetchListCategory = async () => {
     const res = await fetch('https://dummyjson.com/products/categories');
@@ -24,6 +24,10 @@ function SideBarFilter({ onFilterCategory, toFilter, filterCategory }: any) {
     }));
 
     setListCategory(options);
+  };
+
+  const handleClearFilter = (filed: string) => {
+    setFilter({ ...filter, [filed]: [] });
   };
 
   return (
@@ -48,7 +52,12 @@ function SideBarFilter({ onFilterCategory, toFilter, filterCategory }: any) {
       <div className="filter-group">
         <div className="filter-title">
           <h3>Đánh giá</h3>
-          <span className="filter-clear">Xóa tất cả</span>
+          <span
+            className="filter-clear"
+            onClick={() => handleClearFilter('evaluate')}
+          >
+            Xóa
+          </span>
         </div>
         <div className="filter-form">
           <Checkbox.Group
@@ -56,6 +65,7 @@ function SideBarFilter({ onFilterCategory, toFilter, filterCategory }: any) {
             onChange={checkedValue =>
               setFilter((prev: any) => ({ ...prev, evaluate: checkedValue }))
             }
+            value={filter.evaluate}
           >
             <Checkbox className="filter-checkbox" value={1}>
               1 sao
@@ -79,7 +89,12 @@ function SideBarFilter({ onFilterCategory, toFilter, filterCategory }: any) {
       <div className="filter-group">
         <div className="filter-title">
           <h3>Khoảng giá</h3>
-          <span className="filter-clear">Xóa tất cả</span>
+          <span
+            className="filter-clear"
+            onClick={() => handleClearFilter('price')}
+          >
+            Xóa
+          </span>
         </div>
         <div className="filter-form">
           <Checkbox.Group
@@ -87,6 +102,7 @@ function SideBarFilter({ onFilterCategory, toFilter, filterCategory }: any) {
             onChange={checkedValue =>
               setFilter((prev: any) => ({ ...prev, price: checkedValue }))
             }
+            value={filter.price}
           >
             <Checkbox className="filter-checkbox" value={1}>
               {'< 1 triệu'}

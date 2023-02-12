@@ -1,13 +1,14 @@
 import FormPayment from '@/components/shared/FormPayment';
 import { DeleteOutlined, RightOutlined } from '@ant-design/icons';
-import { Button, Input, InputNumber, Popconfirm } from 'antd';
+import { Button, Empty, Input, InputNumber, Popconfirm, Result } from 'antd';
 import { InfoPayment } from 'interfaces/cart';
 import { IProduct } from 'interfaces/product';
 import { Product } from 'models/product';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React, { ElementRef, useMemo, useRef } from 'react';
+import React, { ElementRef, useMemo, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
+import { removeMultiProductToCart } from 'store/Slices/cartSlice';
 import {
   addListPaid,
   changeQuantityCartPayment,
@@ -20,10 +21,7 @@ function Payment() {
   const router = useRouter();
   const listCartPayment = useAppSelector(state => state.payment.listPayment);
   const dispatch = useAppDispatch();
-
-  if (listCartPayment.length <= 0) {
-    router.push('/');
-  }
+  const [isPaid, setIsPaid] = useState<boolean>(false);
 
   const total = useMemo(() => {
     const sum = listCartPayment.reduce((result: any, current: any): any => {
@@ -49,10 +47,49 @@ function Payment() {
       info: value,
       cart: listCartPayment,
     };
+    const listId = listCartPayment.map((item: any) => item.product.id);
     dispatch(addListPaid(data));
+    dispatch(removeMultiProductToCart(listId));
     toast.success('Thanh toán thành công!');
-    router.push('/');
+    setIsPaid(true);
   };
+
+  if (listCartPayment.length === 0 && !isPaid) {
+    return (
+      <div>
+        <Empty
+          image={Empty.PRESENTED_IMAGE_SIMPLE}
+          description="Hiện không có sản phẩm thanh toán"
+        >
+          <Button type="primary" onClick={() => router.push('/cart')}>
+            Đến trang giỏ hàng
+          </Button>
+        </Empty>
+      </div>
+    );
+  }
+
+  if (isPaid) {
+    return (
+      <Result
+        status="success"
+        title="Thanh toán thành công"
+        subTitle="Chúng tôi sẽ liên hệ đến bạn để xác nhận đơn hàng, cám ơn đã đặt hàng tại BinhHo Ecommerce"
+        extra={[
+          <Button key="home" onClick={() => router.push('/')}>
+            Về trang chủ
+          </Button>,
+          <Button
+            key="buy"
+            type="primary"
+            onClick={() => router.push('/products')}
+          >
+            Tiếp tục mua hàng
+          </Button>,
+        ]}
+      />
+    );
+  }
 
   return (
     <div className="layout">
@@ -60,7 +97,7 @@ function Payment() {
         <div className="payment-cart">
           <div className="payment-heading">
             <h1 className="payment-title">Thanh toán</h1>
-            <Button type="link" onClick={() => router.push('/product')}>
+            <Button type="link" onClick={() => router.push('/products')}>
               Mua thêm sản phẩm khác
               <RightOutlined />
             </Button>

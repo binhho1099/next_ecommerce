@@ -82,6 +82,7 @@
     border: 1px solid $border-color;
     border-bottom-left-radius: $radius-medium;
     border-bottom-right-radius: $radius-medium;
+    background-color: $white-color;
 
     &__top {
       display: flex;
@@ -101,16 +102,16 @@
         justify-content: center;
         align-items: center;
 
-        & .heart-fill {
-          display: none;
-        }
+        // & .heart-fill {
+        //   display: none;
+        // }
 
-        &:hover .heart-fill {
-          display: block;
-        }
-        &:hover .heart-outline {
-          display: none;
-        }
+        // &:hover .heart-fill {
+        //   display: block;
+        // }
+        // &:hover .heart-outline {
+        //   display: none;
+        // }
       }
     }
   }

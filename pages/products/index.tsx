@@ -83,10 +83,10 @@ function Products({ data }: any) {
       ?.filter(product =>
         evaluate.length > 0
           ? Math.floor(product.rating) === evaluate[0] ||
-            evaluate[1] ||
-            evaluate[2] ||
-            evaluate[3] ||
-            evaluate[4]
+            Math.floor(product.rating) === evaluate[1] ||
+            Math.floor(product.rating) === evaluate[2] ||
+            Math.floor(product.rating) === evaluate[3] ||
+            Math.floor(product.rating) === evaluate[4]
           : true
       )
       .filter(product => {

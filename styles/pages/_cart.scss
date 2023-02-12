@@ -1,16 +1,4 @@
 .cart {
-  background-color: $white-color;
-  padding: 10px;
-  margin-top: 10px;
-  border-radius: 4px;
-
-  &-heading {
-    text-align: center;
-    font-size: 36px;
-    color: $heading-color;
-    text-transform: uppercase;
-  }
-
   &-table {
     &__quantity {
       display: flex;
@@ -32,6 +20,16 @@
       .ant-table-cell.ant-table-cell-row-hover & {
         display: block;
       }
+    }
+
+    &__title-product h3 {
+      @include text($font-medium, $text-color, 500, $font-heading, 2);
+    }
+
+    &__top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
   }
 

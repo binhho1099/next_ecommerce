@@ -25,12 +25,12 @@ function ProductId({ product }: Props) {
   const dispatch = useAppDispatch();
   const listFavorite = useAppSelector(
     state => state.cart.listProductFavorite
-  ) as number[];
+  ) as IProduct[];
 
   const productModel = new Product(product);
 
   const isFavorite = useMemo(() => {
-    return listFavorite.some(idProduct => idProduct === product.id);
+    return listFavorite.some(idProduct => idProduct.id === product.id);
   }, [listFavorite, product.id]);
 
   useEffect(() => {
@@ -92,7 +92,7 @@ function ProductId({ product }: Props) {
   };
 
   const handleProductFavorite = () => {
-    dispatch(addOrRemoveProductFavorite(product.id));
+    dispatch(addOrRemoveProductFavorite(product));
   };
 
   return (

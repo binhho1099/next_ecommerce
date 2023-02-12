@@ -1,15 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { CartProduct } from './cartSlice';
-import { InfoPayment } from 'interfaces/cart';
-
-interface Payment {
-  info: InfoPayment;
-  cart: CartProduct[];
-}
+import { CartProduct, InfoPayment, Paid } from 'interfaces/cart';
+import { uuid } from 'uuidv4';
+import dayjs from 'dayjs';
 
 interface PaymentSlice {
-  listPaid: Payment[];
+  listPaid: Paid[];
   listPayment: CartProduct[];
 }
 
@@ -53,13 +49,15 @@ export const paymentSlice = createSlice({
       copyArr[index].quantity = action.payload.quantity;
       state.listPayment = copyArr;
     },
-    addListPaid: (state, action: PayloadAction<Payment>) => {
-      state.listPaid.push(action.payload);
+    addListPaid: (
+      state,
+      action: PayloadAction<{ info: InfoPayment; cart: CartProduct[] }>
+    ) => {
+      const data = { ...action.payload, id: uuid(), paidAt: dayjs().valueOf() };
+      state.listPaid.push(data);
       state.listPayment = [];
     },
-    resetPayment: state => {
-      return state;
-    },
+    resetPayment: () => initialState,
   },
 });
 

@@ -33,7 +33,15 @@
     }
   }
   &-logo {
-    color: $secondary-color;
+    flex-basis: 25%;
+
+    & h1 {
+      color: $primary-color-700;
+      padding: 10px 15px;
+      background-color: $black-color;
+      border-radius: $radius-small;
+      width: max-content;
+    }
 
     @include tablet {
       display: flex;
@@ -45,6 +53,7 @@
 
   &-tools {
     @extend .header-top;
+    gap: 10px;
     @include tablet {
       display: none;
     }

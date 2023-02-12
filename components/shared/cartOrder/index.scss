@@ -43,6 +43,20 @@
         font-weight: 400;
         line-height: 24px;
         padding: 8px 0;
+        gap: 30px;
+
+        & .cart-order__item-product--name {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+
+          & p {
+            @include text($font-medium, $text-color, 400, $font-heading, 1);
+          }
+          & span {
+            flex-shrink: 0;
+          }
+        }
 
         & span {
           font-weight: 500;

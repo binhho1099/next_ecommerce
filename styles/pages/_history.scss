@@ -1,0 +1,102 @@
+.history {
+  padding: 20px 0 40px 0;
+  &-wrap {
+    background-color: $white-color;
+    padding: 8px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+  }
+  &-item {
+    margin-bottom: $margin-small;
+    &__title {
+      width: 100%;
+      @include text($font-medium, $heading-color, 700, $font-heading, 1);
+    }
+
+    &__info {
+      display: flex;
+      justify-content: space-between;
+
+      &--left {
+        & p:first-child {
+          font-size: $font-small;
+          color: $text-color;
+        }
+        & p:nth-child(2) {
+          font-size: $font-small;
+          color: $text-color;
+        }
+
+        & span {
+          font-weight: 500;
+        }
+      }
+
+      &--right {
+        text-align: right;
+
+        & p:first-child {
+          font-size: $font-small;
+          color: $sub-heading-color;
+          text-decoration: line-through;
+        }
+        & p:nth-child(2) {
+          font-size: $font-medium;
+          color: $title-color;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+
+  &-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin: 8px 0;
+    padding: 8px 0;
+    border-block: 1px solid $border-color;
+    & p {
+      @include text($font-medium, $text-color, 400, $font-heading, 1);
+    }
+
+    & span {
+      font-size: 20px;
+      font-weight: 700;
+      color: $red-color;
+    }
+  }
+
+  &-functions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &-time {
+    @include text($font-small, $text-color, 400, $font-large, 1);
+    padding-bottom: 8px;
+    border-bottom: 1px solid $border-color;
+    margin-bottom: 8px;
+  }
+
+  &-overview {
+    padding: 10px;
+    background-color: $white-color;
+    border-radius: $radius-medium;
+    position: sticky;
+    top: 10px;
+
+    &__title {
+      @include text($font-large, $heading-color, 500, $font-heading, 1);
+      text-align: center;
+    }
+
+    &__list {
+      font-size: $font-medium;
+      color: $text-color;
+    }
+  }
+}

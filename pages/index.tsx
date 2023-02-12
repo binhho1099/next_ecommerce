@@ -10,8 +10,6 @@ interface HomeType {
 }
 
 export default function Home() {
-  // console.log('dataCategories', dataCategories);
-
   return (
     <>
       <Head>

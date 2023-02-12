@@ -92,14 +92,31 @@ $desktop-width: 1400px;
     height: auto;
     border-color: $red-color;
     color: $red-color;
+
     &.favorite {
       background-color: #f64f59;
       color: $white-color;
-    }
 
-    &:hover {
-      background-color: #f64f59;
-      color: $white-color !important;
+      &:hover {
+        background-color: #f64f59;
+        color: $white-color !important;
+        border-color: $red-color;
+      }
     }
   }
+}
+
+.page-container {
+  background-color: $white-color;
+  padding: 20px 10px 40px 10px;
+  margin-top: 10px;
+  border-radius: 4px;
+}
+
+.page-heading {
+  text-align: center;
+  font-size: 36px;
+  color: $heading-color;
+  text-transform: uppercase;
+  margin-bottom: 8px;
 }
