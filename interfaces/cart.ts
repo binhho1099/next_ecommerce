@@ -16,4 +16,5 @@ export interface Paid {
   info: InfoPayment;
   cart: CartProduct[];
   paidAt: number;
+  total: number;
 }

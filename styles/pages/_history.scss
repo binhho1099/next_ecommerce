@@ -97,6 +97,11 @@
     &__list {
       font-size: $font-medium;
       color: $text-color;
+
+      & span {
+        color: $title-color;
+        font-weight: 500;
+      }
     }
   }
 }

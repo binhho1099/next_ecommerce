@@ -1,6 +1,6 @@
 .payment {
   max-width: 800px;
-  margin: 20px auto;
+  margin: auto;
   background-color: $white-color;
   border-radius: $radius-medium;
   padding: 16px;
@@ -13,7 +13,6 @@
 
   &-title {
     @include text($font-heading, $heading-color, 700, $font-heading, 1);
-    padding-bottom: 20px;
   }
 
   &-subtotal {

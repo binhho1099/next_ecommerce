@@ -2,15 +2,54 @@ import { Button, Col, Empty, Row } from 'antd';
 import { Paid } from 'interfaces/cart';
 import { Product } from 'models/product';
 import Image from 'next/image';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import dayjs from 'dayjs';
 import { useRouter } from 'next/router';
+import { addCartPayment } from 'store/Slices/paymentSlice';
 
 function PurchaseHistory() {
   const router = useRouter();
   const listPaid = useAppSelector(state => state.payment.listPaid);
   const dispatch = useAppDispatch();
+
+  const TongCong = useMemo(() => {
+    const total = listPaid.reduce(
+      (item: any, current: any) => current.total + item,
+      0
+    );
+    return total;
+  }, [listPaid]);
+
+  const TongSanPham = useMemo(() => {
+    const total = listPaid.reduce((item: number, current: any) => {
+      const sum = current.cart.reduce((cart: number, cur: any) => {
+        return cart + cur.quantity;
+      }, 0);
+      return item + sum;
+    }, 0);
+    return total;
+  }, [listPaid]);
+
+  const rePurchase = (cart: any) => {
+    dispatch(addCartPayment(cart));
+    router.push('/payment');
+  };
+
+  if (listPaid.length === 0) {
+    return (
+      <div>
+        <Empty
+          image={Empty.PRESENTED_IMAGE_SIMPLE}
+          description="Lịch sử mua hàng trống"
+        >
+          <Button type="primary" onClick={() => router.push('/products')}>
+            Đến trang mua sắm
+          </Button>
+        </Empty>
+      </div>
+    );
+  }
 
   return (
     <div className="layout history">
@@ -18,11 +57,20 @@ function PurchaseHistory() {
       <Row gutter={20}>
         <Col span={8}>
           <div className="history-overview">
-            <h3 className="history-overview__title">Tổng quan tài khoản</h3>
+            <h3 className="history-overview__title">
+              Tổng quan lịch sử mua hàng
+            </h3>
             <div className="history-overview__list">
-              <p>Lần mua hàng: {listPaid.length} lần</p>
-              <p>Tổng tiền chi trả: {listPaid.length}</p>
-              <p>Chưa biết thêm thông tin gì</p>
+              <p>
+                Tổng số lần mua hàng: <span>{listPaid.length}</span> lần
+              </p>
+              <p>
+                Tổng tiền chi trả: <span>{TongCong.toLocaleString('vi')}</span>{' '}
+                đ
+              </p>
+              <p>
+                Tổng sản phẩm đã mua: <span>{TongSanPham}</span> sản phẩm
+              </p>
             </div>
           </div>
         </Col>
@@ -98,13 +146,13 @@ function PurchaseHistory() {
                     })}
                   </div>
                   <div className="history-summary">
-                    <p>({cart.length} sản phẩm)</p>
+                    <p>{cart.length} sản phẩm</p>
                     <p>
                       Tổng Cộng: <span>{total}đ</span>
                     </p>
                   </div>
                   <div className="history-functions">
-                    <Button type="primary" disabled>
+                    <Button type="primary" onClick={() => rePurchase(cart)}>
                       Mua lần nữa
                     </Button>
                     <Button disabled>Xem chi tiết</Button>

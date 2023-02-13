@@ -51,9 +51,17 @@ export const paymentSlice = createSlice({
     },
     addListPaid: (
       state,
-      action: PayloadAction<{ info: InfoPayment; cart: CartProduct[] }>
+      action: PayloadAction<{
+        info: InfoPayment;
+        cart: CartProduct[];
+        total: number;
+      }>
     ) => {
-      const data = { ...action.payload, id: uuid(), paidAt: dayjs().valueOf() };
+      const data = {
+        ...action.payload,
+        id: uuid(),
+        paidAt: dayjs().valueOf(),
+      };
       state.listPaid.push(data);
       state.listPayment = [];
     },

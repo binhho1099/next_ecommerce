@@ -30,7 +30,7 @@ function FavoriteProduct() {
             <Empty
               image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
               imageStyle={{ margin: '0 auto' }}
-              description={<span>Không có sản phẩm yêu thích</span>}
+              description="Sản phẩm yêu thích trống"
               style={{ margin: 'auto' }}
             ></Empty>
           )}

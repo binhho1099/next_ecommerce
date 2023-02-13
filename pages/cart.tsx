@@ -197,7 +197,7 @@ function Cart() {
 
   if (listProductCart.length === 0) {
     return (
-      <div>
+      <div className="section">
         <Empty
           image={Empty.PRESENTED_IMAGE_SIMPLE}
           description="Giỏ hàng trống"
@@ -211,7 +211,14 @@ function Cart() {
   }
 
   const handleSubmit = () => {
-    dispatch(addCartPayment(listProductSelect));
+    const data = listProductSelect.map(item => {
+      const { product, quantity } = item;
+      return {
+        product,
+        quantity,
+      };
+    });
+    dispatch(addCartPayment(data));
     router.push('/payment');
   };
 
@@ -229,9 +236,8 @@ function Cart() {
   };
 
   return (
-    <div className="layout cart page-container">
+    <div className="layout cart page-container section">
       <h2 className="cart-heading page-heading">Giỏ hàng</h2>
-
       <Row gutter={10}>
         <Col span={16}>
           <div className="cart-table__top">

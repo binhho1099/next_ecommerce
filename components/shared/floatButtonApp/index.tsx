@@ -21,9 +21,22 @@ function FloatButtonApp() {
   }, [router.pathname]);
 
   return (
-    <FloatButton.Group shape="circle" style={{ right: 30, bottom: 30 }}>
+    <FloatButton.Group
+      shape="circle"
+      style={{
+        right: 30,
+        bottom: 30,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 10,
+      }}
+    >
       <Tooltip title="Lên đầu trang" placement="left">
-        <FloatButton.BackTop visibilityHeight={200} type="primary" />
+        <FloatButton.BackTop
+          visibilityHeight={200}
+          type="primary"
+          style={{ marginBottom: 0 }}
+        />
       </Tooltip>
       {isCart && (
         <Tooltip title="Giỏ hàng" placement="left">
@@ -32,6 +45,7 @@ function FloatButtonApp() {
               icon={<ShoppingCartOutlined />}
               onClick={() => router.push('/cart')}
               type="primary"
+              style={{ marginBottom: 0 }}
             />
           </Badge>
         </Tooltip>

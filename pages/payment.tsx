@@ -27,8 +27,8 @@ function Payment() {
     const sum = listCartPayment.reduce((result: any, current: any): any => {
       return result + current.quantity * current.product.price * 23000 + 15000;
     }, 0);
-    const total = sum.toLocaleString('vi');
-    return total;
+    // const total = sum.toLocaleString('vi');
+    return sum;
   }, [listCartPayment]);
 
   type FormPaymentRef = ElementRef<typeof FormPayment>;
@@ -46,6 +46,7 @@ function Payment() {
     const data = {
       info: value,
       cart: listCartPayment,
+      total,
     };
     const listId = listCartPayment.map((item: any) => item.product.id);
     dispatch(addListPaid(data));
@@ -59,7 +60,7 @@ function Payment() {
       <div>
         <Empty
           image={Empty.PRESENTED_IMAGE_SIMPLE}
-          description="Hiện không có sản phẩm thanh toán"
+          description="Không có sản phẩm cần thanh toán"
         >
           <Button type="primary" onClick={() => router.push('/cart')}>
             Đến trang giỏ hàng
@@ -92,11 +93,11 @@ function Payment() {
   }
 
   return (
-    <div className="layout">
-      <div className="payment">
+    <div className="layout section">
+      <div className="payment ">
         <div className="payment-cart">
           <div className="payment-heading">
-            <h1 className="payment-title">Thanh toán</h1>
+            <h1 className="payment-title page-heading">Thanh toán</h1>
             <Button type="link" onClick={() => router.push('/products')}>
               Mua thêm sản phẩm khác
               <RightOutlined />
@@ -199,7 +200,7 @@ function Payment() {
           </div>
           <div className="payment-subtotal">
             <h3>Tạm tính: </h3>
-            <span>{total}đ</span>
+            <span>{total.toLocaleString('vi')}đ</span>
           </div>
         </div>
         <div className="payment-info">
@@ -207,7 +208,7 @@ function Payment() {
         </div>
         <div className="payment-total">
           <h3>Tổng cộng: </h3>
-          <span>{total}đ</span>
+          <span>{total.toLocaleString('vi')}đ</span>
         </div>
         <div>
           <Button

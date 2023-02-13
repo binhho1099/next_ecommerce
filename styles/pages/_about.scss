@@ -1,0 +1,64 @@
+.about {
+  &-title {
+    font-weight: 500;
+    font-size: $font-heading;
+    margin-bottom: 18px;
+    color: $primary-color-900;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    border-bottom: 2px solid $primary-color-700;
+    width: max-content;
+  }
+
+  &-list {
+    list-style: none;
+    padding-left: 20px;
+    & li {
+      font-size: $font-medium;
+      color: $text-color;
+      margin-bottom: 8px;
+      font-weight: 400;
+    }
+  }
+  &-overview {
+    &__title {
+      font-size: 50px;
+      text-align: center;
+    }
+    &__text {
+      font-size: $font-medium;
+
+      & p {
+        margin-bottom: 12px;
+      }
+    }
+
+    &__list {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    &__item {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+      text-align: center;
+      flex-basis: 20%;
+
+      &-text {
+        font-size: $font-large;
+        color: $heading-color;
+        text-transform: uppercase;
+      }
+
+      &-number {
+        font-size: 44px;
+        color: $title-color;
+        font-weight: 700;
+      }
+    }
+  }
+}

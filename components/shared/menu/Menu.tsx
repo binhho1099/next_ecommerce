@@ -1,7 +1,5 @@
-import { Dropdown, Popover } from 'antd';
 import Link from 'next/link';
 import React from 'react';
-import { CaretDownOutlined } from '@ant-design/icons';
 import { useRouter } from 'next/router';
 
 interface MenuProps {
@@ -14,19 +12,6 @@ function Menu({ items }: MenuProps) {
   return (
     <ul className="menu">
       {items.map((item: any) => {
-        const childrenLink: MenuProps['items'] =
-          item.childrens &&
-          item.childrens.map((children: any) => {
-            return {
-              key: children.id,
-              label: (
-                <div key={children.id} className="menu-item__child">
-                  <Link href={children.path}>{children.label}</Link>
-                </div>
-              ),
-            };
-          });
-
         return (
           <li
             key={item.id}
@@ -34,19 +19,7 @@ function Menu({ items }: MenuProps) {
               router.pathname === item.path ? 'active' : ''
             }`}
           >
-            {childrenLink ? (
-              <Dropdown
-                menu={{ items: childrenLink }}
-                placement="bottom"
-                overlayClassName="menu-item__dropdown"
-              >
-                <Link href={item.path}>
-                  {item.label} <CaretDownOutlined />
-                </Link>
-              </Dropdown>
-            ) : (
-              <Link href={item.path}>{item.label}</Link>
-            )}
+            <Link href={item.path}>{item.label}</Link>
           </li>
         );
       })}

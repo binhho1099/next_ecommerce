@@ -22,13 +22,7 @@ import Link from 'next/link';
 import { useAppSelector } from 'store/hooks';
 import useDebounce from 'hooks/useDebounce';
 
-const { Search } = Input;
-
-interface HeaderType {
-  dataCategories: string[];
-}
-
-const DefaultHeader = ({ dataCategories }: HeaderType) => {
+const DefaultHeader = () => {
   const router = useRouter();
   const [isOpenDrawer, setIsOpenDrawer] = useState<boolean>(false);
   const cart = useAppSelector(state => state.cart.listProducts);
@@ -97,13 +91,6 @@ const DefaultHeader = ({ dataCategories }: HeaderType) => {
       label: 'Sản phẩm',
       key: '/products',
       path: '/products',
-      childrens: dataCategories.map((category, index) => {
-        return {
-          id: `1.${index}`,
-          label: category,
-          path: `/products/${category}`,
-        };
-      }),
     },
     {
       id: 2,
