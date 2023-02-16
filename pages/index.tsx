@@ -4,6 +4,7 @@ import Banner from '../components/shared/banner/Banner';
 import SectionCart from '../components/shared/sectionCart';
 import SectionCart2 from '@/components/shared/sectionCart2';
 import { GetStaticProps } from 'next';
+import SectionCart3 from '@/components/shared/sectionCart3';
 
 interface HomeType {
   dataCategories: string[];
@@ -19,20 +20,24 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <section className="section">
+      <section className="section layout">
         <MainCarousel />
       </section>
 
-      <section className="section">
+      <section className="section layout">
         <Banner />
       </section>
 
-      <section className="section">
+      <section className="section layout">
         <SectionCart />
       </section>
 
-      <section className="section">
+      <section className="section layout">
         <SectionCart2 />
+      </section>
+
+      <section className="section layout">
+        <SectionCart3 />
       </section>
     </>
   );

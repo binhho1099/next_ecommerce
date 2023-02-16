@@ -133,6 +133,7 @@ function Cart() {
               value={data}
               controls={false}
               max={record.product.stock}
+              min={1}
               onChange={value => {
                 changeQuantity(record.product.id, value);
                 handleChangeQuantitySelect(record.product.id, value);
@@ -144,6 +145,7 @@ function Cart() {
                 changeQuantity(record.product.id, data + 1);
                 handleChangeQuantitySelect(record.product.id, data + 1);
               }}
+              disabled={data >= record.product.stock}
             >
               +
             </Button>

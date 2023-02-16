@@ -1,25 +1,34 @@
 import Image from 'next/image';
 import React from 'react';
 
-function CartType2() {
+interface CartType2Props {
+  title: string;
+  oldPrice: string;
+  newPrice: string;
+  stock: string;
+  image: string;
+}
+
+function CartType2({
+  title,
+  oldPrice,
+  newPrice,
+  stock,
+  image,
+}: CartType2Props) {
   return (
     <div className="cart-2__container">
       <div className="cart-2__price">
-        <div className="cart-2__price--old">150K</div>
-        <div className="cart-2__price--new">49K</div>
+        <div className="cart-2__price--old">{oldPrice}K</div>
+        <div className="cart-2__price--new">{newPrice}K</div>
       </div>
       <div className="cart-2__image">
-        <Image
-          fill
-          src="/images/cart-2.png"
-          alt=""
-          style={{ objectFit: 'cover' }}
-        />
+        <Image fill src={image} alt="" style={{ objectFit: 'cover' }} />
       </div>
-      <div className="cart-2__title">E-VOUCHER TẶNG PHẦN BEEFSTEAK CỠ VỪA</div>
+      <div className="cart-2__title">{title}</div>
       <div className="cart-2__buy">
         <span>ĐẶT NGAY</span>
-        <span>(còn 1 voucher)</span>
+        <span>(còn {stock} voucher)</span>
       </div>
     </div>
   );

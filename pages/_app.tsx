@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import 'antd/dist/reset.css';
 import '../components/index.scss';
 import '../styles/index.scss';
-import { ConfigProvider, theme } from 'antd';
+import { ConfigProvider } from 'antd';
 import { ToastContainer } from 'react-toastify';
 import { persistor, store } from '../store';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -24,7 +24,7 @@ export default function App({ Component, pageProps }: AppProps) {
           <Layout>
             <Component {...pageProps} />
             <ToastContainer
-              position="bottom-left"
+              position="top-right"
               autoClose={3000}
               hideProgressBar={false}
               newestOnTop={false}

@@ -8,7 +8,7 @@ interface Props {
   oldPrice: number;
   sold: number;
   total: number;
-  image?: string;
+  image: string;
   borderColor?: string;
   shadowColor?: string;
   type?: 'cart-special--0' | 'cart-special--1' | 'cart-special--2';
@@ -33,7 +33,7 @@ function CartSpecial({
       <div className="cart-special__contain">
         <div className="cart-special__image">
           <Image
-            src="/images/cart-1.png"
+            src={image}
             alt="image"
             fill
             style={{ objectFit: 'cover', borderRadius: 8 }}

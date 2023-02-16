@@ -120,11 +120,11 @@ function Products({ data }: any) {
 
   return (
     <>
-      <section className="section">
+      <section className="section layout">
         <Flashsale />
       </section>
 
-      <section className="section">
+      <section className="section layout">
         <div style={{ padding: 20, backgroundColor: '#fff', borderRadius: 8 }}>
           <TitleSection title="FREESHIP KHÔNG GIỚI HẠN" color="#F35801" />
           <Row gutter={[20, 20]}>
@@ -156,7 +156,7 @@ function Products({ data }: any) {
         </div>
       </section>
 
-      <section className="section">
+      <section className="section layout">
         <div></div>
         <Row gutter={4}>
           <Col xl={{ span: 5 }} sm={{ span: 0 }} xs={{ span: 0 }}>

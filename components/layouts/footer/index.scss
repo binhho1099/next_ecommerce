@@ -33,10 +33,10 @@
   &-list {
     @include tablet {
       flex-basis: 50%;
-      text-align: center;
+      text-align: left;
 
       & .footer-item {
-        justify-content: center;
+        justify-content: flex-start;
       }
     }
   }
@@ -139,7 +139,7 @@
         @include text($font-small, $white-color, 400, $font-large, 2);
       }
       & p:last-child {
-        @include text(12px, $white-color, 400, $font-small, 2);
+        @include text(12px, $white-color, 400, $font-medium, 2);
       }
     }
 

@@ -7,8 +7,17 @@
     display: flex;
     gap: 8px;
     align-items: center;
-    border-bottom: 2px solid $primary-color-700;
-    width: max-content;
+    width: 100%;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    & span {
+      font-size: 38px;
+      margin-right: 8px;
+    }
   }
 
   &-list {
@@ -52,6 +61,7 @@
         font-size: $font-large;
         color: $heading-color;
         text-transform: uppercase;
+        font-weight: 500;
       }
 
       &-number {

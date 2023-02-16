@@ -31,9 +31,10 @@ function SectionCart() {
             xs={{ span: 24 }}
           >
             <CardType1
-              title="Buffet lẩu nướng 4 người tại nhà hàng Sakachi"
-              price={75}
-              oldPrice={150}
+              image="/images/cart--iphone11.jpg"
+              title="Cảm thấy trong người 'Bồn Chồn' sắm ngay 'AI PHÔN'"
+              price={20000}
+              oldPrice={24000}
               sold={75}
               total={100}
             />
@@ -45,10 +46,11 @@ function SectionCart() {
             xs={{ span: 24 }}
           >
             <CardType1
-              title="Buffet lẩu nướng"
-              price={75}
-              oldPrice={150}
-              sold={75}
+              image="/images/cart--macbook.jpg"
+              title="Dừng lại một lúc, mua con Macbook"
+              price={40000}
+              oldPrice={44000}
+              sold={13}
               total={100}
             />
           </Col>
@@ -59,9 +61,10 @@ function SectionCart() {
             xs={{ span: 24 }}
           >
             <CardType1
-              title="Buffet lẩu nướng"
-              price={75}
-              oldPrice={150}
+              image="/images/cart--kinh.jpg"
+              title="Bí kíp thả 'THÍNH', mua ngay 'MẮT KÍNH'"
+              price={40.0}
+              oldPrice={44.0}
               sold={75}
               total={100}
             />

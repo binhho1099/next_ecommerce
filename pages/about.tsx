@@ -22,6 +22,7 @@ function About() {
                 position: 'relative',
                 width: '100%',
                 aspectRatio: '1/1',
+                marginBottom: 30,
               }}
             >
               <Image
@@ -30,25 +31,25 @@ function About() {
                 fill
               />
             </div>
-            <h2 className="about-overview__title">{`“Khách hàng là trọng tâm”`}</h2>
+            <h2 className="about-overview__title">{`“Khách hàng là thượng đế”`}</h2>
           </Col>
           <Col span={16}>
             <div className="about-overview__text">
               <h3 className="about-title">
                 <BookTwoTone twoToneColor="#F6851D" />
-                Là thành viên thuộc Tập đoàn công nghệ hàng đầu Việt Nam FPT
+                Tập đoàn công nghệ hàng đầu Việt Nam BinhHo Group
               </h3>
               <p>
-                Công ty Cổ phần Viễn thông FPT (tên gọi tắt là FPT Telecom) hiện
-                là một trong những nhà cung cấp dịch vụ Viễn thông và Internet
-                hàng đầu khu vực.
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure
+                praesentium voluptas animi! Aliquid et, commodi sunt ratione
+                debitis illum praesentium ab molestiae voluptates voluptatum. At
+                animi ipsa ipsam voluptas accusantium.
               </p>
               <p>
-                Thành lập ngày 31/01/1997, khởi nguồn từ Trung tâm Dịch vụ Trực
-                tuyến do 4 thành viên sáng lập cùng sản phẩm mạng Intranet đầu
-                tiên của Việt Nam mang tên “Trí tuệ Việt Nam - TTVN”, sản phẩm
-                được coi là đặt nền móng cho sự phát triển của Internet tại Việt
-                Nam.
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quod
+                temporibus architecto, quos vitae laboriosam autem expedita,
+                veritatis iure, accusamus eligendi at recusandae repudiandae?
+                Vitae perferendis cupiditate quod adipisci dolores eos!
               </p>
               <ul className="about-overview__list">
                 <li className="about-overview__item">
@@ -57,9 +58,7 @@ function About() {
                   <div className="about-overview__item-text">năm hoạt động</div>
                 </li>
                 <li className="about-overview__item">
-                  <div className="about-overview__item-text">
-                    FPT Telecom đã có hơn
-                  </div>
+                  <div className="about-overview__item-text">Đã có hơn</div>
                   <div className="about-overview__item-number">6.969</div>
                   <div className="about-overview__item-text">
                     NHÂN VIÊN CHÍNH THỨC
@@ -84,14 +83,18 @@ function About() {
                 </li>
               </ul>
               <p>
-                Với sứ mệnh tiên phong mang Internet, mang kết nối đến với người
-                dân Việt Nam cùng mong muốn lớn lao mỗi gia đình Việt Nam đều sử
-                dụng ít nhất một dịch vụ của Công ty, FPT Telecom đang nỗ lực
-                thực thi Chiến lược “Mang đến trải nghiệm tuyệt vời cho khách
-                hàng” trên cơ sở phát huy giá trị văn hóa cốt lõi “Lấy khách
-                hàng làm trọng tâm” và nền tảng sức mạnh công nghệ FPT, từ đó
-                tiên phong trở thành Nhà cung cấp dịch vụ số có trải nghiệm
-                khách hàng vượt trội, tốt nhất tại Việt Nam.
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                Adipisci sunt neque, ut asperiores delectus quis similique autem
+                tempore maiores at, numquam accusantium, excepturi minima minus
+                possimus tenetur corrupti quos dicta? Lorem, ipsum dolor sit
+                amet consectetur adipisicing elit. Nostrum placeat ducimus
+                blanditiis ipsa corrupti esse tempora rem odit modi voluptatibus
+                doloremque similique aliquid cupiditate mollitia, sit ullam
+                debitis? Tenetur, voluptatum. Lorem ipsum dolor sit, amet
+                consectetur adipisicing elit. Veniam praesentium ex soluta
+                labore magni laboriosam possimus voluptatem unde dignissimos
+                ratione. Ea a assumenda sint ut aliquam minus ipsam, accusamus
+                nam?
               </p>
             </div>
           </Col>
@@ -108,26 +111,16 @@ function About() {
         <Row gutter={[50, 20]}>
           <Col span={14}>
             <ul className="about-list">
-              <li>
-                Cung cấp hạ tầng mạng viễn thông cho dịch vụ Internet băng rộng
-              </li>
-              <li>
-                Dịch vụ giá trị gia tăng trên mạng Internet, điện thoại di động
-              </li>
-              <li>Dịch vụ Truyền hình trả tiền</li>
-              <li>
-                Dịch vụ tin nhắn, dữ liệu, thông tin giải trí trên mạng điện
-                thoại di động
-              </li>
-              <li>
-                Thiết lập hạ tầng mạng và cung cấp các dịch vụ Viễn thông,
-                Internet
-              </li>
-              <li>Xuất nhập khẩu thiết bị Viễn thông và Internet.</li>
-              <li>Dịch vụ Viễn thông cố định nội hạt</li>
-              <li>Dịch vụ Viễn thông giá trị gia tăng</li>
-              <li>Dịch vụ Viễn thông cố định đường dài trong nước</li>
-              <li>Cung ứng dịch vụ trung gian thanh toán</li>
+              <li>Cung cấp sản phẩm công nghệ</li>
+              <li>Cung cấp sản phẩm làm đẹp</li>
+              <li>Cung cấp các sản phẩm thuốc men</li>
+              <li>Cung cấp các xe cộ di chuyển</li>
+              <li>Cung cấp các sản phẩm chức năng</li>
+              <li>Cung cấp các sản phẩm quần áo các loại</li>
+              <li>Cung cấp các sản phẩm website</li>
+              <li>Cung cấp các sản phẩm điện thoại</li>
+              <li>Cung cấp các sản phẩm laptop</li>
+              <li>Cung cấp các sản phẩm giày dép</li>
             </ul>
           </Col>
           <Col span={10}>
@@ -157,27 +150,12 @@ function About() {
           CÁC DỊCH VỤ CHO KHÁCH HÀNG TỔ CHỨC, DOANH NGHIỆP
         </h3>
         <ul className="about-list">
-          <li>
-            Truyền dẫn số liệu: Trong nước (kết nối nội hạt, kết nối liên tỉnh)
-            và quốc tế (IPLC, MPLS, IEPL).
-          </li>
+          <li>Cung cấp các dịch vụ cho doanh nghiệp</li>
           <li>Kênh thuê riêng Internet: NIX, GIA, Asia Transit.</li>
-          <li>
-            Dịch vụ thoại: Trong nước (Điện thoại cố định, VoIP, đầu số
-            1800/1900) và quốc tế.
-          </li>
-          <li>
-            Dữ liệu trực tuyến: Tên miền, lưu trữ dữ liệu và email, thuê máy chủ
-            và chỗ đặt máy chủ, thuê tủ Rack.
-          </li>
-          <li>
-            Dịch vụ quản lý: Hội nghị truyền hình, điện toán đám mây, tích hợp
-            hệ thống, dịch vụ bảo mật.
-          </li>
-          <li>
-            Ví Doanh nghiệp, Cổng thanh toán điện tử Foxpay; Dịch vụ Hỗ trợ thu
-            hộ chi hộ; Và các dịch vụ hỗ trợ thanh toán khác
-          </li>
+          <li>Dịch vụ đặt hàng sỉ & lẻ</li>
+          <li>Dịch vụ trực tuyến như livestream</li>
+          <li>Dịch vụ quản lý: sản phẩm, kho hàng, kho bãi, ..v.v</li>
+          <li>Cung cấp giải pháp bán hàng đỉnh cao</li>
         </ul>
       </div>
       <div
@@ -203,30 +181,15 @@ function About() {
               CÁC GIẢI THƯỞNG TIÊU BIỂU{' '}
             </h3>
             <ul className="about-list">
+              <li>Giải Vàng tại Giải thưởng doanh nghiệp hàng đầu</li>
               <li>
                 Giải Vàng tại Giải thưởng Kinh doanh quốc tế IBA Stevie 2021 -
-                Hạng mục Sản phẩm mới{' '}
+                Hạng mục Sản phẩm mới
               </li>
-              <li>
-                Giải Vàng tại Giải thưởng Kinh doanh quốc tế IBA Stevie 2021 -
-                Hạng mục Sản phẩm mới{' '}
-              </li>
-              <li>
-                Giải Vàng tại Giải thưởng Kinh doanh quốc tế IBA Stevie 2021 -
-                Hạng mục Sản phẩm mới{' '}
-              </li>
-              <li>
-                Giải Vàng tại Giải thưởng Kinh doanh quốc tế IBA Stevie 2021 -
-                Hạng mục Sản phẩm mới{' '}
-              </li>
-              <li>
-                Giải Vàng tại Giải thưởng Kinh doanh quốc tế IBA Stevie 2021 -
-                Hạng mục Sản phẩm mới{' '}
-              </li>
-              <li>
-                Giải Vàng tại Giải thưởng Kinh doanh quốc tế IBA Stevie 2021 -
-                Hạng mục Sản phẩm mới{' '}
-              </li>
+              <li>Hàng việt nam chất lượng cao</li>
+              <li>Giải trang thương mại điện tử uy tín nhất VN</li>
+              <li>Giải thưởng Kinh doanh quốc tế năm 2022</li>
+              <li>Giải Bạc tại Giải thưởng Kinh doanh Việt Nam</li>
             </ul>
           </Col>
         </Row>
