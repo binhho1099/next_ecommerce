@@ -1,3 +1,4 @@
+const binh = {};
 // import { initializeApp } from 'firebase/app';
 // import {
 //   getAuth,
