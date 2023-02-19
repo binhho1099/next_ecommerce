@@ -28,12 +28,18 @@
     color: $hover-color;
   }
 
-  &__function {
-    padding: 0px 16px 10px 16px;
+  &__btn-group {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 10px;
+    gap: 4px;
+  }
+
+  &__function {
+    padding: 0px 16px 10px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 
     display: none;
     position: absolute;

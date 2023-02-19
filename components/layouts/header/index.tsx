@@ -30,6 +30,7 @@ const DefaultHeader = () => {
   const [focus, setFocus] = useState<boolean>(false);
 
   const [result, setResult] = useState<MenuProps['items']>([]);
+  const [scrollPosition, setScrollPosition] = useState<number>(0);
 
   const debounce = useDebounce(search, 300);
 
@@ -38,6 +39,18 @@ const DefaultHeader = () => {
       fetchData();
     }
   }, [debounce, focus]);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  const handleScroll = () => {
+    const position = window.pageYOffset;
+    setScrollPosition(position);
+  };
 
   const fetchData = async () => {
     const res = await fetch(
@@ -107,7 +120,7 @@ const DefaultHeader = () => {
   ];
 
   return (
-    <div className="header">
+    <div className={`header ${scrollPosition > 150 && 'fixed'}`}>
       <div className="header-main">
         <div className="layout">
           <div className="header-top">

@@ -31,7 +31,7 @@ function SideBarFilter({ onFilterCategory, toFilter, filterCategory }: any) {
   };
 
   return (
-    <div className="side-bar" style={{ position: 'sticky', top: 10 }}>
+    <div className="side-bar" style={{ position: 'sticky', top: 120 }}>
       <div className="filter-group">
         <div className="filter-title">
           <h3>Danh mục</h3>

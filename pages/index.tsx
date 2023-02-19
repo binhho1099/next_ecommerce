@@ -5,6 +5,7 @@ import SectionCart from '../components/shared/sectionCart';
 import SectionCart2 from '@/components/shared/sectionCart2';
 import { GetStaticProps } from 'next';
 import SectionCart3 from '@/components/shared/sectionCart3';
+import 'aos/dist/aos.css';
 
 interface HomeType {
   dataCategories: string[];

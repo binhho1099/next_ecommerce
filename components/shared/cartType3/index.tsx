@@ -20,7 +20,7 @@ function CartType3() {
           <h4>75k</h4>
         </div>
 
-        <div className="cart-3__buy">Đặt ngay</div>
+        <div className="cart-3__buy">ĐẶT NGAY</div>
 
         <p>
           <span>112</span> người đã mua

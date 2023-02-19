@@ -1,5 +1,16 @@
 @import '../../../styles/common/index.scss';
 .header {
+  transition: all 0.5;
+  &.fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    animation: fade-down 0.2s linear;
+    box-shadow: 0 10px 10px rgba(#000, 0.2);
+  }
+
   &-main {
     background-color: $primary-color;
   }
@@ -103,4 +114,15 @@
 .icon {
   font-size: $font-heading;
   cursor: pointer;
+}
+
+@keyframes fade-down {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

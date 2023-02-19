@@ -29,8 +29,9 @@
 
   &-info {
     padding: 20px;
-    box-shadow: 0 0 15px $primary-color;
+    box-shadow: 0 0 15px rgba($primary-color, 0.5);
     border-radius: $radius-medium;
+    height: 313px;
 
     h3 {
       color: #ffbe0f;
@@ -45,11 +46,25 @@
       margin-bottom: 16px;
       h4 {
         @include text(20px, $heading-color, 700, 24px, 1);
+        display: flex;
+        gap: 8px;
       }
 
       p {
         @include text($font-medium, $sub-heading-color, 400, $font-heading, 2);
       }
+    }
+  }
+
+  &__map {
+    height: 313px;
+
+    iframe {
+      width: 100%;
+      height: 100%;
+
+      border-radius: $radius-small;
+      border: 1px solid $border-color;
     }
   }
 }

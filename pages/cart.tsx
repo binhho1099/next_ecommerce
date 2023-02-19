@@ -1,4 +1,4 @@
-import { Button, Col, Empty, InputNumber, Row, Table } from 'antd';
+import { Button, Col, Empty, Input, InputNumber, Row, Table } from 'antd';
 import { IProduct } from 'interfaces/product';
 import Image from 'next/image';
 import React, { useEffect, useMemo, useState } from 'react';
@@ -29,6 +29,7 @@ function Cart() {
   const listProductCart = useAppSelector(state => state.cart.listProducts);
   const [dataSource, setDataSource] = useState<DataType[]>([]);
   const [listProductSelect, setListProductSelect] = useState<DataType[]>([]);
+  const [isCode, setIsCode] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const router = useRouter();
 
@@ -243,14 +244,28 @@ function Cart() {
       <Row gutter={10}>
         <Col span={16}>
           <div className="cart-table__top">
-            <p>
+            <div>
               Bạn có mã ưu đãi, nhấn vào đây để nhập mã.
-              <Button type="link">Nhập mã ưu đãi</Button>
-            </p>
+              <Button type="link" onClick={() => setIsCode(!isCode)}>
+                {isCode ? 'Đóng' : 'Nhập'} mã ưu đãi
+              </Button>
+              {isCode && (
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                  }}
+                >
+                  <Input />
+                  <Button type="primary">Sử dụng mã</Button>
+                </div>
+              )}
+            </div>
             {listProductSelect.length > 0 && (
               <Button type="link" danger onClick={removeMultiProduct}>
                 <DeleteOutlined />
-                Xóa
+                Xóa ({listProductSelect.length}sp) đã chọn
               </Button>
             )}
           </div>
@@ -260,7 +275,9 @@ function Cart() {
             pagination={false}
             rowSelection={rowSelection}
           />
-          <p>*Hãy chọn sản phẩm bạn muốn đặt hàng và tiến hành thanh toán</p>
+          <p style={{ color: 'red' }}>
+            *Hãy chọn sản phẩm bạn muốn đặt hàng và tiến hành thanh toán
+          </p>
         </Col>
         <Col span={8}>
           <CartOrder

@@ -21,13 +21,13 @@ function ItemFlashsale() {
           <h3>200.000đ</h3>
         </div>
 
-        <div className="cart-special__btn item-flashsale__btn">ĐẶT NGAY</div>
+        <div className="item-flashsale__btn">ĐẶT NGAY</div>
 
         <Progress
           className="cart-special__sold item-flashsale__sold"
           percent={50}
           status="active"
-          format={(percent) => `Đã bán ${percent}`}
+          format={percent => `Đã bán ${percent}`}
         />
       </div>
     </div>

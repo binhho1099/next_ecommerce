@@ -19,8 +19,8 @@ import { Cookie } from 'utils/cookie';
 import dayjs from 'dayjs';
 import { useAppDispatch } from 'store/hooks';
 import { setLoading } from 'store/Slices/appSlice';
-// import { auth, google, facebook, github } from '../../config/firebase';
-// import { signInWithPopup, signOut } from 'firebase/auth';
+import { auth, google, facebook, github } from 'configs/firebase';
+import { signInWithPopup, signOut } from 'firebase/auth';
 
 function Login() {
   const [form] = Form.useForm();
@@ -80,21 +80,17 @@ function Login() {
     }
   };
 
-  // const loginSocial = async (provider: any) => {
-  //   const result = await signInWithPopup(auth, provider);
-  //   if (result) {
-  //     console.log(result);
-  //     setUser(result.user);
-  //     setIsLogin(true);
-  //   }
-  // };
+  const loginSocial = async (provider: any) => {
+    const result = await signInWithPopup(auth, provider);
+    if (result) {
+      console.log(result);
+    }
+  };
 
-  // const logout = async () => {
-  //   const result = await signOut(auth);
-  //   setUser(null);
-  //   setIsLogin(false);
-  //   console.log(result);
-  // };
+  const logout = async () => {
+    const result = await signOut(auth);
+    console.log(result);
+  };
 
   const steps: TourProps['steps'] = [
     {
@@ -138,12 +134,12 @@ function Login() {
                 size="large"
                 icon={<FacebookFilled />}
                 onClick={() => {
-                  // loginSocial(facebook)
-                  messageApi.open({
-                    type: 'info',
-                    content: 'Chức năng chưa được hoàn thiện',
-                    duration: 10,
-                  });
+                  loginSocial(facebook);
+                  // messageApi.open({
+                  //   type: 'info',
+                  //   content: 'Chức năng chưa được hoàn thiện',
+                  //   duration: 10,
+                  // });
                 }}
               >
                 ĐĂNG NHẬP VỚI FACEBOOK
@@ -163,12 +159,12 @@ function Login() {
                 size="large"
                 icon={<GoogleOutlined />}
                 onClick={() => {
-                  // loginSocial(facebook)
-                  messageApi.open({
-                    type: 'info',
-                    content: 'Chức năng chưa được hoàn thiện',
-                    duration: 10,
-                  });
+                  loginSocial(facebook);
+                  // messageApi.open({
+                  //   type: 'info',
+                  //   content: 'Chức năng chưa được hoàn thiện',
+                  //   duration: 10,
+                  // });
                 }}
               >
                 ĐĂNG NHẬP VỚI GOOGLE

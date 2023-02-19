@@ -6,9 +6,13 @@ import {
 } from '@ant-design/icons';
 import { Col, Row } from 'antd';
 import Image from 'next/image';
-import React from 'react';
+import React, { useEffect } from 'react';
+import AOS from 'aos';
 
 function About() {
+  useEffect(() => {
+    AOS.init({ duration: 1000 });
+  }, []);
   return (
     <div className="about">
       <div
@@ -24,6 +28,7 @@ function About() {
                 aspectRatio: '1/1',
                 marginBottom: 30,
               }}
+              data-aos="fade-right"
             >
               <Image
                 src="/images/aboutus_gioithieu.png"
@@ -31,27 +36,30 @@ function About() {
                 fill
               />
             </div>
-            <h2 className="about-overview__title">{`“Khách hàng là thượng đế”`}</h2>
+            <h2
+              className="about-overview__title"
+              data-aos="fade"
+            >{`“Khách hàng là thượng đế”`}</h2>
           </Col>
           <Col span={16}>
             <div className="about-overview__text">
-              <h3 className="about-title">
+              <h3 className="about-title" data-aos="slide-down">
                 <BookTwoTone twoToneColor="#F6851D" />
                 Tập đoàn công nghệ hàng đầu Việt Nam BinhHo Group
               </h3>
-              <p>
+              <p data-aos="slide-down">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure
                 praesentium voluptas animi! Aliquid et, commodi sunt ratione
                 debitis illum praesentium ab molestiae voluptates voluptatum. At
                 animi ipsa ipsam voluptas accusantium.
               </p>
-              <p>
+              <p data-aos="slide-down">
                 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quod
                 temporibus architecto, quos vitae laboriosam autem expedita,
                 veritatis iure, accusamus eligendi at recusandae repudiandae?
                 Vitae perferendis cupiditate quod adipisci dolores eos!
               </p>
-              <ul className="about-overview__list">
+              <ul className="about-overview__list" data-aos="slide-down">
                 <li className="about-overview__item">
                   <div className="about-overview__item-text">Sau</div>
                   <div className="about-overview__item-number">6</div>
@@ -82,7 +90,7 @@ function About() {
                   <div className="about-overview__item-text">TỈNH THÀNH</div>
                 </li>
               </ul>
-              <p>
+              <p data-aos="slide-down">
                 Lorem, ipsum dolor sit amet consectetur adipisicing elit.
                 Adipisci sunt neque, ut asperiores delectus quis similique autem
                 tempore maiores at, numquam accusantium, excepturi minima minus
@@ -104,13 +112,13 @@ function About() {
         className="layout section"
         style={{ background: '#fff', borderRadius: 8, padding: '20px 10px' }}
       >
-        <h3 className="about-title">
+        <h3 className="about-title" data-aos="fade-right">
           <GoldTwoTone twoToneColor="#F6851D" />
           Lĩnh vực kinh doanh
         </h3>
         <Row gutter={[50, 20]}>
           <Col span={14}>
-            <ul className="about-list">
+            <ul className="about-list" data-aos="fade-up">
               <li>Cung cấp sản phẩm công nghệ</li>
               <li>Cung cấp sản phẩm làm đẹp</li>
               <li>Cung cấp các sản phẩm thuốc men</li>
@@ -131,6 +139,7 @@ function About() {
                 aspectRatio: '1/1',
                 margin: '0 auto',
               }}
+              data-aos="fade-left"
             >
               <Image
                 src="/images/about_gioithieu-hotro.png"
@@ -145,11 +154,11 @@ function About() {
         className="layout section"
         style={{ background: '#fff', borderRadius: 8, padding: '20px 10px' }}
       >
-        <h3 className="about-title">
+        <h3 className="about-title" data-aos="zoom-in">
           <CompassTwoTone twoToneColor="#F6851D" />
           CÁC DỊCH VỤ CHO KHÁCH HÀNG TỔ CHỨC, DOANH NGHIỆP
         </h3>
-        <ul className="about-list">
+        <ul className="about-list" data-aos="fade-up-right">
           <li>Cung cấp các dịch vụ cho doanh nghiệp</li>
           <li>Kênh thuê riêng Internet: NIX, GIA, Asia Transit.</li>
           <li>Dịch vụ đặt hàng sỉ & lẻ</li>
@@ -171,16 +180,17 @@ function About() {
                 aspectRatio: '1/1',
                 margin: 'auto',
               }}
+              data-aos="zoom-in"
             >
               <Image src="/images/gioithieu-huychuong.png" alt="ho tro" fill />
             </div>
           </Col>
           <Col span={12}>
-            <h3 className="about-title">
+            <h3 className="about-title" data-aos="flip-up">
               <TrophyTwoTone twoToneColor="#F6851D" />
               CÁC GIẢI THƯỞNG TIÊU BIỂU{' '}
             </h3>
-            <ul className="about-list">
+            <ul className="about-list" data-aos="fade-up-left">
               <li>Giải Vàng tại Giải thưởng doanh nghiệp hàng đầu</li>
               <li>
                 Giải Vàng tại Giải thưởng Kinh doanh quốc tế IBA Stevie 2021 -

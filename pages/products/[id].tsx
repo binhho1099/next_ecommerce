@@ -13,6 +13,7 @@ import {
 } from 'store/Slices/cartSlice';
 import { toast } from 'react-toastify';
 import { Product } from 'models/product';
+import { CartProduct } from 'interfaces/cart';
 
 interface Props {
   product: IProduct;
@@ -26,6 +27,7 @@ function ProductId({ product }: Props) {
   const listFavorite = useAppSelector(
     state => state.cart.listProductFavorite
   ) as IProduct[];
+  const listCart = useAppSelector(state => state.cart.listProducts);
 
   const productModel = new Product(product);
 
@@ -83,12 +85,24 @@ function ProductId({ product }: Props) {
       product: product,
       quantity,
     };
-    dispatch(addProductToCart(data));
-    toast.success(
-      <p>
-        Thêm <b>{quantity}</b> <u>{product.title}</u> vào giỏ hàng
-      </p>
-    );
+    const quantityItem = listCart?.find(
+      (prod: CartProduct) => product.id === prod.product.id
+    )?.quantity;
+    if (quantity + quantityItem > product.stock) {
+      toast.error(
+        <div>
+          <h4>Số lượng tồn kho không đủ</h4>
+          <h4>Trong giỏ hàng đã tồn tại sản phẩm này</h4>
+        </div>
+      );
+    } else {
+      dispatch(addProductToCart(data));
+      toast.success(
+        <p>
+          Thêm <b>{quantity}</b> <u>{product.title}</u> vào giỏ hàng
+        </p>
+      );
+    }
   };
 
   const handleProductFavorite = () => {

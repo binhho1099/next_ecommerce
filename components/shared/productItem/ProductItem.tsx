@@ -7,6 +7,7 @@ import {
   ShoppingCartOutlined,
   HeartOutlined,
   HeartFilled,
+  CloseOutlined,
 } from '@ant-design/icons';
 import Link from 'next/link';
 import { useDispatch } from 'react-redux';
@@ -18,6 +19,7 @@ import { toast } from 'react-toastify';
 import { useAppSelector } from 'store/hooks';
 import { addCartPayment } from 'store/Slices/paymentSlice';
 import { useRouter } from 'next/router';
+import { CartProduct } from 'interfaces/cart';
 interface ProductProps {
   product: IProduct;
   favorite?: boolean;
@@ -31,6 +33,8 @@ function ProductItem({ product, favorite }: ProductProps) {
     state => state.cart.listProductFavorite
   ) as IProduct[];
 
+  const listCart = useAppSelector(state => state.cart.listProducts);
+
   const isFavorite = useMemo(() => {
     return listFavorite.some(idProduct => idProduct.id === product.id);
   }, [listFavorite, product.id]);
@@ -40,12 +44,24 @@ function ProductItem({ product, favorite }: ProductProps) {
       product,
       quantity,
     };
-    dispatch(addProductToCart(data));
-    toast.success(
-      <p>
-        Bạn đã thêm <b>{product.title}</b> vào giỏ hàng
-      </p>
-    );
+    const quantityItem = listCart?.find(
+      (prod: CartProduct) => product.id === prod.product.id
+    )?.quantity;
+    if (quantity + quantityItem > product.stock) {
+      toast.error(
+        <div>
+          <h4>Số lượng tồn kho không đủ</h4>
+          <h4>Trong giỏ hàng đã tồn tại sản phẩm này</h4>
+        </div>
+      );
+    } else {
+      dispatch(addProductToCart(data));
+      toast.success(
+        <p>
+          Thêm <b>{quantity}</b> <u>{product.title}</u> vào giỏ hàng
+        </p>
+      );
+    }
   };
 
   const handleProductFavorite = (e: MouseEvent<HTMLElement>) => {
@@ -128,12 +144,22 @@ function ProductItem({ product, favorite }: ProductProps) {
         </Link>
 
         <div className="product-item__function">
-          <Button type="primary" block onClick={handleBuyNow}>
-            Mua ngay
-          </Button>
-          <Button block onClick={() => handleAddToCart(product, 1)}>
-            <ShoppingCartOutlined />
-          </Button>
+          <div className="product-item__btn-group">
+            <Button type="primary" block onClick={handleBuyNow}>
+              Mua ngay
+            </Button>
+            <Button block onClick={() => handleAddToCart(product, 1)}>
+              <ShoppingCartOutlined />
+            </Button>
+          </div>
+          {favorite && (
+            <div>
+              <Button block danger onClick={handleProductFavorite}>
+                <CloseOutlined />
+                Bỏ yêu thích
+              </Button>
+            </div>
+          )}
         </div>
       </Card>
     </>
