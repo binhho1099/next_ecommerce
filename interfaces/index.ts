@@ -10,10 +10,9 @@ export interface IRegisterData {
 }
 
 export interface IUser {
-  email: string;
-  phone: string;
-  userId: string;
-  userName: string;
+  email: string | null;
+  displayName: string | null;
+  photoURL: string | null;
 }
 
 export interface IToken {

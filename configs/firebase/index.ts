@@ -1,4 +1,4 @@
-import { initializeApp } from 'firebase/app';
+import { initializeApp, getApp } from 'firebase/app';
 import {
   getAuth,
   GoogleAuthProvider,
@@ -12,11 +12,21 @@ const firebaseConfig = {
   projectId: 'developer-1040f',
   storageBucket: 'developer-1040f.appspot.com',
   messagingSenderId: '629918834444',
-  appId: '1:629918834444:web:1b6868ea1e274a3d16f329',
-  measurementId: 'G-PLVE3NJ1QP',
+  appId: '1:629918834444:web:1d0115cb617878fd16f329',
+  measurementId: 'G-4W2GR7E1YB',
 };
 
-initializeApp(firebaseConfig);
+const createFirebaseApp = (config = {}) => {
+  try {
+    return getApp();
+  } catch (err) {
+    return initializeApp(config);
+  }
+};
+
+const firebaseApp = createFirebaseApp(firebaseConfig);
+
+// initializeApp(firebaseConfig);
 
 export const auth = getAuth();
 export const google = new GoogleAuthProvider();

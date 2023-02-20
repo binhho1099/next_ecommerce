@@ -21,11 +21,14 @@ import {
 import Link from 'next/link';
 import { useAppSelector } from 'store/hooks';
 import useDebounce from 'hooks/useDebounce';
+import { Cookie } from 'utils/cookie';
+import { IUser } from 'interfaces';
 
 const DefaultHeader = () => {
   const router = useRouter();
   const [isOpenDrawer, setIsOpenDrawer] = useState<boolean>(false);
   const cart = useAppSelector(state => state.cart.listProducts);
+  const user = useAppSelector(state => state.app.user) as IUser;
   const [search, setSearch] = useState<string>('');
   const [focus, setFocus] = useState<boolean>(false);
 
@@ -33,6 +36,8 @@ const DefaultHeader = () => {
   const [scrollPosition, setScrollPosition] = useState<number>(0);
 
   const debounce = useDebounce(search, 300);
+
+  const isLogin = Cookie.Get('token');
 
   useEffect(() => {
     if (focus) {
@@ -119,6 +124,26 @@ const DefaultHeader = () => {
     },
   ];
 
+  const items: MenuProps['items'] = [
+    {
+      key: '1',
+      label: <Link href="/profile">Thông tin cá nhân</Link>,
+    },
+    {
+      key: '2',
+      label: (
+        <a
+          onClick={() => {
+            Cookie.Remove('token');
+            router.reload();
+          }}
+        >
+          Đăng xuất
+        </a>
+      ),
+    },
+  ];
+
   return (
     <div className={`header ${scrollPosition > 150 && 'fixed'}`}>
       <div className="header-main">
@@ -191,12 +216,19 @@ const DefaultHeader = () => {
                   <ShoppingCartOutlined className="icon" />
                 </Badge>
               </Link>
-              {false ? (
-                <Avatar
-                  shape="square"
-                  icon={<UserOutlined />}
-                  style={{ background: 'red' }}
-                />
+              {isLogin ? (
+                <Dropdown menu={{ items }} placement="bottomRight">
+                  <Avatar
+                    shape="circle"
+                    src={
+                      user.photoURL && user.displayName ? (
+                        <img src={user.photoURL} alt={user.displayName} />
+                      ) : (
+                        ''
+                      )
+                    }
+                  />
+                </Dropdown>
               ) : (
                 <Link href="/login">Đăng nhập</Link>
               )}

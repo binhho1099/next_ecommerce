@@ -1,5 +1,6 @@
 import FormPayment from '@/components/shared/FormPayment';
 import { DeleteOutlined, RightOutlined } from '@ant-design/icons';
+import withProtectedRoute from 'HOCs/protectRouter';
 import { Button, Empty, Input, InputNumber, Popconfirm, Result } from 'antd';
 import { InfoPayment } from 'interfaces/cart';
 import { IProduct } from 'interfaces/product';
@@ -227,4 +228,4 @@ function Payment() {
   );
 }
 
-export default Payment;
+export default withProtectedRoute(Payment);

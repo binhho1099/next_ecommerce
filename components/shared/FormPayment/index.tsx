@@ -1,6 +1,7 @@
 import { Form, Input } from 'antd';
 import { InfoPayment } from 'interfaces/cart';
-import React, { forwardRef, useImperativeHandle } from 'react';
+import React, { forwardRef, useImperativeHandle, useEffect } from 'react';
+import { useAppSelector } from 'store/hooks';
 
 interface FormPaymentRefProps {
   onSubmit: () => void;
@@ -15,6 +16,8 @@ const FormPayment: React.ForwardRefRenderFunction<
   FormPaymentProps
 > = ({ onPayment }, ref) => {
   const [form] = Form.useForm();
+  const { setFieldsValue } = form;
+  const user = useAppSelector(state => state.app.user);
 
   const initialValues: InfoPayment = {
     username: '',
@@ -22,6 +25,14 @@ const FormPayment: React.ForwardRefRenderFunction<
     phonenumber: '',
     email: '',
   };
+
+  useEffect(() => {
+    if (user.displayName) {
+      setFieldsValue({
+        username: user.displayName,
+      });
+    }
+  }, [user]);
 
   useImperativeHandle(ref, () => ({
     onSubmit() {
@@ -32,6 +43,7 @@ const FormPayment: React.ForwardRefRenderFunction<
   const handlePayment = (value: InfoPayment) => {
     onPayment(value);
   };
+
   return (
     <div className="cart-info">
       <h3 className="cart-info__title">Thông tin khách hàng</h3>
