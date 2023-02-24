@@ -9,7 +9,7 @@ function FavoriteProduct() {
     state => state.cart.listProductFavorite
   );
   return (
-    <div className="layout favorite page-container">
+    <div className="layout favorite page-container section">
       <h1 className="favorite-title page-heading">Sản phẩm yêu thích</h1>
       <div className="favorite-list">
         <Row gutter={[20, 20]}>

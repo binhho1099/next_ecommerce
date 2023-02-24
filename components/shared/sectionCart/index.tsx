@@ -18,9 +18,6 @@ function SectionCart() {
             <span style={{ color: '#fff' }}>co han</span>
           </h4>
         </div>
-        <div className="section-cart__heading--right">
-          <Countdown value={Date.now() + 1000 * 60 * 60 * 24 * 2 + 1000 * 30} />
-        </div>
       </div>
       <div className="section-cart__body">
         <Row gutter={[20, 20]}>

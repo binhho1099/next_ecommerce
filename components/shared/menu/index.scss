@@ -5,25 +5,19 @@
   color: $black-color;
   margin-bottom: 0;
 
+  &.mobile {
+    flex-direction: column;
+    gap: 24px;
+
+    & .menu-item a::after {
+      display: none;
+    }
+  }
+
   &-item {
     list-style: none;
     position: relative;
     @include text($font-medium, $text-color, 400, 24px, 1);
-
-    &::after {
-      content: '';
-      position: absolute;
-      width: 0%;
-      height: 2px;
-      background-color: $black-color;
-      top: 100%;
-      left: 0;
-      transition: all 0.5s ease;
-    }
-
-    &:hover.menu-item::after {
-      width: 100%;
-    }
 
     &.active {
       font-weight: 700;
@@ -32,18 +26,29 @@
 
     & a {
       color: $black-color;
-    }
+      position: relative;
+      text-transform: uppercase;
 
-    &__child a {
-      color: $black-color;
-      text-transform: capitalize;
-    }
-
-    &__dropdown {
-      & .ant-dropdown-menu {
-        max-height: 200px;
-        overflow-y: overlay;
+      &:hover {
+        color: $black-color;
       }
+    }
+
+    a:after {
+      background: none repeat scroll 0 0 transparent;
+      bottom: 0;
+      content: '';
+      display: block;
+      height: 2px;
+      left: 50%;
+      position: absolute;
+      background: $black-color;
+      transition: width 0.3s ease 0s, left 0.3s ease 0s;
+      width: 0;
+    }
+    a:hover:after {
+      width: 100%;
+      left: 0;
     }
   }
 }

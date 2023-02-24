@@ -1,0 +1,32 @@
+.profile {
+  background-color: $white-color;
+  border-radius: $radius-large;
+  padding: 20px;
+
+  &-avatar {
+    border-bottom: 1px solid $primary-color;
+  }
+
+  &-image {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    background-color: $white-color;
+    border: 5px solid transparent;
+    background-image: linear-gradient(to right, #e74c3c, #f39c12);
+  }
+
+  &-name {
+    @include text($font-heading, $heading-color, 500, 30px, 1);
+    text-align: center;
+    padding: 10px 0;
+  }
+
+  &-email {
+    @include text($font-medium, $text-color, 400, $font-heading, 1);
+    text-align: center;
+    padding: 10px 0;
+  }
+}

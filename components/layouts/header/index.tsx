@@ -169,7 +169,7 @@ const DefaultHeader = () => {
                 <Avatar
                   shape="square"
                   icon={<BarsOutlined />}
-                  style={{ background: 'black' }}
+                  style={{ background: 'black', color: '#ffcb3e' }}
                   onClick={() => onDrawer(true)}
                 />
               </div>
@@ -232,19 +232,6 @@ const DefaultHeader = () => {
               ) : (
                 <Link href="/login">Đăng nhập</Link>
               )}
-
-              {/* <Select
-              options={[
-                {
-                  value: 'vi',
-                  label: 'Việt Nam',
-                },
-                {
-                  value: 'en',
-                  label: 'English',
-                },
-              ]}
-            /> */}
             </div>
           </div>
         </div>
@@ -256,14 +243,14 @@ const DefaultHeader = () => {
       </div>
 
       <Drawer
-        title="Basic Drawer"
+        title="ThapCamWeb"
         placement="top"
         closable
         height="100%"
         onClose={() => onDrawer(false)}
         open={isOpenDrawer}
       >
-        <Menu items={MENU} />
+        <Menu items={MENU} mobile />
       </Drawer>
     </div>
   );

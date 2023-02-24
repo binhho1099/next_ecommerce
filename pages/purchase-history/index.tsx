@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from 'store/hooks';
 import dayjs from 'dayjs';
 import { useRouter } from 'next/router';
 import { addCartPayment } from 'store/Slices/paymentSlice';
+import withProtectedRoute from 'HOCs/protectRouter';
 
 function PurchaseHistory() {
   const router = useRouter();
@@ -178,4 +179,4 @@ function PurchaseHistory() {
   );
 }
 
-export default PurchaseHistory;
+export default withProtectedRoute(PurchaseHistory);

@@ -44,7 +44,7 @@
     }
   }
   &-logo {
-    flex-basis: 25%;
+    flex-basis: 15%;
 
     & h1 {
       color: $primary-color-700;
@@ -72,7 +72,7 @@
   &-tools__mobile {
     display: none;
     justify-content: space-between;
-    gap: $margin-large;
+    gap: 24px;
     align-items: center;
 
     @include tablet {
@@ -82,6 +82,12 @@
 
   &-search {
     flex: 1;
+    padding: 8px 16px;
+
+    & input {
+      font-size: 16px;
+      font-weight: 400;
+    }
 
     //dropdown
     &__dropdown {

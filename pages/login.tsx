@@ -21,6 +21,7 @@ import { useAppDispatch } from 'store/hooks';
 import { setLoading, setUser } from 'store/Slices/appSlice';
 import { auth, google, facebook, github } from 'configs/firebase';
 import { signInWithPopup, signOut } from 'firebase/auth';
+import { LocalStorage } from 'utils/localstorage';
 
 function Login() {
   const [form] = Form.useForm();
@@ -30,6 +31,8 @@ function Login() {
   const [messageApi, contextHolder] = message.useMessage();
   const [open, setOpen] = useState<boolean>(false);
   const dispatch = useAppDispatch();
+
+  const previousPath = LocalStorage.Get('previousPath');
 
   const initialValues: ILoginData = {
     username: '',
@@ -65,10 +68,19 @@ function Login() {
       try {
         const res = await fetchLogin(value);
         if (res.id) {
+          const { email, firstName, lastName, image, token } = res;
+
+          const dataUser = {
+            displayName: firstName + lastName,
+            photoURL: image,
+            email: email,
+          };
+          dispatch(setUser(dataUser));
           dispatch(setLoading(false));
-          Cookie.Set('token', res.token);
+          Cookie.Set('token', res.toktoken);
           toast.success('Đăng nhập thành công');
-          router.push('/');
+          if (previousPath) router.push(previousPath);
+          else router.push('/');
         } else {
           dispatch(setLoading(false));
           toast.error('Sai tài khoản hoặc mật khẩu');
@@ -93,7 +105,9 @@ function Login() {
       dispatch(setUser(dataUser));
       Cookie.Set('token', user.refreshToken);
       toast.success('Đăng nhập thành công');
-      router.push('/');
+
+      if (previousPath) router.push(previousPath);
+      else router.push('/');
     } else {
       toast.error('Đăng nhập thất bại');
     }
@@ -119,11 +133,6 @@ function Login() {
       ),
       target: () => ref1.current,
     },
-    {
-      title: 'Đăng nhập',
-      description: 'Sau đó nhấn Đăng Nhập để trải nghiệm website',
-      target: () => ref2.current,
-    },
   ];
 
   return (
@@ -147,11 +156,6 @@ function Login() {
                 icon={<FacebookFilled />}
                 onClick={() => {
                   loginSocial(facebook);
-                  // messageApi.open({
-                  //   type: 'info',
-                  //   content: 'Chức năng chưa được hoàn thiện',
-                  //   duration: 10,
-                  // });
                 }}
               >
                 ĐĂNG NHẬP VỚI FACEBOOK
@@ -172,11 +176,6 @@ function Login() {
                 icon={<GoogleOutlined />}
                 onClick={() => {
                   loginSocial(google);
-                  // messageApi.open({
-                  //   type: 'info',
-                  //   content: 'Chức năng chưa được hoàn thiện',
-                  //   duration: 10,
-                  // });
                 }}
               >
                 ĐĂNG NHẬP VỚI GOOGLE
@@ -221,7 +220,6 @@ function Login() {
                 <Button
                   type="link"
                   onClick={() => {
-                    loginSocial(facebook);
                     messageApi.open({
                       type: 'info',
                       content: 'Chức năng chưa được hoàn thiện',

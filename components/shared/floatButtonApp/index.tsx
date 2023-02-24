@@ -31,7 +31,7 @@ function FloatButtonApp() {
         gap: 10,
       }}
     >
-      <Tooltip title="Lên đầu trang" placement="left">
+      <Tooltip showArrow={false} title="Lên đầu trang" placement="left">
         <FloatButton.BackTop
           visibilityHeight={200}
           type="primary"
@@ -39,7 +39,7 @@ function FloatButtonApp() {
         />
       </Tooltip>
       {isCart && (
-        <Tooltip title="Giỏ hàng" placement="left">
+        <Tooltip showArrow={false} title="Giỏ hàng" placement="left">
           <Badge count={listProducts.length} offset={[-3, 3]}>
             <FloatButton
               icon={<ShoppingCartOutlined />}
@@ -51,7 +51,7 @@ function FloatButtonApp() {
         </Tooltip>
       )}
       {isFavorite && (
-        <Tooltip title="Sản phẩm yêu thích" placement="left">
+        <Tooltip showArrow={false} title="Sản phẩm yêu thích" placement="left">
           <Badge count={listProductFavorite.length} offset={[-3, 3]}>
             <FloatButton
               icon={<HeartFilled />}

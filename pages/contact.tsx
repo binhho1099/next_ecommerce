@@ -5,6 +5,7 @@ import {
 } from '@ant-design/icons';
 import { Button, Col, Form, Input, Row } from 'antd';
 import React from 'react';
+import { toast } from 'react-toastify';
 
 interface FormContact {
   name: string;
@@ -15,7 +16,13 @@ interface FormContact {
 }
 
 function Contact() {
+  const [form] = Form.useForm();
+
   const onSubmit = (value: FormContact) => {
+    toast.success(
+      'Yêu cầu của bạn đã được gửi đến bộ phận phụ trách, Chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất. Xin cám ơn'
+    );
+    form.resetFields();
     console.log(value);
   };
 
@@ -26,7 +33,7 @@ function Contact() {
         <p className="contact-subheading">
           Cho chúng tôi biết thông tin về bạn!
         </p>
-        <Form onFinish={onSubmit}>
+        <Form onFinish={onSubmit} form={form}>
           <Form.Item
             name="name"
             rules={[
