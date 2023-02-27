@@ -15,28 +15,13 @@ function Flashsale() {
         <CountDown futureDate={time} />
       </div>
       <Row gutter={[20, 20]}>
-        <Col
-          xl={{ span: 8 }}
-          lg={{ span: 12 }}
-          sm={{ span: 24 }}
-          xs={{ span: 24 }}
-        >
+        <Col xl={{ span: 8 }} md={{ span: 12 }} xs={{ span: 24 }}>
           <ItemFlashsale />
         </Col>
-        <Col
-          xl={{ span: 8 }}
-          lg={{ span: 12 }}
-          sm={{ span: 24 }}
-          xs={{ span: 24 }}
-        >
+        <Col xl={{ span: 8 }} md={{ span: 12 }} xs={{ span: 24 }}>
           <ItemFlashsale />
         </Col>
-        <Col
-          xl={{ span: 8 }}
-          lg={{ span: 12 }}
-          sm={{ span: 24 }}
-          xs={{ span: 24 }}
-        >
+        <Col xl={{ span: 8 }} md={{ span: 12 }} xs={{ span: 24 }}>
           <ItemFlashsale />
         </Col>
       </Row>

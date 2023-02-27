@@ -58,7 +58,7 @@ function CartOrder({ listProductCart, total, onSubmit }: any) {
           onClick={onSubmit}
           disabled={listProductCart.length === 0}
         >
-          Thanh toán
+          Đặt Hàng
         </Button>
       </div>
     </div>

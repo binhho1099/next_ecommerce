@@ -128,28 +128,13 @@ function Products({ data }: any) {
         <div style={{ padding: 20, backgroundColor: '#fff', borderRadius: 8 }}>
           <TitleSection title="FREESHIP KHÔNG GIỚI HẠN" color="#F35801" />
           <Row gutter={[20, 20]}>
-            <Col
-              xl={{ span: 8 }}
-              lg={{ span: 12 }}
-              sm={{ span: 24 }}
-              xs={{ span: 24 }}
-            >
+            <Col xl={{ span: 8 }} md={{ span: 12 }} xs={{ span: 24 }}>
               <Voucher />
             </Col>
-            <Col
-              xl={{ span: 8 }}
-              lg={{ span: 12 }}
-              sm={{ span: 24 }}
-              xs={{ span: 24 }}
-            >
+            <Col xl={{ span: 8 }} md={{ span: 12 }} xs={{ span: 24 }}>
               <Voucher />
             </Col>
-            <Col
-              xl={{ span: 8 }}
-              lg={{ span: 12 }}
-              sm={{ span: 24 }}
-              xs={{ span: 24 }}
-            >
+            <Col xl={{ span: 8 }} md={{ span: 12 }} xs={{ span: 24 }}>
               <Voucher />
             </Col>
           </Row>

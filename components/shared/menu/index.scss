@@ -51,4 +51,12 @@
       left: 0;
     }
   }
+
+  &-mobile {
+    & .ant-drawer-body {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+  }
 }

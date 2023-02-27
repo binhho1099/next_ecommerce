@@ -6,10 +6,13 @@ function SectionCart3() {
   return (
     <div className="section-cart-3__container">
       <h2 className="section-cart-3__heading">
-        HOT NHẤT <span className="section-cart-3__heading--strong">HÈ NÀY</span>{' '}
+        <div>
+          HOT NHẤT{' '}
+          <span className="section-cart-3__heading--strong">HÈ NÀY</span>{' '}
+        </div>
       </h2>
       <Row gutter={[32, 32]}>
-        <Col span={24} xl={12}>
+        <Col span={24} md={12}>
           <CartType3
           // title="E-VOUCHER TẶNG KEM CHỐNG NẮNG"
           // oldPrice="2000"
@@ -18,7 +21,7 @@ function SectionCart3() {
           // image="/images/cart2--kem.jpg"
           />
         </Col>
-        <Col span={24} xl={12}>
+        <Col span={24} md={12}>
           <CartType3
           // title="E-VOUCHER TẶNG PHẤN TRANG ĐIỂM"
           // oldPrice="1000"
@@ -27,7 +30,7 @@ function SectionCart3() {
           // image="/images/cart2-phan.jpg"
           />
         </Col>
-        <Col span={24} xl={12}>
+        <Col span={24} md={12}>
           <CartType3
           // title="E-VOUCHER TẶNG PHẤN TRANG ĐIỂM"
           // oldPrice="1000"
@@ -36,7 +39,7 @@ function SectionCart3() {
           // image="/images/cart2-phan.jpg"
           />
         </Col>
-        <Col span={24} xl={12}>
+        <Col span={24} md={12}>
           <CartType3
           // title="E-VOUCHER TẶNG PHẤN TRANG ĐIỂM"
           // oldPrice="1000"

@@ -21,12 +21,7 @@ function SectionCart() {
       </div>
       <div className="section-cart__body">
         <Row gutter={[20, 20]}>
-          <Col
-            xl={{ span: 8 }}
-            lg={{ span: 12 }}
-            sm={{ span: 24 }}
-            xs={{ span: 24 }}
-          >
+          <Col xl={{ span: 8 }} md={{ span: 12 }} span={24}>
             <CardType1
               image="/images/cart--iphone11.jpg"
               title="Cảm thấy trong người 'Bồn Chồn' sắm ngay 'AI PHÔN'"
@@ -36,12 +31,7 @@ function SectionCart() {
               total={100}
             />
           </Col>
-          <Col
-            xl={{ span: 8 }}
-            lg={{ span: 12 }}
-            sm={{ span: 24 }}
-            xs={{ span: 24 }}
-          >
+          <Col xl={{ span: 8 }} md={{ span: 12 }} span={24}>
             <CardType1
               image="/images/cart--macbook.jpg"
               title="Dừng lại một lúc, mua con Macbook"
@@ -51,12 +41,7 @@ function SectionCart() {
               total={100}
             />
           </Col>
-          <Col
-            xl={{ span: 8 }}
-            lg={{ span: 12 }}
-            sm={{ span: 24 }}
-            xs={{ span: 24 }}
-          >
+          <Col xl={{ span: 8 }} md={{ span: 12 }} span={24}>
             <CardType1
               image="/images/cart--kinh.jpg"
               title="Bí kíp thả 'THÍNH', mua ngay 'MẮT KÍNH'"

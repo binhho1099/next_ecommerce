@@ -2,13 +2,38 @@
   padding: 20px;
   background-color: $white-color;
   border-radius: $radius-medium;
+  width: 500px;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  text-align: center;
+
+  // @include tablet {
+  //   width: 700px;
+  // }
+
+  // @include mobile-high {
+  //   width: 500px;
+  // }
+
+  @include mobile {
+    width: 100%;
+  }
 
   &-social {
     height: 100%;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     gap: 20px;
+
+    & button {
+      flex: 1;
+    }
+  }
+
+  &-wrapper {
   }
 }

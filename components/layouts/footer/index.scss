@@ -5,8 +5,12 @@
   color: $white-color;
   margin-top: $margin-section;
 
-  @include mobile {
+  @include mobile-high {
     padding: 40px;
+  }
+
+  @include mobile {
+    padding: 20px;
   }
 
   &-btn {
@@ -36,6 +40,14 @@
 
   &-list {
     @include tablet {
+      flex-basis: 50%;
+      text-align: center;
+
+      & .footer-item {
+        justify-content: center;
+      }
+    }
+    @include mobile-high {
       flex-basis: 50%;
       text-align: left;
 
@@ -71,6 +83,10 @@
     &__title {
       @include text(20px, $white-color, 700, 24px, 1);
       margin-bottom: 22px;
+
+      @include mobile {
+        margin-bottom: 16px;
+      }
     }
 
     &:not(:last-child) {
@@ -87,6 +103,10 @@
     flex-direction: column;
     gap: $margin-medium;
     margin-bottom: $margin-section;
+
+    @include tablet-hight {
+      margin-bottom: 20px;
+    }
 
     &__contain {
       position: relative;

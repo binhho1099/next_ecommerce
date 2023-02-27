@@ -4,6 +4,10 @@
   align-items: center;
   gap: 6px;
 
+  @include mobile {
+    visibility: hidden;
+  }
+
   &__item {
     @include text(20px, $white-color, 600, 24px, 1);
     padding: 6px 8px;

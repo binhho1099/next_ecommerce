@@ -75,18 +75,10 @@ function Cart() {
       key: 'product',
       render: (data: IProduct) => {
         return (
-          <div style={{ display: 'flex', alignItems: 'center', gap: 15 }}>
+          <div className="cart-table__item-product">
             <div
-              style={{
-                position: 'relative',
-                width: 80,
-                height: 80,
-                backgroundColor: '#f1f1f1',
-                borderRadius: 4,
-                flexShrink: 0,
-                cursor: 'pointer',
-              }}
               onClick={() => router.push(`/products/${data.id}`)}
+              className="cart-table__item-image"
             >
               <Image
                 src={data.thumbnail}
@@ -157,6 +149,7 @@ function Cart() {
     {
       title: 'Thành tiền',
       dataIndex: 'total',
+
       key: 'total',
       align: 'center',
       render: text => {
@@ -166,6 +159,7 @@ function Cart() {
     {
       align: 'center',
       width: '10%',
+      // fixed: 'right',
       render: (_, record) => {
         return (
           <div className="cart-table__btn-delete">
@@ -241,8 +235,8 @@ function Cart() {
   return (
     <div className="layout cart page-container section">
       <h2 className="cart-heading page-heading">Giỏ hàng</h2>
-      <Row gutter={10}>
-        <Col span={16}>
+      <Row gutter={[10, 24]}>
+        <Col xl={16} sm={24} xs={24}>
           <div className="cart-table__top">
             <div>
               Bạn có mã ưu đãi, nhấn vào đây để nhập mã.
@@ -274,12 +268,13 @@ function Cart() {
             columns={columns}
             pagination={false}
             rowSelection={rowSelection}
+            scroll={{ x: 500 }}
           />
           <p style={{ color: 'red' }}>
             *Hãy chọn sản phẩm bạn muốn đặt hàng và tiến hành thanh toán
           </p>
         </Col>
-        <Col span={8}>
+        <Col xl={8} sm={24} xs={24}>
           <CartOrder
             listProductCart={listProductSelect}
             total={total}

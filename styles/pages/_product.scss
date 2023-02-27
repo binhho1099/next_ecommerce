@@ -104,6 +104,8 @@
   &__function {
     display: flex;
     gap: 12px;
+
+    flex-wrap: wrap;
   }
 
   &__description {

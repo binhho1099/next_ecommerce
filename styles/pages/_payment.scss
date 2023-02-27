@@ -5,6 +5,14 @@
   border-radius: $radius-medium;
   padding: 16px;
 
+  &-shop {
+    & > span:first-child {
+      @include mobile {
+        display: none;
+      }
+    }
+  }
+
   &-heading {
     display: flex;
     align-items: center;
@@ -13,6 +21,7 @@
 
   &-title {
     @include text($font-heading, $heading-color, 700, $font-heading, 1);
+    margin-bottom: 0;
   }
 
   &-subtotal {

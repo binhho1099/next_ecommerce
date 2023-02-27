@@ -6,11 +6,13 @@ function SectionCart2() {
   return (
     <div className="section-cart-2__container">
       <h2 className="section-cart-2__heading">
-        E-VOUCHER{' '}
-        <span className="section-cart-2__heading--strong">CHỚP NHOÁNG</span>{' '}
+        <div>
+          E-VOUCHER{' '}
+          <span className="section-cart-2__heading--strong">CHỚP NHOÁNG</span>{' '}
+        </div>
       </h2>
       <Row gutter={[32, 64]}>
-        <Col span={24} xl={12}>
+        <Col span={24} md={12}>
           <CartType2
             title="E-VOUCHER TẶNG KEM CHỐNG NẮNG"
             oldPrice="2000"
@@ -19,7 +21,7 @@ function SectionCart2() {
             image="/images/cart2--kem.jpg"
           />
         </Col>
-        <Col span={24} xl={12}>
+        <Col span={24} md={12}>
           <CartType2
             title="E-VOUCHER TẶNG PHẤN TRANG ĐIỂM"
             oldPrice="1000"

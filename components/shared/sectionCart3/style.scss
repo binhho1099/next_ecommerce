@@ -19,10 +19,23 @@
     margin-bottom: 40px;
     text-align: center;
 
+    div {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 1; /* number of lines to show */
+      line-clamp: 1;
+      -webkit-box-orient: vertical;
+    }
+
     @include tablet-hight {
       @include text(20px, $white-color, 900, 22px, 1);
       padding: 20px 40px;
       width: 80%;
+    }
+
+    @include mobile {
+      padding: 10px;
     }
 
     &--strong {

@@ -32,6 +32,10 @@
     border-radius: 0 0 30px 30px;
     text-align: center;
 
+    @include mobile {
+      padding: 8px 40px;
+    }
+
     &--old {
       @include text(20px, $white-color, 700, 22px, 1);
       position: relative;
@@ -46,10 +50,18 @@
         left: 50%;
         transform: translate(-50%, -50%);
       }
+
+      @include mobile {
+        font-size: 16px;
+      }
     }
 
     &--new {
       @include text(30px, $primary-color-700, 900, 32px, 1);
+
+      @include mobile {
+        font-size: 24px;
+      }
     }
   }
 
@@ -102,8 +114,14 @@
 
   &__title {
     max-width: 80%;
-    margin: 0 auto;
+    margin: 8px auto;
     @include text(25px, $heading-color, 700, 30px, 2);
     text-align: center;
+
+    @include mobile {
+      font-size: 20px;
+      max-width: 95%;
+      margin: 8px auto;
+    }
   }
 }

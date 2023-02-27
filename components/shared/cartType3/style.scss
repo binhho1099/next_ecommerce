@@ -30,6 +30,17 @@
     width: 100%;
     height: 210px;
     position: relative;
+
+    @include tablet-hight {
+      height: 150px;
+    }
+    @include tablet {
+      height: 140px;
+    }
+
+    @include mobile-high {
+      height: 180px;
+    }
   }
 
   &__content {
@@ -41,12 +52,27 @@
     h2 {
       text-align: center;
       @include text($font-large, $heading-color, 700, $font-heading, 3);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2; /* number of lines to show */
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+
+      @include tablet-hight {
+        font-size: $font-medium;
+      }
+
+      @include mobile-high {
+        font-size: $font-large;
+      }
     }
 
     &-price {
       display: flex;
       align-items: flex-end;
       gap: 10px;
+
       h3 {
         font-style: italic;
         font-weight: 700;
@@ -54,16 +80,48 @@
         line-height: 23px;
         color: $sub-heading-color;
         text-decoration: line-through;
+
+        @include tablet-hight {
+          font-size: 18px;
+        }
+        @include tablet {
+          font-size: 16px;
+        }
+        @include mobile-high {
+          font-size: 20px;
+        }
       }
 
       h4 {
         @include text(32px, $primary-color-900, 700, 32px, 1);
+
+        @include tablet-hight {
+          font-size: 28px;
+        }
+
+        @include tablet {
+          font-size: 24px;
+        }
+
+        @include mobile-high {
+          font-size: 32px;
+        }
       }
     }
 
     p span {
       color: $title-color;
       font-weight: 500;
+    }
+
+    p {
+      @include tablet {
+        font-size: 12px;
+      }
+
+      @include mobile-high {
+        font-size: 14px;
+      }
     }
   }
 
@@ -81,6 +139,17 @@
     cursor: pointer;
     font-size: 18px;
     font-weight: 500;
+
+    @include tablet-hight {
+      font-size: 16px;
+      padding: 4px 12px;
+    }
+
+    @include mobile-high {
+      font-size: 18px;
+      padding: 8px 20px;
+      line-height: 20px;
+    }
 
     &:hover {
       animation: pulse 1s infinite;

@@ -136,54 +136,12 @@ function Login() {
   ];
 
   return (
-    <div className="login section layout">
+    <div className="section layout">
       {contextHolder}
       <Tour open={open} onClose={() => setOpen(false)} steps={steps} />
-      <h2 className="page-heading">Đăng nhập</h2>
-      <Row gutter={20}>
-        <Col span={12}>
-          <div className="login-social">
-            <ConfigProvider
-              theme={{
-                token: {
-                  colorPrimary: '#0673e7',
-                },
-              }}
-            >
-              <Button
-                type="primary"
-                size="large"
-                icon={<FacebookFilled />}
-                onClick={() => {
-                  loginSocial(facebook);
-                }}
-              >
-                ĐĂNG NHẬP VỚI FACEBOOK
-              </Button>
-            </ConfigProvider>
-
-            <span>- Hoặc -</span>
-            <ConfigProvider
-              theme={{
-                token: {
-                  colorPrimary: '#d34836',
-                },
-              }}
-            >
-              <Button
-                type="primary"
-                size="large"
-                icon={<GoogleOutlined />}
-                onClick={() => {
-                  loginSocial(google);
-                }}
-              >
-                ĐĂNG NHẬP VỚI GOOGLE
-              </Button>
-            </ConfigProvider>
-          </div>
-        </Col>
-        <Col span={12} ref={ref1}>
+      <div className="login">
+        <h2 className="page-heading">Đăng nhập</h2>
+        <div ref={ref1}>
           <Form
             layout="vertical"
             form={form}
@@ -194,7 +152,10 @@ function Login() {
               label="Tài khoản"
               name="username"
               rules={[
-                { required: true, message: 'Vui lòng nhập tài khoản của bạn!' },
+                {
+                  required: true,
+                  message: 'Vui lòng nhập tài khoản của bạn!',
+                },
               ]}
             >
               <Input size="large" />
@@ -203,7 +164,10 @@ function Login() {
               label="Mật khẩu"
               name="password"
               rules={[
-                { required: true, message: 'Vui lòng nhập mật khẩu của bạn!' },
+                {
+                  required: true,
+                  message: 'Vui lòng nhập mật khẩu của bạn!',
+                },
               ]}
             >
               <Input.Password size="large" />
@@ -231,18 +195,53 @@ function Login() {
                 </Button>
               </div>
             </Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              block
-              size="large"
-              ref={ref2}
-            >
+            <Button type="primary" htmlType="submit" block size="large">
               Đăng nhập
             </Button>
           </Form>
-        </Col>
-      </Row>
+        </div>
+
+        <p>- HOẶC ĐĂNG NHẬP VỚI -</p>
+        <div className="login-social">
+          <ConfigProvider
+            theme={{
+              token: {
+                colorPrimary: '#0673e7',
+              },
+            }}
+          >
+            <Button
+              type="primary"
+              size="large"
+              icon={<FacebookFilled />}
+              onClick={() => {
+                loginSocial(facebook);
+              }}
+            >
+              FACEBOOK
+            </Button>
+          </ConfigProvider>
+
+          <ConfigProvider
+            theme={{
+              token: {
+                colorPrimary: '#d34836',
+              },
+            }}
+          >
+            <Button
+              type="primary"
+              size="large"
+              icon={<GoogleOutlined />}
+              onClick={() => {
+                loginSocial(google);
+              }}
+            >
+              GOOGLE
+            </Button>
+          </ConfigProvider>
+        </div>
+      </div>
     </div>
   );
 }

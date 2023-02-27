@@ -9,15 +9,20 @@
   //   max-width: 992px;
   // }
   @include tablet-hight {
+    max-width: 960px;
+  }
+
+  @include tablet {
     max-width: 768px;
   }
-  @include tablet {
-    max-width: 576px;
+
+  @include mobile-high {
+    max-width: 540px;
   }
 
   @include mobile {
     max-width: 100%;
-    padding: 0 $margin-small;
+    padding: 0 $margin-small !important;
   }
 }
 

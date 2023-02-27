@@ -11,7 +11,7 @@ import {
   Dropdown,
   MenuProps,
 } from 'antd';
-import { SearchOutlined } from '@ant-design/icons';
+import { PoweroffOutlined, SearchOutlined } from '@ant-design/icons';
 import {
   UserOutlined,
   ShoppingCartOutlined,
@@ -144,6 +144,10 @@ const DefaultHeader = () => {
     },
   ];
 
+  useEffect(() => {
+    onDrawer(false);
+  }, [router.pathname]);
+
   return (
     <div className={`header ${scrollPosition > 150 && 'fixed'}`}>
       <div className="header-main">
@@ -159,13 +163,12 @@ const DefaultHeader = () => {
                   size="small"
                   style={{ backgroundColor: '#fff', color: '#000' }}
                 >
-                  <ShoppingCartOutlined className="icon" />
+                  <ShoppingCartOutlined
+                    className="icon"
+                    onClick={() => router.push('/cart')}
+                  />
                 </Badge>
-                <Avatar
-                  shape="square"
-                  icon={<UserOutlined />}
-                  style={{ background: 'red' }}
-                />
+
                 <Avatar
                   shape="square"
                   icon={<BarsOutlined />}
@@ -249,8 +252,55 @@ const DefaultHeader = () => {
         height="100%"
         onClose={() => onDrawer(false)}
         open={isOpenDrawer}
+        className="menu-mobile"
       >
         <Menu items={MENU} mobile />
+        <hr />
+        <ul className="menu mobile">
+          <li className={`menu-item ${router.pathname === '' ? 'active' : ''}`}>
+            <Link href="/">Lịch sử mua hàng</Link>
+          </li>
+
+          {isLogin ? (
+            <>
+              <li
+                className={`menu-item ${
+                  router.pathname === '' ? 'active' : ''
+                }`}
+              >
+                <Link href="/profile">Thông tin cá nhân</Link>
+              </li>
+              <li
+                className={`menu-item ${
+                  router.pathname === '' ? 'active' : ''
+                }`}
+              >
+                <Link
+                  href=""
+                  style={{ display: 'flex', gap: '8px', alignItems: 'center' }}
+                  onClick={() => {
+                    Cookie.Remove('token');
+                    router.reload();
+                  }}
+                >
+                  <PoweroffOutlined />
+                  Đăng xuất
+                </Link>
+              </li>
+            </>
+          ) : (
+            <li
+              className={`menu-item ${router.pathname === '' ? 'active' : ''}`}
+            >
+              <Link
+                href="/login"
+                style={{ display: 'flex', gap: '8px', alignItems: 'center' }}
+              >
+                Đăng nhập
+              </Link>
+            </li>
+          )}
+        </ul>
       </Drawer>
     </div>
   );

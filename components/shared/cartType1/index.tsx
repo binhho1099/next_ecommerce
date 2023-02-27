@@ -28,7 +28,9 @@ function CartSpecial({
   return (
     <div className={`${type} cart-wrap`}>
       <div className="cart-special__title">
-        <div>{title}</div>
+        <div>
+          <p>{title}</p>
+        </div>
       </div>
       <div className="cart-special__contain">
         <div className="cart-special__image">
@@ -39,6 +41,7 @@ function CartSpecial({
             style={{ objectFit: 'cover', borderRadius: 8 }}
           />
         </div>
+
         <div className="cart-special__content">
           <div className="cart-special__bagde">
             <div>Độc</div>

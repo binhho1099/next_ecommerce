@@ -6,12 +6,17 @@
   margin: 0 auto;
 
   &__image {
-    flex-basis: 60%;
+    flex-basis: 40%;
+    flex-shrink: 0;
     width: 100%;
     position: relative;
 
     & img {
       object-fit: cover;
+    }
+
+    @include tablet {
+      flex-basis: 50%;
     }
   }
 
@@ -23,6 +28,11 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
+
+    @include tablet {
+      padding: 10px 4px;
+      gap: 8px;
+    }
   }
 
   &__title {
@@ -73,6 +83,11 @@
     z-index: 1;
     overflow: hidden;
     cursor: pointer;
+
+    @include tablet {
+      padding: 4px 28px;
+      font-size: 18px;
+    }
   }
 
   &__btn::before {

@@ -6,6 +6,15 @@
   box-shadow: 0 0 10px rgba($primary-color, 0.5);
   background-color: $white-color;
 
+  @include tablet {
+    width: 500px;
+    padding: 20px 10px;
+  }
+
+  @include mobile-high {
+    width: 100%;
+  }
+
   &-heading {
     @include text($font-heading, $heading-color, 700, 32px, 1);
     margin-bottom: 4px;

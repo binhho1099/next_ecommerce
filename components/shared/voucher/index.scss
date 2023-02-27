@@ -25,10 +25,14 @@
   max-width: 500px;
   margin: 0 auto;
 
+  @include tablet {
+  }
+
   &-image {
     position: relative;
-    flex-basis: 50%;
+    flex-basis: 40%;
     width: 100%;
+    flex-shrink: 0;
   }
 
   &-content {

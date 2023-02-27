@@ -99,7 +99,11 @@ function Payment() {
         <div className="payment-cart">
           <div className="payment-heading">
             <h1 className="payment-title page-heading">Thanh toán</h1>
-            <Button type="link" onClick={() => router.push('/products')}>
+            <Button
+              type="link"
+              onClick={() => router.push('/products')}
+              className="payment-shop"
+            >
               Mua thêm sản phẩm khác
               <RightOutlined />
             </Button>

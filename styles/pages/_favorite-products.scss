@@ -1,0 +1,10 @@
+.favorite {
+  @include mobile-high {
+    padding: 20px 10px 60px;
+  }
+  &-title {
+    @include mobile-high {
+      font-size: 24px;
+    }
+  }
+}

@@ -115,7 +115,7 @@ function ProductId({ product }: Props) {
         <div className="layout">
           <div className="detail">
             <Row gutter={[20, 20]}>
-              <Col span={24} xl={12}>
+              <Col span={24} lg={12}>
                 <div>
                   <Slider className="detail__main-image" {...settings}>
                     {product.images.map(image => {
@@ -128,7 +128,7 @@ function ProductId({ product }: Props) {
                   </Slider>
                 </div>
               </Col>
-              <Col span={24} xl={12}>
+              <Col span={24} lg={12}>
                 <div className="detail__content">
                   <h2 className="detail__name">{product.title}</h2>
                   <h3 className="detail__price">
@@ -201,10 +201,16 @@ function ProductId({ product }: Props) {
               <Col span={24}>
                 <h3 className="detail__related-products">Sản Phẩm Liên Quan</h3>
                 <div>
-                  <Row gutter={[20, 20]}>
+                  <Row
+                    // gutter={[20, 20]}
+                    gutter={[
+                      { md: 20, sm: 10, xs: 12 },
+                      { md: 20, sm: 10, xs: 12 },
+                    ]}
+                  >
                     {relatedProducts.map(product => {
                       return (
-                        <Col span={6} key={product.id}>
+                        <Col md={8} lg={6} xs={12} key={product.id}>
                           <ProductItem product={product} />
                         </Col>
                       );

@@ -16,7 +16,8 @@ function Banner() {
         return (
           <Col
             sm={{ span: 12 }}
-            xs={{ span: 24 }}
+            xs={{ span: 12 }}
+            lg={{ span: 8 }}
             xl={{ span: 8 }}
             key={banner.name}
           >

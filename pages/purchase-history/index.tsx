@@ -55,8 +55,8 @@ function PurchaseHistory() {
   return (
     <div className="layout history">
       <h1 className="page-heading">Lịch sử mua hàng</h1>
-      <Row gutter={20}>
-        <Col span={8}>
+      <Row gutter={[20, 20]}>
+        <Col lg={8} sm={24} xs={24}>
           <div className="history-overview">
             <h3 className="history-overview__title">
               Tổng quan lịch sử mua hàng
@@ -75,7 +75,7 @@ function PurchaseHistory() {
             </div>
           </div>
         </Col>
-        <Col span={16}>
+        <Col lg={16} sm={24} xs={24}>
           {listPaid ? (
             listPaid.map((paid: Paid) => {
               const { id, info, cart, paidAt } = paid;

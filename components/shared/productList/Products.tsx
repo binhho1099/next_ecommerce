@@ -23,12 +23,7 @@ function ProductList({ products }: ProductListProps) {
         {products && products.length > 0 ? (
           products.map(product => {
             return (
-              <Col
-                xs={{ span: 12 }}
-                xl={{ span: 6 }}
-                md={{ span: 8 }}
-                key={product.id}
-              >
+              <Col xs={{ span: 12 }} md={{ span: 6 }} sm={8} key={product.id}>
                 <ProductItem product={product} />
               </Col>
             );
