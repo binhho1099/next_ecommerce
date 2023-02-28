@@ -14,10 +14,12 @@
 
   @include tablet {
     max-width: 768px;
+    padding: 0 $margin-medium !important;
   }
 
   @include mobile-high {
     max-width: 540px;
+    padding: 0 $margin-small !important;
   }
 
   @include mobile {

@@ -98,12 +98,11 @@ $desktop-width: 1400px;
 
 .btn {
   &__heart {
-    // background-color: #f64f59;
     padding: 8px;
     font-size: $font-large;
     line-height: $font-large;
     font-weight: 600;
-    height: auto;
+    height: 100%;
     border-color: $red-color;
     color: $red-color;
 

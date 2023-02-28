@@ -184,7 +184,7 @@ function ProductId({ product }: Props) {
                       Thêm vào giỏ hàng
                     </Button>
                     <Button
-                      className={`btn__heart ${isFavorite && 'favorite'}`}
+                      className={` btn__heart ${isFavorite && 'favorite'}`}
                       onClick={handleProductFavorite}
                     >
                       <HeartFilled /> Yêu thích
@@ -202,10 +202,9 @@ function ProductId({ product }: Props) {
                 <h3 className="detail__related-products">Sản Phẩm Liên Quan</h3>
                 <div>
                   <Row
-                    // gutter={[20, 20]}
                     gutter={[
-                      { md: 20, sm: 10, xs: 12 },
-                      { md: 20, sm: 10, xs: 12 },
+                      { xs: 4, sm: 8, lg: 16 },
+                      { xs: 4, sm: 8, lg: 16 },
                     ]}
                   >
                     {relatedProducts.map(product => {

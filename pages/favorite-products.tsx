@@ -12,7 +12,12 @@ function FavoriteProduct() {
     <div className="layout favorite page-container section">
       <h1 className="favorite-title page-heading">Sản phẩm yêu thích</h1>
       <div className="favorite-list">
-        <Row gutter={[20, 20]}>
+        <Row
+          gutter={[
+            { xs: 4, sm: 8, lg: 16 },
+            { xs: 4, sm: 8, lg: 16 },
+          ]}
+        >
           {listProductFavorite.length > 0 ? (
             listProductFavorite.map((product: IProduct) => {
               return (

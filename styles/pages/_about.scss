@@ -1,4 +1,64 @@
 .about {
+  &-section1 {
+    &__left {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      flex-direction: column;
+
+      &-image {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 1/1;
+        margin-bottom: 30px;
+
+        @include tablet {
+          width: 50%;
+          margin: 0 auto;
+        }
+      }
+    }
+  }
+
+  &-section4 {
+    &__image {
+      position: relative;
+      width: 50%;
+      aspect-ratio: 1;
+      margin: auto;
+
+      @include tablet-hight {
+        width: 80%;
+      }
+      @include mobile-high {
+        width: 50%;
+      }
+    }
+  }
+  &-section2 {
+    &__image {
+      position: relative;
+      width: 80%;
+      aspect-ratio: 1;
+      margin: auto;
+
+      @include mobile-high {
+        width: 50%;
+      }
+    }
+  }
+
+  &-section {
+    background-color: $white-color;
+    border-radius: 8px;
+    padding: 20px 10px;
+
+    @include tablet {
+      padding: 20px !important;
+    }
+  }
+
   &-title {
     font-weight: 500;
     font-size: $font-heading;
@@ -13,6 +73,10 @@
     -webkit-line-clamp: 1;
     overflow: hidden;
     text-overflow: ellipsis;
+
+    @include mobile-high {
+      font-size: $font-large;
+    }
 
     & span {
       font-size: 38px;
@@ -34,6 +98,11 @@
     &__title {
       font-size: 50px;
       text-align: center;
+
+      @include mobile-high {
+        font-size: 32px;
+        margin-top: 10px;
+      }
     }
     &__text {
       font-size: $font-medium;
@@ -47,6 +116,12 @@
       display: flex;
       justify-content: space-between;
       gap: 10px;
+
+      @include mobile-high {
+        gap: 4px;
+        // flex-wrap: wrap;
+        flex-direction: column;
+      }
     }
 
     &__item {
@@ -57,17 +132,39 @@
       text-align: center;
       flex-basis: 20%;
 
+      @include mobile-high {
+        // flex-basis: 30%;
+        // flex-shrink: 0;
+        flex-direction: row;
+      }
+
       &-text {
         font-size: $font-large;
         color: $heading-color;
         text-transform: uppercase;
         font-weight: 500;
+
+        @include mobile-high {
+          font-size: 18px;
+        }
+
+        @include mobile {
+          font-size: 14px;
+        }
       }
 
       &-number {
         font-size: 44px;
         color: $title-color;
         font-weight: 700;
+
+        @include mobile-high {
+          font-size: 32px;
+        }
+
+        @include mobile {
+          font-size: 24px;
+        }
       }
     }
   }

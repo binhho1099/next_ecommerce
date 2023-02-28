@@ -15,33 +15,29 @@ function About() {
   }, []);
   return (
     <div className="about">
-      <div
-        className="layout about-overview section"
-        style={{ background: '#fff', borderRadius: 8, padding: '20px 10px' }}
-      >
-        <Row gutter={[50, 50]}>
-          <Col span={8}>
-            <div
-              style={{
-                position: 'relative',
-                width: '100%',
-                aspectRatio: '1/1',
-                marginBottom: 30,
-              }}
-              data-aos="fade-right"
-            >
-              <Image
-                src="/images/aboutus_gioithieu.png"
-                alt="gioi thieu"
-                fill
-              />
+      <div className="layout about-overview section about-section">
+        <Row
+          gutter={[
+            { md: 50, sm: 20, xs: 20 },
+            { md: 50, sm: 20, xs: 20 },
+          ]}
+        >
+          <Col lg={8} sm={24} xs={24}>
+            <div className="about-section1__left">
+              <div className="about-section1__left-image" data-aos="fade-right">
+                <Image
+                  src="/images/aboutus_gioithieu.png"
+                  alt="gioi thieu"
+                  fill
+                />
+              </div>
+              <h2
+                className="about-overview__title"
+                data-aos="fade"
+              >{`“Khách hàng là thượng đế”`}</h2>
             </div>
-            <h2
-              className="about-overview__title"
-              data-aos="fade"
-            >{`“Khách hàng là thượng đế”`}</h2>
           </Col>
-          <Col span={16}>
+          <Col lg={16} sm={24} xs={24}>
             <div className="about-overview__text">
               <h3 className="about-title" data-aos="slide-down">
                 <BookTwoTone twoToneColor="#F6851D" />
@@ -108,16 +104,13 @@ function About() {
           </Col>
         </Row>
       </div>
-      <div
-        className="layout section"
-        style={{ background: '#fff', borderRadius: 8, padding: '20px 10px' }}
-      >
+      <div className="layout section about-section">
         <h3 className="about-title" data-aos="fade-right">
           <GoldTwoTone twoToneColor="#F6851D" />
           Lĩnh vực kinh doanh
         </h3>
         <Row gutter={[50, 20]}>
-          <Col span={14}>
+          <Col md={14} sm={24} xs={24}>
             <ul className="about-list" data-aos="fade-up">
               <li>Cung cấp sản phẩm công nghệ</li>
               <li>Cung cấp sản phẩm làm đẹp</li>
@@ -131,16 +124,8 @@ function About() {
               <li>Cung cấp các sản phẩm giày dép</li>
             </ul>
           </Col>
-          <Col span={10}>
-            <div
-              style={{
-                position: 'relative',
-                width: '80%',
-                aspectRatio: '1/1',
-                margin: '0 auto',
-              }}
-              data-aos="fade-left"
-            >
+          <Col md={10} sm={24} xs={24}>
+            <div className="about-section2__image" data-aos="fade-left">
               <Image
                 src="/images/about_gioithieu-hotro.png"
                 alt="ho tro"
@@ -150,10 +135,7 @@ function About() {
           </Col>
         </Row>
       </div>
-      <div
-        className="layout section"
-        style={{ background: '#fff', borderRadius: 8, padding: '20px 10px' }}
-      >
+      <div className="layout section about-section">
         <h3 className="about-title" data-aos="zoom-in">
           <CompassTwoTone twoToneColor="#F6851D" />
           CÁC DỊCH VỤ CHO KHÁCH HÀNG TỔ CHỨC, DOANH NGHIỆP
@@ -167,25 +149,14 @@ function About() {
           <li>Cung cấp giải pháp bán hàng đỉnh cao</li>
         </ul>
       </div>
-      <div
-        className="layout section"
-        style={{ background: '#fff', borderRadius: 8, padding: '20px 10px' }}
-      >
+      <div className="layout section about-section">
         <Row gutter={[50, 50]}>
-          <Col span={12}>
-            <div
-              style={{
-                position: 'relative',
-                width: '50%',
-                aspectRatio: '1/1',
-                margin: 'auto',
-              }}
-              data-aos="zoom-in"
-            >
+          <Col xl={12} md={10} sm={24} xs={24}>
+            <div className="about-section4__image" data-aos="zoom-in">
               <Image src="/images/gioithieu-huychuong.png" alt="ho tro" fill />
             </div>
           </Col>
-          <Col span={12}>
+          <Col xl={12} md={14} sm={24} xs={24}>
             <h3 className="about-title" data-aos="flip-up">
               <TrophyTwoTone twoToneColor="#F6851D" />
               CÁC GIẢI THƯỞNG TIÊU BIỂU{' '}
