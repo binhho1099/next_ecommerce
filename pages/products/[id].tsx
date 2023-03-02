@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from 'store/hooks';
 import {
   addOrRemoveProductFavorite,
   addProductToCart,
+  addRecentProduct,
 } from 'store/Slices/cartSlice';
 import { toast } from 'react-toastify';
 import { Product } from 'models/product';
@@ -37,7 +38,7 @@ function ProductId({ product }: Props) {
 
   useEffect(() => {
     fetchRelatedProducts();
-
+    dispatch(addRecentProduct(product));
     return () => {
       setQuantity(1);
     };

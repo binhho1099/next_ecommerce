@@ -15,7 +15,7 @@ function HeaderProduct({ handleSearch }: any) {
   return (
     <div className="header-product">
       <Row>
-        <Col span={12} className="header-product__search">
+        <Col sm={12} className="header-product__search">
           <span>Tìm kiếm: </span>
           <Input
             onChange={e => setSearch(e.target.value)}

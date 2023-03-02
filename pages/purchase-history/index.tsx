@@ -102,17 +102,8 @@ function PurchaseHistory() {
                       return (
                         <div className="history-item" key={product.id}>
                           <Row gutter={10}>
-                            <Col span={3}>
-                              <div
-                                style={{
-                                  position: 'relative',
-                                  width: '100%',
-                                  aspectRatio: '1/1',
-                                  borderRadius: 4,
-                                  overflow: 'hidden',
-                                  border: '1px solid #f1f1f1',
-                                }}
-                              >
+                            <Col sm={3} xs={4}>
+                              <div className="history-item__image">
                                 <Image
                                   src={product.thumbnail}
                                   alt={product.title}
@@ -120,7 +111,7 @@ function PurchaseHistory() {
                                 />
                               </div>
                             </Col>
-                            <Col span={21}>
+                            <Col sm={21} xs={20}>
                               <div className="history-item__wrapper">
                                 <h3 className="history-item__title">
                                   {product.title}

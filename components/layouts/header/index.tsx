@@ -222,6 +222,7 @@ const DefaultHeader = () => {
               {isLogin ? (
                 <Dropdown menu={{ items }} placement="bottomRight">
                   <Avatar
+                    style={{ cursor: 'pointer' }}
                     shape="circle"
                     src={
                       user.photoURL && user.displayName ? (

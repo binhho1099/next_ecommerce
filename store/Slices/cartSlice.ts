@@ -7,11 +7,13 @@ import { CartProduct } from 'interfaces/cart';
 interface CartSlice {
   listProducts: CartProduct[];
   listProductFavorite: IProduct[];
+  recentProducts: IProduct[];
 }
 
 const initialState: CartSlice = {
   listProducts: [],
   listProductFavorite: [],
+  recentProducts: [],
 };
 
 export const cartSlice = createSlice({
@@ -54,6 +56,14 @@ export const cartSlice = createSlice({
         state.listProductFavorite.splice(indexList, 1);
       }
     },
+    addRecentProduct: (state, action: PayloadAction<IProduct>) => {
+      const indexList = state.recentProducts.findIndex(
+        product => product.id === action.payload.id
+      );
+      if (indexList === -1) {
+        state.recentProducts.push(action.payload);
+      }
+    },
     resetCart: () => initialState,
   },
 });
@@ -65,6 +75,7 @@ export const {
   changeQuantityProductToCart,
   removeMultiProductToCart,
   resetCart,
+  addRecentProduct,
 } = cartSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type

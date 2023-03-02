@@ -8,6 +8,17 @@
   }
   &-item {
     margin-bottom: $margin-small;
+
+    &__image {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1/1;
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid #f1f1f1;
+      margin: auto;
+    }
+
     &__title {
       width: 100%;
       @include text($font-medium, $heading-color, 700, $font-heading, 1);

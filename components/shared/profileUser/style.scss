@@ -16,6 +16,11 @@
     background-color: $white-color;
     border: 5px solid transparent;
     background-image: linear-gradient(to right, #e74c3c, #f39c12);
+    margin: auto;
+
+    @include mobile-high {
+      width: 50%;
+    }
   }
 
   &-name {

@@ -16,7 +16,6 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import { Cookie } from 'utils/cookie';
-import dayjs from 'dayjs';
 import { useAppDispatch } from 'store/hooks';
 import { setLoading, setUser } from 'store/Slices/appSlice';
 import { auth, google, facebook, github } from 'configs/firebase';
@@ -26,10 +25,16 @@ import { LocalStorage } from 'utils/localstorage';
 function Login() {
   const [form] = Form.useForm();
   const ref1 = useRef(null);
-  const ref2 = useRef(null);
+
   const router = useRouter();
   const [messageApi, contextHolder] = message.useMessage();
   const [open, setOpen] = useState<boolean>(false);
+  const [remember, setRemember] = useState<boolean>(() => {
+    if (localStorage.getItem('remember')) {
+      return true;
+    }
+    return false;
+  });
   const dispatch = useAppDispatch();
 
   const previousPath = LocalStorage.Get('previousPath');
@@ -61,6 +66,14 @@ function Login() {
 
   useEffect(() => {
     setOpen(true);
+    if (remember) {
+      const username = Cookie.Get('username');
+      const password = Cookie.Get('password');
+      form.setFieldsValue({
+        username,
+        password,
+      });
+    }
   }, []);
 
   const handleLogin = async (value: ILoginData) => {
@@ -68,8 +81,16 @@ function Login() {
       try {
         const res = await fetchLogin(value);
         if (res.id) {
-          const { email, firstName, lastName, image, token } = res;
+          if (remember) {
+            localStorage.setItem('remember', JSON.stringify(true));
+            Cookie.Set('username', value.username);
+            Cookie.Set('password', value.password);
+          } else {
+            Cookie.Remove('username');
+            Cookie.Remove('password');
+          }
 
+          const { email, firstName, lastName, image, token } = res;
           const dataUser = {
             displayName: firstName + lastName,
             photoURL: image,
@@ -180,7 +201,13 @@ function Login() {
                   alignItems: 'center',
                 }}
               >
-                <Checkbox name="remember">Nhớ mật khẩu</Checkbox>
+                <Checkbox
+                  name="remember"
+                  checked={remember}
+                  onChange={e => setRemember(e.target.checked)}
+                >
+                  Nhớ mật khẩu
+                </Checkbox>
                 <Button
                   type="link"
                   onClick={() => {
