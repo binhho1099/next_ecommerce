@@ -40,6 +40,8 @@ export default function Home() {
       <section className="section layout">
         <SectionCart3 />
       </section>
+
+      <p>test</p>
     </>
   );
 }
