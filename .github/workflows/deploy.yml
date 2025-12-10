@@ -1,4 +1,4 @@
-name: Deploy NextJS
+name: Deploy NextJS App
 
 on:
   push:
@@ -10,28 +10,64 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 20
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Build NextJS
+      - name: Build Next.js
         run: npm run build
 
-      - name: Create deploy package
+      - name: Prepare deploy package
         run: |
           mkdir deploy
-          cp -R .next deploy/
-          cp -R public deploy/
-          cp package.json deploy/
-          cp package-lock.json deploy/
-          cp next.config.js deploy/
+
+          # Copy toàn bộ source (trừ node_modules / .git)
+          rsync -av --progress ./ deploy \
+            --exclude node_modules \
+            --exclude .git \
+            --exclude deploy \
+            --exclude .next
+
+          # Copy thư mục build
+          cp -R .next deploy/.next
+
+          # Nén thành 1 file duy nhất
           cd deploy
           tar -czf ../deploy.tar.gz .
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: deploy-package
+          path: deploy.tar.gz
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download deploy package
+        uses: actions/download-artifact@v4
+        with:
+          name: deploy-package
+          path: .
+
+      - name: Upload package to server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          source: "deploy.tar.gz"
+          target: "/var/www"
+
       - name: Deploy on server
         uses: appleboy/ssh-action@v0.1.7
         with:
@@ -40,15 +76,21 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd /var/www
-            rm -rf e-commerce-old
-            mv e-commerce e-commerce-old || true
 
+            # Xóa source cũ
+            rm -rf e-commerce
+
+            # Tạo thư mục mới
             mkdir e-commerce
+
+            # Giải nén
             tar -xzf deploy.tar.gz -C e-commerce
 
+            # Cài node_modules (chỉ prod)
             cd e-commerce
             npm install --omit=dev
 
+            # Restart PM2
             pm2 delete ecommerce || true
             pm2 start npm --name ecommerce -- start
             pm2 save
