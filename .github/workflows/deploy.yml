@@ -35,24 +35,29 @@ jobs:
             package-lock.json
             next.config.js
 
-   deploy:
+  deploy:
+    needs: build
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - name: Download build
+        uses: actions/download-artifact@v4
+        with:
+          name: next-build
+          path: ./dist
 
-      - name: Copy source to server
+      - name: Copy files to server
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
-          source: "./*"
+          source: "./dist/*"
           target: "/var/www/e-commerce"
-          rm: true
+          rm: false
+          overwrite: true
 
-      - name: Install + Build + Restart
+      - name: Restart PM2
         uses: appleboy/ssh-action@v0.1.7
         with:
           host: ${{ secrets.SSH_HOST }}
@@ -61,6 +66,5 @@ jobs:
           script: |
             cd /var/www/e-commerce
             npm install --omit=dev
-            npm run build
             pm2 restart ecommerce || pm2 start "npm start" --name ecommerce
             pm2 save
