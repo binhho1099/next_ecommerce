@@ -24,73 +24,64 @@ jobs:
       - name: Build Next.js
         run: npm run build
 
-      - name: Prepare deploy package
+      - name: Create deploy zip
         run: |
           mkdir deploy
-
-          # Copy toàn bộ source (trừ node_modules / .git)
-          rsync -av --progress ./ deploy \
-            --exclude node_modules \
-            --exclude .git \
-            --exclude deploy \
-            --exclude .next
-
-          # Copy thư mục build
-          cp -R .next deploy/.next
-
-          # Nén thành 1 file duy nhất
+          cp -r .next deploy/
+          cp -r public deploy/
+          cp package.json deploy/
+          cp package-lock.json deploy/
+          cp next.config.js deploy/
           cd deploy
-          tar -czf ../deploy.tar.gz .
+          zip -r ../deploy.zip .
+          cd ..
 
-      - name: Upload artifact
+      - name: Upload ZIP artifact
         uses: actions/upload-artifact@v4
         with:
-          name: deploy-package
-          path: deploy.tar.gz
+          name: deploy-zip
+          path: deploy.zip
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
 
     steps:
-      - name: Download deploy package
+      - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: deploy-package
+          name: deploy-zip
           path: .
 
-      - name: Upload package to server
+      - name: Upload ZIP to server
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
-          source: "deploy.tar.gz"
-          target: "/var/www"
+          source: "deploy.zip"
+          target: "/home/${{ secrets.SSH_USER }}/deploy.zip"
 
-      - name: Deploy on server
+      - name: Deploy on server (unzip + restart pm2)
         uses: appleboy/ssh-action@v0.1.7
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            cd /var/www
+            # Tạo thư mục nếu chưa có
+            mkdir -p /var/www/e-commerce
 
-            # Xóa source cũ
-            rm -rf e-commerce
+            # Xóa code cũ
+            rm -rf /var/www/e-commerce/*
 
-            # Tạo thư mục mới
-            mkdir e-commerce
+            # Giải nén file vào thư mục deploy
+            unzip -o /home/${{ secrets.SSH_USER }}/deploy.zip -d /var/www/e-commerce
 
-            # Giải nén
-            tar -xzf deploy.tar.gz -C e-commerce
-
-            # Cài node_modules (chỉ prod)
-            cd e-commerce
+            # Cài dependencies
+            cd /var/www/e-commerce
             npm install --omit=dev
 
             # Restart PM2
-            pm2 delete ecommerce || true
-            pm2 start npm --name ecommerce -- start
+            pm2 restart ecommerce || pm2 start "npm start" --name ecommerce
             pm2 save
