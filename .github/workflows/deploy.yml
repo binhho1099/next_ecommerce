@@ -1,4 +1,4 @@
-name: Deploy NextJS App
+name: Deploy NextJS
 
 on:
   push:
@@ -10,61 +10,45 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Build Next.js
+      - name: Build NextJS
         run: npm run build
 
-      - name: Upload Next build
-        uses: actions/upload-artifact@v4
-        with:
-          name: next-build
-          path: |
-            .next
-            public
-            package.json
-            package-lock.json
-            next.config.js
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Download build
-        uses: actions/download-artifact@v4
-        with:
-          name: next-build
-          path: ./dist
-
-      - name: Copy files to server
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_KEY }}
-          source: "./dist/**"
-          target: "/var/www/e-commerce"
-          rm: false
-          overwrite: true
-
-      - name: Restart PM2
+      - name: Create deploy package
+        run: |
+          mkdir deploy
+          cp -R .next deploy/
+          cp -R public deploy/
+          cp package.json deploy/
+          cp package-lock.json deploy/
+          cp next.config.js deploy/
+          cd deploy
+          tar -czf ../deploy.tar.gz .
+      - name: Deploy on server
         uses: appleboy/ssh-action@v0.1.7
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            cd /var/www/e-commerce
+            cd /var/www
+            rm -rf e-commerce-old
+            mv e-commerce e-commerce-old || true
+
+            mkdir e-commerce
+            tar -xzf deploy.tar.gz -C e-commerce
+
+            cd e-commerce
             npm install --omit=dev
-            pm2 restart ecommerce || pm2 start "npm start" --name ecommerce
+
+            pm2 delete ecommerce || true
+            pm2 start npm --name ecommerce -- start
             pm2 save
