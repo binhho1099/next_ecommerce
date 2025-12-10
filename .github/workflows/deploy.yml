@@ -1,87 +1,53 @@
-name: Deploy NextJS App
+kind: pipeline
+type: docker
+name: deploy-nextjs
 
-on:
-  push:
-    branches:
-      - main
+steps:
+  # 1. Build Next.js
+  - name: build-next
+    image: node:18
+    commands:
+      - npm install
+      - npm run build
+      - rm -rf node_modules
+      - npm install --production=false
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+  # 2. Đóng gói toàn bộ source thành tar.gz
+  - name: compress
+    image: alpine
+    commands:
+      - tar -czf project.tar.gz ./
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+  # 3. Upload file tar.gz lên server
+  - name: upload
+    image: appleboy/scp
+    settings:
+      host: 103.252.136.89
+      username: root
+      password: your_password
+      target: "/root/deploy-temp"
+      source: "project.tar.gz"
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
+  # 4. Giải nén trên server + deploy
+  - name: deploy
+    image: appleboy/ssh
+    settings:
+      host: 103.252.136.89
+      username: root
+      password: your_password
+      script:
+        - mkdir -p /var/www/e-commerce
+        - rm -rf /var/www/e-commerce/*
+        - mv /root/deploy-temp/project.tar.gz /var/www/e-commerce
+        - cd /var/www/e-commerce
+        - tar -xzf project.tar.gz
+        - rm project.tar.gz
 
-      - name: Install dependencies
-        run: npm ci
+        # Cài dependency production
+        - npm install --production
 
-      - name: Build Next.js
-        run: npm run build
-
-      - name: Create deploy zip
-        run: |
-          mkdir deploy
-          cp -r .next deploy/
-          cp -r public deploy/
-          cp package.json deploy/
-          cp package-lock.json deploy/
-          cp next.config.js deploy/
-          cd deploy
-          zip -r ../deploy.zip .
-          cd ..
-
-      - name: Upload ZIP artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: deploy-zip
-          path: deploy.zip
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: deploy-zip
-          path: .
-
-      - name: Upload ZIP to server
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_KEY }}
-          source: "deploy.zip"
-          target: "/home/${{ secrets.SSH_USER }}/deploy.zip"
-
-      - name: Deploy on server (unzip + restart pm2)
-        uses: appleboy/ssh-action@v0.1.7
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_KEY }}
-          script: |
-            # Tạo thư mục nếu chưa có
-            mkdir -p /var/www/e-commerce
-
-            # Xóa code cũ
-            rm -rf /var/www/e-commerce/*
-
-            # Giải nén file vào thư mục deploy
-            unzip -o /home/${{ secrets.SSH_USER }}/deploy.zip -d /var/www/e-commerce
-
-            # Cài dependencies
-            cd /var/www/e-commerce
-            npm install --omit=dev
-
-            # Restart PM2
-            pm2 restart ecommerce || pm2 start "npm start" --name ecommerce
-            pm2 save
+        # Restart PM2
+        - pm2 stop e-commerce || true
+        - pm2 delete e-commerce || true
+        - pm2 start npm --name "e-commerce" -- start
+        - pm2 save
