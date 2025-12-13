@@ -100,7 +100,7 @@ const DefaultHeader = () => {
   const MENU = [
     {
       id: 0,
-      label: 'BìnhHồ',
+      label: 'Bình Hồ',
       key: '/',
       path: '/',
     },

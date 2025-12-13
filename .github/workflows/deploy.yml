@@ -70,7 +70,7 @@ jobs:
             rm deploy.tar.gz
 
             cd deploy
-            npm install --omit=dev
+            npm install --omit=dev --force
 
             pm2 reload ecommerce || pm2 start npm --name ecommerce -- start
             pm2 save
