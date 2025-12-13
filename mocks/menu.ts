@@ -1,7 +1,7 @@
 export const MENU = [
   {
     id: 0,
-    label: 'Bình Hồ',
+    label: 'Trang chủ',
     key: '/',
     path: '/',
   },
